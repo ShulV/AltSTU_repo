@@ -1,2 +1,2 @@
-# AltSTU_folders
+# AltSTU_repo
 my system of folders for all subjects
