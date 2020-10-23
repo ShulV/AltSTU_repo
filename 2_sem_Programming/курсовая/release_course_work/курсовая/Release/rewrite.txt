@@ -1,0 +1,6 @@
+    5
+    0         Perekis_ugleroda                    China               2020.01.25    1    2   12    0    0      2000
+    1              Paracetamol                   Russia               2019.05.14    1   12    4    5    6       200
+    2                  Orbidol                   Russia               2019.12.30   12    1    0    0    0       199
+    3                  Mig_401                   Russia               2018.12.18    4    0    0    0    0       120
+    4         Perekis_vodoroda                   Russia               2010.12.23   12   24    5    0    0      1000
