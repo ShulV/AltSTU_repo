@@ -1,0 +1,33 @@
+in 0		;ввод A
+stor a,A	;запомнить в A
+in 1		;ввод F
+stor a,F	;запомнить в F
+in 2		;ввод B
+stor a,B	;запомнить в B
+cmi a,0		;сравнить (rA) c 0 (установить регистр флагов)
+jz label1	;переход, если установлен признак Z (X==0)
+xchg		;обмен содержимого rA и rB
+mur a,b		;rB*rB результат в rB (B*B)
+push b		;B*B в стек
+xchg		;обмен содержимого rA и rB
+load b,A	;загрузить A в rB
+mur a,b		;rB*rB результат в rB (A*A)
+mui a,1		;распространение знака
+dvm a,1(sp)	;(rA,rB)/((sp)+1),частное в rB, остаток в rA : C
+pop a		;очистить стек
+push b		;положить (A*A)/(B*B) в стек
+load a,F	;загрузить F в rA
+adm a,1(sp)	;сложить rA и загрузить A в rB
+jmp label2	;безусловный переход на вывод
+label1: load b,F;загрузить F в rB
+mur a,b		;rB*rB результат в rB (F*F)
+push b		;F*F в стек
+load b,A	;загрузить A в rB
+mur a,b		;rB*rB результат в rB (A*A)
+xchg		;
+adm a,1(sp)	;
+label2: out 7	;вывод в 7 порт
+stop		;
+A: .ds 1 ; €чейки
+B: .ds 1 ; дл€
+F: .ds 1 ; хранени€
