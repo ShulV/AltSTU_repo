@@ -1,0 +1,194 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1251">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 9">
+<meta name=Originator content="Microsoft Word 9">
+<link rel=File-List href="./Общий%20подход.files/filelist.xml">
+<title>Общий  подход  к  минимизации  булевых  функций</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Bobkov</o:Author>
+  <o:Template>Normal</o:Template>
+  <o:LastAuthor>Bobkov</o:LastAuthor>
+  <o:Revision>1</o:Revision>
+  <o:TotalTime>0</o:TotalTime>
+  <o:Created>2007-05-14T11:39:00Z</o:Created>
+  <o:LastSaved>2007-05-14T11:40:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Company>Organization</o:Company>
+  <o:Lines>1</o:Lines>
+  <o:Paragraphs>1</o:Paragraphs>
+  <o:Version>9.6926</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]-->
+<style>
+<!--
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+h2
+	{mso-style-next:Обычный;
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	text-indent:1.0cm;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:2;
+	font-size:14.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:"Times New Roman";
+	font-weight:bold;
+	mso-bidi-font-weight:normal;}
+p
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+@page Section1
+	{size:595.3pt 841.9pt;
+	margin:2.0cm 42.5pt 2.0cm 3.0cm;
+	mso-header-margin:35.4pt;
+	mso-footer-margin:35.4pt;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+@list l0
+	{mso-list-id:1084572086;
+	mso-list-template-ids:740220552;}
+@list l0:level1
+	{mso-level-text:%1;
+	mso-level-tab-stop:21.75pt;
+	mso-level-number-position:left;
+	margin-left:21.75pt;
+	text-indent:-21.75pt;}
+@list l0:level2
+	{mso-level-text:"%1\.%2";
+	mso-level-tab-stop:21.75pt;
+	mso-level-number-position:left;
+	margin-left:21.75pt;
+	text-indent:-21.75pt;}
+@list l0:level3
+	{mso-level-text:"%1\.%2\.%3";
+	mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	margin-left:36.0pt;
+	text-indent:-36.0pt;}
+@list l0:level4
+	{mso-level-text:"%1\.%2\.%3\.%4";
+	mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	margin-left:36.0pt;
+	text-indent:-36.0pt;}
+@list l0:level5
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5";
+	mso-level-tab-stop:54.0pt;
+	mso-level-number-position:left;
+	margin-left:54.0pt;
+	text-indent:-54.0pt;}
+@list l0:level6
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6";
+	mso-level-tab-stop:54.0pt;
+	mso-level-number-position:left;
+	margin-left:54.0pt;
+	text-indent:-54.0pt;}
+@list l0:level7
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7";
+	mso-level-tab-stop:72.0pt;
+	mso-level-number-position:left;
+	margin-left:72.0pt;
+	text-indent:-72.0pt;}
+@list l0:level8
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8";
+	mso-level-tab-stop:72.0pt;
+	mso-level-number-position:left;
+	margin-left:72.0pt;
+	text-indent:-72.0pt;}
+@list l0:level9
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8\.%9";
+	mso-level-tab-stop:90.0pt;
+	mso-level-number-position:left;
+	margin-left:90.0pt;
+	text-indent:-90.0pt;}
+ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+</head>
+
+<body lang=RU style='tab-interval:35.4pt'>
+
+<div class=Section1>
+
+<h2 align=center style='text-align:center;text-indent:0cm'>Общий<span
+style="mso-spacerun: yes">  </span>подход<span style="mso-spacerun: yes"> 
+</span>к<span style="mso-spacerun: yes">  </span>минимизации<span
+style="mso-spacerun: yes">  </span>булевых<span style="mso-spacerun: yes"> 
+</span>функций.</h2>
+
+<p><u>Определение: </u>Преобразование логических функций с целью упрощения их
+аналитического представления называются минимизацией. Существуют два
+направления минимизации:</p>
+
+<p>1. Кратчайшая форма записи (цель – минимизировать ранг каждого терма). При
+этом получаются кратчайшие формы КДНФ, ККНФ, КПНФ.</p>
+
+<p>2. Получение минимальной формы записи (цель – получение минимального числа
+символов для записи всей функции сразу).</p>
+
+<p>При этом следует учесть, что <u>ни один из способов минимизации не
+универсален!</u><span style="mso-spacerun: yes">         </span>Очевидным путем
+минимизации логических функций является последовательное использование законов
+булевой алгебры. Основными эквивалентными преобразованиями для минимизации
+являются склеивание и поглощение. </p>
+
+<p>&nbsp;&nbsp;&nbsp; -Поглощение <span style='color:#800040'>X</span><span
+style='font-family:Symbol;color:#800040'>&Uacute;</span><span style='color:
+#800040'>XY=X(X</span><span style='font-family:Symbol;color:#800040'>&Uacute;</span><span
+style='color:#800040'>Y)=X</span></p>
+
+<p>&nbsp;&nbsp;&nbsp; -Склеивание <span style='color:#800040'>XY</span><span
+style='font-family:Symbol;color:#800040'>&Uacute;</span><span style='color:
+#800040'>XY=X</span></p>
+
+<p>&nbsp;&nbsp;&nbsp; -Правило обобщенного склеивания <span style='color:#800040'>XZ</span><span
+style='font-family:Symbol;color:#800040'>&Uacute;</span><span style='color:
+#800040'>YZ</span><span style='font-family:Symbol;color:#800040'>&Uacute;</span><span
+style='color:#800040'>XY=XZ</span><span style='font-family:Symbol;color:#800040'>&Uacute;</span><span
+style='color:#800040'>YZ</span></p>
+
+<p>&nbsp;&nbsp;&nbsp; После проведения всех возможных преобразований получают
+функцию, не имеющую избыточных членов и не поддающуюся дальнейшей минимизации.
+Эту форму записи функции называют тупиковой. Функция может иметь несколько
+тупиковых форм. <br>
+&nbsp;&nbsp;&nbsp; Минимизация функций алгебраическим методом требует
+известного навыка. Далеко не всегда очевидно, что полученная форма является
+тупиковой; иногда трудно определить и склеивающиеся слагаемые. Разработан метод
+минимизации как бы автоматизирующий процедуру поиска «склеивающихся» слагаемых
+— метод карт Карно. </p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+</div>
+
+</body>
+
+</html>
