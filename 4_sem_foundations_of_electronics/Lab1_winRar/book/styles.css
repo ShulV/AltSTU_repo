@@ -1,0 +1,112 @@
+
+body {
+   SCROLLBAR-FACE-COLOR: #C4D4EC; 
+   SCROLLBAR-HIGHLIGHT-COLOR: white; 
+   SCROLLBAR-SHADOW-COLOR: #583630; 
+   SCROLLBAR-3DLIGHT-COLOR: #824D45; 
+   SCROLLBAR-ARROW-COLOR: #824D45; 
+   SCROLLBAR-TRACK-COLOR: #E6E6E6; 
+   SCROLLBAR-DARKSHADOW-COLOR: #824D45
+
+}
+input, textarea, select {
+   border-style: solid;
+   border-width: 1px;
+   border-color: #000000;
+   background-color: #C4D4EC;
+}
+
+body, p, td, th, tf {
+   background-attachment:fixed; 
+   font-family: Arial; 
+   font-size: 10pt; 
+   color: black
+}
+a {
+   text-decoration: none; 
+   color: darkblue
+}
+a:hover {
+   text-decoration: underline
+}
+
+.aSec { 
+   color: #0000a0; 
+   font-family: Arial, Helvetica, sans-serif; 
+   font-size: 9pt; 
+   text-decoration: none; 
+}
+.aSec:link { 
+   color: #0000a0; 
+   font-family: Arial, Helvetica, sans-serif; 
+   font-size: 9pt; 
+   text-decoration: none; 
+}
+.aSec:visited { 
+   color: #0000a0; 
+   font-family: Arial, Helvetica, sans-serif; 
+   font-size: 9pt; 
+   text-decoration: none; 
+}
+.aSec:hover { 
+   color: #0000a0; 
+   font-family: Arial, Helvetica, sans-serif; 
+   font-size: 9pt; 
+   text-decoration: underline; 
+}
+                                                                                         
+.aTop { 
+   color: #000000; 
+   font-family: Arial, Helvetica, sans-serif; 
+   font-size: 10pt; 
+   text-decoration: none; 
+   font-weight: bold; }
+.aTop:link { 
+   color: #000000; 
+   font-family: Arial, Helvetica, sans-serif; 
+   font-size: 10pt; 
+   text-decoration: none; 
+   font-weight: bold; 
+}
+.aTop:visited { 
+   color: #000000; 
+   font-family: Arial, Helvetica, sans-serif; 
+   font-size: 10pt; 
+   text-decoration: none; 
+   font-weight: bold; 
+}
+.aTop:hover { 
+   color: #000000; 
+   font-family: Arial, Helvetica, sans-serif; 
+   font-size: 10pt; 
+   text-decoration: underline; 
+   font-weight: bold; 
+}
+
+
+/* CLASSES */
+
+.header { 
+   color: #000020; 
+   font-family: Verdana, Arial, Helvetica, sans-serif; 
+   font-size: 18pt; 
+   line-height: 100%; 
+}
+.article { 
+   color: #000020; 
+   font-family: Verdana, Arial, Helvetica, sans-serif; 
+   font-size: 8pt; 
+   line-height: 100%; 
+}
+.title { 
+   color: #000020; 
+   font-family: Verdana, Arial, Helvetica, sans-serif; 
+   font-size: 8pt; 
+   font-weight: bold; 
+}
+.sLink { 
+   color: #000020; 
+   font-family: Verdana, Arial, Helvetica, sans-serif; 
+   font-size: 7pt; 
+}
+

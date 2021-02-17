@@ -1,0 +1,342 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1251">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 9">
+<meta name=Originator content="Microsoft Word 9">
+<link rel=File-List href="./Основные%20понятия%20метода%20ДВ.files/filelist.xml">
+<link rel=Edit-Time-Data
+href="./Основные%20понятия%20метода%20ДВ.files/editdata.mso">
+<link rel=OLE-Object-Data
+href="./Основные%20понятия%20метода%20ДВ.files/oledata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>Общий  подход  к  минимизации  булевых  функций</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Bobkov</o:Author>
+  <o:Template>Normal</o:Template>
+  <o:LastAuthor>Bobkov</o:LastAuthor>
+  <o:Revision>2</o:Revision>
+  <o:TotalTime>3</o:TotalTime>
+  <o:Created>2007-05-14T08:50:00Z</o:Created>
+  <o:LastSaved>2007-05-14T08:50:00Z</o:LastSaved>
+  <o:Pages>2</o:Pages>
+  <o:Words>520</o:Words>
+  <o:Characters>2965</o:Characters>
+  <o:Company>Organization</o:Company>
+  <o:Lines>24</o:Lines>
+  <o:Paragraphs>5</o:Paragraphs>
+  <o:CharactersWithSpaces>3641</o:CharactersWithSpaces>
+  <o:Version>9.6926</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:View>Print</w:View>
+ </w:WordDocument>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+@font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;
+	mso-font-charset:2;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:0 268435456 0 0 -2147483648 0;}
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+h2
+	{mso-style-next:Обычный;
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	text-indent:1.0cm;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:2;
+	font-size:14.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:"Times New Roman";
+	font-weight:bold;
+	mso-bidi-font-weight:normal;}
+p
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+@page Section1
+	{size:595.3pt 841.9pt;
+	margin:2.0cm 42.5pt 2.0cm 3.0cm;
+	mso-header-margin:35.4pt;
+	mso-footer-margin:35.4pt;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+@list l0
+	{mso-list-id:1084572086;
+	mso-list-template-ids:740220552;}
+@list l0:level1
+	{mso-level-text:%1;
+	mso-level-tab-stop:21.75pt;
+	mso-level-number-position:left;
+	margin-left:21.75pt;
+	text-indent:-21.75pt;}
+@list l0:level2
+	{mso-level-text:"%1\.%2";
+	mso-level-tab-stop:21.75pt;
+	mso-level-number-position:left;
+	margin-left:21.75pt;
+	text-indent:-21.75pt;}
+@list l0:level3
+	{mso-level-text:"%1\.%2\.%3";
+	mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	margin-left:36.0pt;
+	text-indent:-36.0pt;}
+@list l0:level4
+	{mso-level-text:"%1\.%2\.%3\.%4";
+	mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	margin-left:36.0pt;
+	text-indent:-36.0pt;}
+@list l0:level5
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5";
+	mso-level-tab-stop:54.0pt;
+	mso-level-number-position:left;
+	margin-left:54.0pt;
+	text-indent:-54.0pt;}
+@list l0:level6
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6";
+	mso-level-tab-stop:54.0pt;
+	mso-level-number-position:left;
+	margin-left:54.0pt;
+	text-indent:-54.0pt;}
+@list l0:level7
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7";
+	mso-level-tab-stop:72.0pt;
+	mso-level-number-position:left;
+	margin-left:72.0pt;
+	text-indent:-72.0pt;}
+@list l0:level8
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8";
+	mso-level-tab-stop:72.0pt;
+	mso-level-number-position:left;
+	margin-left:72.0pt;
+	text-indent:-72.0pt;}
+@list l0:level9
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8\.%9";
+	mso-level-tab-stop:90.0pt;
+	mso-level-number-position:left;
+	margin-left:90.0pt;
+	text-indent:-90.0pt;}
+@list l1
+	{mso-list-id:1793355142;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-573646594 724964362 1037627172 -650357066 -625543030 1257945836 -1965790070 1840426438 283552396 828258088;}
+@list l1:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Wingdings;}
+ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+</head>
+
+<body lang=RU style='tab-interval:35.4pt'>
+
+<div class=Section1>
+
+<p class=MsoNormal><b><span style='font-size:14.0pt;mso-bidi-font-size:12.0pt'>Основные
+понятия<span style="mso-spacerun: yes">  </span>и<span style="mso-spacerun:
+yes">  </span>особенности<span style="mso-spacerun: yes">  </span>метода<span
+style="mso-spacerun: yes">  </span>диаграмм<span style="mso-spacerun: yes"> 
+</span>Вейча.<o:p></o:p></span></b></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>Метод позволяет быстро получать минимальные ДНФ булевой
+функции f небольшого числа переменных. В основе метода лежит задание булевых
+функций диаграммами некоторого специального вида, получившими название диаграмм
+Вейча. Для булевой функции двух переменных диаграмма Вейча имеет вид :</p>
+
+<p class=MsoNormal align=center style='text-align:center'><!--[if gte vml 1]><v:shapetype
+ id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
+ path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:111.75pt;
+ height:49.5pt' o:ole="">
+ <v:imagedata src="./Основные%20понятия%20метода%20ДВ.files/image001.png"
+  o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=149 height=66
+src="./Основные%20понятия%20метода%20ДВ.files/image002.jpg" v:shapes="_x0000_i1025"><![endif]><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Paint.Picture" ShapeID="_x0000_i1025"
+  DrawAspect="Content" ObjectID="_1240652171">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal>Каждая клетка диаграммы соответствует набору переменных
+булевой функции в ее таблице истинности. В (табл. 4.4.1) это соответствие
+показано, В клетке диаграммы Вейча ставится единица, если булева функция
+принимает единичное значение на соответствующем наборе. Нулевые значения
+булевой функции в диаграмме Вейча не ставятся. Для булевой функции трех
+переменных диаграмма Вейча имеет следующий вид : </p>
+
+<p class=MsoNormal align=center style='text-align:center'><!--[if gte vml 1]><v:shape
+ id="_x0000_i1026" type="#_x0000_t75" style='width:219.75pt;height:66.75pt'
+ o:ole="">
+ <v:imagedata src="./Основные%20понятия%20метода%20ДВ.files/image003.png"
+  o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=293 height=89
+src="./Основные%20понятия%20метода%20ДВ.files/image004.jpg" v:shapes="_x0000_i1026"><![endif]><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Paint.Picture" ShapeID="_x0000_i1026"
+  DrawAspect="Content" ObjectID="_1240652172">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal>Добавление к ней еще такой же таблицы дает диаграмму для
+функции 4-х переменных : </p>
+
+<p class=MsoNormal align=center style='text-align:center'><!--[if gte vml 1]><v:shape
+ id="_x0000_i1027" type="#_x0000_t75" style='width:204.75pt;height:84pt' o:ole="">
+ <v:imagedata src="./Основные%20понятия%20метода%20ДВ.files/image005.png"
+  o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=273 height=112
+src="./Основные%20понятия%20метода%20ДВ.files/image006.jpg" v:shapes="_x0000_i1027"><![endif]><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1027"
+  DrawAspect="Content" ObjectID="_1240652173">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal>Таким же образом, т. е. приписыванием еще одной диаграммы
+3-х переменных к только что рассмотренной, можно получить диаграмму для функции
+5-ти переменных и т. д., однако диаграммы для функций с числом переменных
+больше 4-х используются редко. Для приведенных диаграмм характерно следующее: </p>
+
+<ul type=square>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l1 level1 lfo2;tab-stops:list 36.0pt'>каждой клетке диаграммы
+     соответствует свой набор; </li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l1 level1 lfo2;tab-stops:list 36.0pt'>соседние наборы расположены
+     рядом в строке либо в столбце. </li>
+</ul>
+
+<p class=MsoNormal>Соседними наборами называются наборы, отличающиеся одной
+компонентой. Напомним, что конституенты, соответствующие таким наборам, склеиваются
+(см. метод Квайна- Мак-Класки). Например:, </p>
+
+<p class=MsoNormal align=center style='text-align:center'><!--[if gte vml 1]><v:shape
+ id="_x0000_i1028" type="#_x0000_t75" style='width:203.25pt;height:65.25pt'
+ o:ole="">
+ <v:imagedata src="./Основные%20понятия%20метода%20ДВ.files/image007.png"
+  o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=271 height=87
+src="./Основные%20понятия%20метода%20ДВ.files/image008.jpg" v:shapes="_x0000_i1028"><![endif]><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1028"
+  DrawAspect="Content" ObjectID="_1240652174">
+ </o:OLEObject>
+</xml><![endif]--></p>
+
+<p class=MsoNormal style='margin-bottom:12.0pt'>конституенты, соответствующие
+паре единиц в левой части таблицы, склеиваются и порождают элементарное
+произведение из 2-х букв:</p>
+
+<p class=MsoNormal align=center style='text-align:center'>х<sub>1</sub>х<sub>2</sub>/х<sub>3</sub>
+v x<sub>1</sub>x<sub>2</sub>x <sub>3</sub> = x<sub>1</sub>x<sub>2</sub> </p>
+
+<p class=MsoNormal style='margin-bottom:12.0pt'><br>
+О паре единиц в правой части диаграммы можно сказать то же самое:</p>
+
+<p class=MsoNormal align=center style='text-align:center'>/х<sub>1</sub>х<sub>2</sub>/х<sub>3</sub>
+v /x<sub>1</sub>/x<sub>2</sub>/x <sub>3</sub> = /x<sub>1</sub>/x<sub>3</sub> </p>
+
+<p class=MsoNormal style='margin-bottom:12.0pt'><br>
+Отметим, что получающееся элементарное произведение легко определить сразу по
+диаграмме: это произведение переменных, принимающих одно и то же значение в
+обеих клетках.<br>
+Еще одно важное замечание: столбцы, расположенные по краям диаграммы, тоже
+считаются соседними. Для нашего примера это означает, что имеет место еще одно
+склеивание, в результате которого, следуя указанному правилу, получаем
+элементарное произведение x<sub>2</sub>/x<sub>3</sub> Из рассмотренных ранее
+методов нам известно, что возможно дальнейшее склеивание получаемых
+элементарных произведений. На диаграммах Вейча они тоже располагаются рядом.
+Общее правило склеивания на диаграммах Вейча можно сформулировать следующим
+образом: склеиванию подлежат прямоугольные конфигурации, заполненные единицами
+и содержащие число клеток, являющееся степенью 2. Получающееся новое
+элементарное произведение определяется как произведение переменных, не меняющих
+своего значения на всех склеиваемых наборах. Число <i>m</i> оставшихся
+переменных в элементарном произведении определяется легко:</p>
+
+<p class=MsoNormal align=center style='text-align:center'>m = n - log<sub>2</sub>M
+</p>
+
+<p class=MsoNormal align=center style='text-align:center'><br>
+где <i>n</i> - число переменных функции, <b>М</b> - число склеиваемых наборов.
+Метод широко используется на практике, благодаря простоте и удобству. После
+небольшой тренировки достигается элементарный навык определения минимальной ДНФ
+по диаграмме &quot;с первого взгляда&quot;. Минимизация булевой функции
+заключается в нахождении минимального накрытия всех единиц диаграммы Вейча
+блоками из единиц (указанной конфигурации), расположенных в соседних клетках
+диаграммы. При этом всегда считается, что левый край диаграммы Bейча 4-х
+переменных примыкает к ее правому краю, а верхний oкрай диаграммы примыкает к
+нижнему ее краю. После получения минимального накрытия всех единиц диаграммы
+Вейча, минимальная ДНФ булевой функции записывается как дизъюнкция элементарных
+конъюнкций, соответствующих выделенным блокам единиц в диаграмме. </p>
+
+<p class=MsoNormal><span style="mso-spacerun: yes"> </span></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+</div>
+
+</body>
+
+</html>

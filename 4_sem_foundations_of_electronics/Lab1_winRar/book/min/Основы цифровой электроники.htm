@@ -1,0 +1,574 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0053)http://www.uic.bashedu.ru/wsap/posobie/chapter2/9.htm -->
+<!-- saved from url=(0030)http://www.ufagts.ru/isdn.html --><HTML><HEAD><TITLE>Основы цифровой электроники</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1251">
+<META content="MSHTML 6.00.2900.2180" name=GENERATOR></HEAD>
+<BODY vLink=#669999 aLink=#669999 link=#669999 bgColor=#669999>
+<DIV align=center>
+<CENTER>
+<TABLE borderColor=#ffffff height=392 cellSpacing=0 cellPadding=0 width=762 
+bgColor=#ffffff>
+  <TBODY>
+  <TR>
+    <TD vAlign=top borderColor=#ffffff align=left width=760 bgColor=#ffffff 
+    height=1>
+      <DIV align=center>
+      <CENTER>
+              <TBODY>
+        <TR>
+          <TD align=middle width="100%" bgColor=#ffffff height=30>
+                          <TBODY>
+                      <TR>
+          <TD width="2%">
+            <P style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px"></P></TD>
+          <TD width="96%">
+            <P class=MsoNormal style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px" 
+            align=center><FONT face=Tahoma size=2><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><B></B> <B 
+            style="mso-bidi-font-weight: normal">Программируемые логические 
+            матричные структуры<O:P> </O:P></B></SPAN></FONT></P>
+            <P class=MsoNormal style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px" 
+            align=center><B style="mso-bidi-font-weight: normal"><FONT 
+            face=Tahoma size=2><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><O:P>&nbsp;</O:P> 
+            </SPAN></FONT></B></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2><SPAN style="mso-bidi-font-size: 10.0pt"><SPAN 
+            style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </SPAN><B 
+            style="mso-bidi-font-weight: normal">Реализация Булевых функций с 
+            помощью матричных схем</B>. Матричные схемы представляют собой сетку 
+            ортогональных проводников, на местах пересечения которых установлены 
+            элементы односторонней проводимости (ЭОП) (диоды, транзисторы). 
+            Матричные схемы бывают 2-х и 3-х уровневые. Каждый уровень 
+            называется матрицей. Матрица первого уровня называется матрицей М1, 
+            матрица второго уровня - М2.<O:P> </O:P></SPAN></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma><SPAN style="mso-bidi-font-size: 10.0pt"><FONT 
+            size=2><SPAN 
+            style="mso-spacerun: yes">&nbsp;</SPAN></FONT></SPAN></FONT><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><FONT face=Tahoma size=2><SPAN 
+            style="mso-tab-count: 1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN><SPAN style="mso-spacerun: yes">&nbsp;</SPAN>Обычно матрица 
+            М1 реализует элементарные конъюнкции и называется матрицей 
+            конъюнкций, а матрица М2 - матрицей дизъюнкций, т.к. позволяет 
+            реализовать дизъюнкции переменных.<O:P> </O:P></FONT></SPAN></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-INDENT: 35.4pt; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2><SPAN 
+            style="mso-bidi-font-size: 10.0pt">Рассмотрим двухуровневую 
+            матричную схему<O:P> </O:P></SPAN></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><O:P>&nbsp;</O:P> 
+            </SPAN></FONT></P>
+            <P class=MsoNormal style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px" 
+            align=center><FONT face=Tahoma size=2><SPAN 
+            style="mso-no-proof: yes"><!--[if gte vml 1]><V:SHAPETYPE 
+            id=_x0000_t75 stroked="f" filled="f" path="m@4@5l@4@11@9@11@9@5xe" 
+            o:preferrelative="t" o:spt="75" coordsize="21600,21600"><V:STROKE 
+            joinstyle="miter" /><V:FORMULAS><V:F 
+            eqn="if lineDrawn pixelLineWidth 0" /><V:F eqn="sum @0 1 0" /><V:F 
+            eqn="sum 0 0 @1" /><V:F eqn="prod @2 1 2" /><V:F 
+            eqn="prod @3 21600 pixelWidth" /><V:F 
+            eqn="prod @3 21600 pixelHeight" /><V:F eqn="sum @0 0 1" /><V:F 
+            eqn="prod @6 1 2" /><V:F eqn="prod @7 21600 pixelWidth" /><V:F 
+            eqn="sum @8 21600 0" /><V:F eqn="prod @7 21600 pixelHeight" /><V:F 
+            eqn="sum @10 21600 0" /></V:FORMULAS><V:PATH o:connecttype="rect" 
+            gradientshapeok="t" o:extrusionok="f" /><O:LOCK aspectratio="t" 
+            v:ext="edit" /></V:SHAPETYPE><V:SHAPE id=_x0000_i1025 
+            style="WIDTH: 129.75pt; HEIGHT: 118.5pt" fillcolor="window" 
+            type="#_x0000_t75"><V:IMAGEDATA o:title="2.23." 
+            src="file:///C:\DOCUME~1\ADMIN~1.MAS\LOCALS~1\Temp\msohtml1\01\clip_image001.wmz" 
+            /></V:SHAPE><![endif]--><IMG height=158 
+            src="Основы цифровой электроники.files/9.htm1.gif" width=173 
+            v:shapes="_x0000_i1025"></SPAN><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><O:P> </O:P></SPAN></FONT></P>
+            <P class=MsoNormal style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px" 
+            align=center><FONT size=2><FONT face=Tahoma><SPAN 
+            style="mso-bidi-font-size: 10.0pt">Рис. 2.26. Функциональная схема 
+            матрицы М1:</SPAN><SPAN lang=EN-US 
+            style="mso-bidi-font-size: 10.0pt; mso-ansi-language: EN-US">S</SPAN><SPAN 
+            style="mso-bidi-font-size: 10.0pt">=3;</SPAN><SPAN lang=EN-US 
+            style="mso-bidi-font-size: 10.0pt; mso-ansi-language: EN-US">q</SPAN><SPAN 
+            style="mso-bidi-font-size: 10.0pt">=4<O:P> 
+            </O:P></SPAN></FONT></FONT></P>
+            <P class=MsoNormal style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px" 
+            align=center><FONT face=Tahoma size=2><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><O:P>&nbsp;</O:P> 
+            </SPAN></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2><SPAN style="mso-bidi-font-size: 10.0pt"><SPAN 
+            style="mso-tab-count: 1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN>Количество входов матрицы М1 равно S, т.е. Х1, Х2, .<SPAN 
+            style="mso-spacerun: yes">&nbsp; </SPAN>.. , Xs, количество выходов 
+            матрицы М2 равно t, т.е. Y1, Y2, . . , Yt. Буквой Р обозначаются 
+            промежуточные проводники, перпендикулярные (ортогональные) 
+            проводникам Х и У. Количество ортогональных проводников равно 
+            q.<O:P> </O:P></SPAN></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma><SPAN style="mso-bidi-font-size: 10.0pt"><FONT 
+            size=2><SPAN 
+            style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN></FONT></SPAN></FONT><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><FONT face=Tahoma 
+            size=2>Функциональная схема матрицы М1 представлена на рис. 2.27. 
+            Рассматриваемая матрица может реализовать четыре конъюнкции, по 
+            числу ортогональных проводников:<O:P> </O:P></FONT></SPAN></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            size=2><FONT face=Tahoma><SPAN 
+            style="mso-bidi-font-size: 10.0pt; mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN></FONT><SPAN style="mso-bidi-font-size: 10.0pt"><FONT 
+            face=Tahoma>Р<SUB>1</SUB> = Х<SUB>3</SUB> Х<SUB>2</SUB> 
+            </FONT></SPAN><FONT face=Tahoma><SPAN 
+            style="POSITION: relative; TOP: 2pt; mso-text-raise: -2.0pt"><!--[if gte vml 1]><V:SHAPE 
+            id=_x0000_i1026 style="WIDTH: 15pt; HEIGHT: 18pt" fillcolor="window" 
+            type="#_x0000_t75" o:ole=""><V:IMAGEDATA o:title="" 
+            src="file:///C:\DOCUME~1\ADMIN~1.MAS\LOCALS~1\Temp\msohtml1\01\clip_image003.wmz" 
+            /></V:SHAPE><![endif]--><IMG height=24 
+            src="Основы цифровой электроники.files/9.htm2.gif" width=20 
+            v:shapes="_x0000_i1026"></SPAN><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1026"
+  DrawAspect="Content" ObjectID="_1076334304">
+ </o:OLEObject>
+</xml><![endif]--> 
+            <SUB>1</SUB> ;<SPAN style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; 
+            </SPAN>P<SUB>2</SUB> = </SPAN><SPAN 
+            style="POSITION: relative; TOP: 2pt; mso-text-raise: -2.0pt"><!--[if gte vml 1]><V:SHAPE 
+            id=_x0000_i1027 style="WIDTH: 15pt; HEIGHT: 18pt" fillcolor="window" 
+            type="#_x0000_t75" o:ole=""><V:IMAGEDATA o:title="" 
+            src="file:///C:\DOCUME~1\ADMIN~1.MAS\LOCALS~1\Temp\msohtml1\01\clip_image003.wmz" 
+            /></V:SHAPE><![endif]--><IMG height=24 
+            src="Основы цифровой электроники.files/9.htm2.gif" width=20 
+            v:shapes="_x0000_i1027"></SPAN><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1027"
+  DrawAspect="Content" ObjectID="_1076334305">
+ </o:OLEObject>
+</xml><![endif]--> 
+            <SUB>2</SUB> X<SUB>1</SUB>;<SPAN 
+            style="mso-spacerun: yes">&nbsp;&nbsp; </SPAN>P<SUB>3</SUB> = 
+            </SPAN><SPAN 
+            style="POSITION: relative; TOP: 2pt; mso-text-raise: -2.0pt"><!--[if gte vml 1]><V:SHAPE 
+            id=_x0000_i1028 style="WIDTH: 15pt; HEIGHT: 18pt" fillcolor="window" 
+            type="#_x0000_t75" o:ole=""><V:IMAGEDATA o:title="" 
+            src="file:///C:\DOCUME~1\ADMIN~1.MAS\LOCALS~1\Temp\msohtml1\01\clip_image003.wmz" 
+            /></V:SHAPE><![endif]--><IMG height=24 
+            src="Основы цифровой электроники.files/9.htm2.gif" width=20 
+            v:shapes="_x0000_i1028"></SPAN><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1028"
+  DrawAspect="Content" ObjectID="_1076334306">
+ </o:OLEObject>
+</xml><![endif]--> 
+            <SUB>3</SUB> X<SUB>2</SUB>;<SPAN 
+            style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </SPAN>P<SUB>4</SUB> = 
+            </SPAN><SPAN 
+            style="POSITION: relative; TOP: 2pt; mso-text-raise: -2.0pt"><!--[if gte vml 1]><V:SHAPE 
+            id=_x0000_i1029 style="WIDTH: 15pt; HEIGHT: 18pt" fillcolor="window" 
+            type="#_x0000_t75" o:ole=""><V:IMAGEDATA o:title="" 
+            src="file:///C:\DOCUME~1\ADMIN~1.MAS\LOCALS~1\Temp\msohtml1\01\clip_image003.wmz" 
+            /></V:SHAPE><![endif]--><IMG height=24 
+            src="Основы цифровой электроники.files/9.htm2.gif" width=20 
+            v:shapes="_x0000_i1029"></SPAN><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1029"
+  DrawAspect="Content" ObjectID="_1076334307">
+ </o:OLEObject>
+</xml><![endif]--> 
+            <SUB>3</SUB> Х<SUB>1</SUB>.<O:P> </O:P></SPAN></FONT></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma><SPAN style="mso-bidi-font-size: 10.0pt"><FONT 
+            size=2><SPAN 
+            style="mso-tab-count: 1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN></FONT></SPAN></FONT><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><FONT face=Tahoma size=2>В общем 
+            случае, если какие-либо ортогональные проводники не участвуют в 
+            реализации конъюнкций, их число может быть меньше<SPAN 
+            style="mso-spacerun: yes">&nbsp; </SPAN>q.</FONT></SPAN></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2><SPAN 
+            style="mso-bidi-font-size: 10.0pt">&nbsp;&nbsp; </SPAN></FONT><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><FONT face=Tahoma 
+            size=2><O:P></O:P></FONT></SPAN></P>
+            <P class=MsoNormal style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px" 
+            align=center><FONT face=Tahoma size=2><SPAN 
+            style="mso-no-proof: yes"><!--[if gte vml 1]><V:SHAPE 
+            id=_x0000_i1030 style="WIDTH: 355.5pt; HEIGHT: 219pt" 
+            fillcolor="window" type="#_x0000_t75"><V:IMAGEDATA o:title="227" 
+            src="file:///C:\DOCUME~1\ADMIN~1.MAS\LOCALS~1\Temp\msohtml1\01\clip_image005.wmz" 
+            /></V:SHAPE><![endif]--><IMG height=292 
+            src="Основы цифровой электроники.files/9.htm3.gif" width=474 
+            v:shapes="_x0000_i1030"></SPAN><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><O:P> </O:P></SPAN></FONT></P>
+            <P class=MsoNormal style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px" 
+            align=center><FONT size=2><FONT face=Tahoma><SPAN 
+            style="mso-bidi-font-size: 10.0pt">Рис. 2.27. Функциональная схема 
+            матрицы М1:</SPAN><SPAN lang=EN-US 
+            style="mso-bidi-font-size: 10.0pt; mso-ansi-language: EN-US">S</SPAN><SPAN 
+            style="mso-bidi-font-size: 10.0pt">=3;</SPAN><SPAN lang=EN-US 
+            style="mso-bidi-font-size: 10.0pt; mso-ansi-language: EN-US">q</SPAN><SPAN 
+            style="mso-bidi-font-size: 10.0pt">=4<O:P> 
+            </O:P></SPAN></FONT></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><O:P>&nbsp;</O:P> 
+            </SPAN></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2><SPAN style="mso-bidi-font-size: 10.0pt"><SPAN 
+            style="mso-tab-count: 1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN>Реализация необходимых конъюнкций осуществляется путем 
+            прожига перемычек (включенных последовательно с полупроводниковым 
+            диодом), расположенных на местах пересечения ортогональных 
+            проводников, не участвующих в образовании конъюнкций.<O:P> 
+            </O:P></SPAN></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma><SPAN style="mso-bidi-font-size: 10.0pt"><FONT 
+            size=2><SPAN 
+            style="mso-spacerun: yes">&nbsp;</SPAN></FONT></SPAN></FONT><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><FONT face=Tahoma size=2><SPAN 
+            style="mso-tab-count: 1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN>Следует отметить, что в исходном состоянии на всех 
+            пересечениях проводников матрицы М1 имеются соединения, т.е. матрица 
+            реализует все конъюнкции переменных, причем в каждую конъюнкцию 
+            входят все переменные и с отрицанием, и без. Очевидно, что такие 
+            конъюнкции логического смысла не имеют. Для получения необходимых 
+            конъюнкций следует прожигать все легкоплавкие перемычки, находящиеся 
+            на узлах, не участвующих в конъюнкциях. На схеме (рис. 2.27) 
+            рассматриваемой матрицы М1 крестиками обозначены узлы, на которых 
+            сохранены перемычки.<O:P> </O:P></FONT></SPAN></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            size=2><FONT face=Tahoma><SPAN 
+            style="mso-bidi-font-size: 10.0pt; mso-spacerun: yes">&nbsp;</SPAN></FONT><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><FONT face=Tahoma><SPAN 
+            style="mso-tab-count: 1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN>Рассмотрим процесс реализации конъюнкции на примере 
+            P<SUB>1</SUB> = Х<SUB>3</SUB>Х<SUB>2</SUB></FONT></SPAN><FONT 
+            face=Tahoma><SPAN 
+            style="POSITION: relative; TOP: 2pt; mso-text-raise: -2.0pt"><!--[if gte vml 1]><V:SHAPE 
+            id=_x0000_i1031 style="WIDTH: 15pt; HEIGHT: 18pt" fillcolor="window" 
+            type="#_x0000_t75" o:ole=""> <V:IMAGEDATA o:title="" 
+            src="file:///C:\DOCUME~1\ADMIN~1.MAS\LOCALS~1\Temp\msohtml1\01\clip_image003.wmz" 
+            /></V:SHAPE><![endif]--><IMG height=24 
+            src="Основы цифровой электроники.files/9.htm2.gif" width=20 
+            v:shapes="_x0000_i1031"></SPAN><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1031"
+  DrawAspect="Content" ObjectID="_1076334308">
+ </o:OLEObject>
+</xml><![endif]--> 
+            <SUB>1</SUB>. Действительно, на проводнике P<SUB>1</SUB> будет 
+            поддерживаться уровень логической единицы (за счет напряжения 
+            источника питания E) только при условии наличия уровня логической 
+            "1" на всех трех указанных пересечениях. Очевидно, что на верхнем 
+            (по схеме) пересечении уровень "1" будет иметь место только при 
+            условии подачи на вход матрицы уровня логического "0", т.к. сигнал 
+            Х<SUB>1</SUB> "попадает" на это пересечение через инвертор. 
+            Появление "0" хотя бы на одном из входов Х<SUB>3</SUB> или 
+            Х<SUB>2</SUB> приводит к "исчезновению" логической "1" на проводе 
+            P<SUB>1</SUB>, т.к. все напряжение питания Е будет падать на 
+            ограничительном сопротивлении R и на выходе Р<SUB>1</SUB> появится 
+            "0".<O:P> </O:P></SPAN></FONT></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma><SPAN style="mso-bidi-font-size: 10.0pt"><FONT 
+            size=2><SPAN style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN></FONT></SPAN></FONT><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><FONT face=Tahoma size=2>Схема 
+            матрицы дизъюнкции М2 содержит сопротивления нагрузки и 
+            транзисторные ключевые соединители (на местах пересечений 
+            ортогональных проводников). На рис. 2.28 приведена схема матрицы М2 
+            для двух выходов ( количество проводников Р одинаково для М1 и М2 и 
+            в данном примере q = 4).</FONT></SPAN></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2><SPAN 
+            style="mso-bidi-font-size: 10.0pt">&nbsp;&nbsp;&nbsp; 
+            </SPAN></FONT><SPAN style="mso-bidi-font-size: 10.0pt"><FONT 
+            face=Tahoma size=2><O:P></O:P></FONT></SPAN></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><O:P>&nbsp;</O:P> 
+            </SPAN></FONT></P>
+            <P class=MsoNormal style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px" 
+            align=center><FONT face=Tahoma size=2><SPAN 
+            style="mso-no-proof: yes"><!--[if gte vml 1]><V:SHAPE 
+            id=_x0000_i1032 style="WIDTH: 295.5pt; HEIGHT: 117.75pt" 
+            fillcolor="window" type="#_x0000_t75"><V:IMAGEDATA 
+            o:title="Рисунок228" 
+            src="file:///C:\DOCUME~1\ADMIN~1.MAS\LOCALS~1\Temp\msohtml1\01\clip_image007.wmz" 
+            /></V:SHAPE><![endif]--><IMG height=157 
+            src="Основы цифровой электроники.files/9.htm4.gif" width=394 
+            v:shapes="_x0000_i1032"></SPAN><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><O:P> </O:P></SPAN></FONT></P>
+            <P class=MsoNormal style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px" 
+            align=center><FONT face=Tahoma size=2><SPAN 
+            style="mso-bidi-font-size: 10.0pt">Рис. 2.28. Матрица дизъюнкций 
+            М2<O:P> </O:P></SPAN></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><O:P>&nbsp;</O:P> 
+            </SPAN></FONT></P>
+            <P class=MsoNormal style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px" 
+            align=center><FONT face=Tahoma size=2><SPAN 
+            style="mso-bidi-font-size: 10.0pt">Матрица М2, приведенная на рис.1, 
+            реализует две дизъюнкции:<O:P> </O:P></SPAN></FONT></P>
+            <P class=MsoNormal style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px" 
+            align=center><FONT face=Tahoma size=2><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><SPAN 
+            style="POSITION: relative; TOP: 19pt; mso-text-raise: -19.0pt"><!--[if gte vml 1]><V:SHAPE 
+            id=_x0000_i1033 style="WIDTH: 276pt; HEIGHT: 45pt" 
+            fillcolor="window" type="#_x0000_t75" o:ole=""><V:IMAGEDATA 
+            o:title="" 
+            src="file:///C:\DOCUME~1\ADMIN~1.MAS\LOCALS~1\Temp\msohtml1\01\clip_image009.wmz" 
+            /></V:SHAPE><![endif]--><IMG height=60 
+            src="Основы цифровой электроники.files/9.htm5.gif" width=368 
+            v:shapes="_x0000_i1033"></SPAN><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1033"
+  DrawAspect="Content" ObjectID="_1076334309">
+ </o:OLEObject>
+</xml><![endif]--> 
+            <O:P></O:P></SPAN></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma><SPAN style="mso-bidi-font-size: 10.0pt"><FONT 
+            size=2><SPAN 
+            style="mso-tab-count: 1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN></FONT></SPAN></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify">&nbsp;</P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify">&nbsp;</P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2><SPAN 
+            style="mso-bidi-font-size: 10.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN></FONT><SPAN style="mso-bidi-font-size: 10.0pt"><FONT 
+            face=Tahoma size=2>Объем информации, который можно записать в 
+            матричную схему, определяется как информационная площадь матриц, 
+            вернее суммой S<SUB>m1</SUB> и S<SUB>m2</SUB>.<O:P> 
+            </O:P></FONT></SPAN></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            size=2><FONT face=Tahoma><SPAN 
+            style="mso-bidi-font-size: 10.0pt; mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+            lang=EN-US 
+            style="mso-bidi-font-size: 10.0pt; mso-ansi-language: EN-US">S<SUB>m</SUB> 
+            = S<SUB>m1</SUB> +S<SUB>m2</SUB> = 2Sq + qt.<O:P> 
+            </O:P></SPAN></FONT></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            size=2><FONT face=Tahoma><SPAN lang=EN-US 
+            style="mso-bidi-font-size: 10.0pt; mso-ansi-language: EN-US; mso-tab-count: 1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN><SPAN style="mso-bidi-font-size: 10.0pt">На практике часто 
+            встречаются схемы, состоящие из матриц М<SUB>2</SUB> и дешифратора 
+            (полного). Такие схемы обычно называют <B 
+            style="mso-bidi-font-weight: normal">постоянными запоминающими 
+            устройствами</B> (<B style="mso-bidi-font-weight: normal">ПЗУ</B>). 
+            ПЗУ - это элемент (устройство) памяти, позволяющий хранить 
+            записанную в нем информацию, и после выключения напряжения источника 
+            питания. По способу записи ПЗУ подразделяются на масочные, 
+            программируемые и репрограммируемые. Масочные ПЗУ программируются 
+            заводом изготовителем с помощью специальных масок, т.е. соединения 
+            на местах пересечения ортогональных проводников заложены в 
+            технологию производства ПЗУ.<O:P> </O:P></SPAN></FONT></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma><SPAN style="mso-bidi-font-size: 10.0pt"><FONT 
+            size=2><SPAN 
+            style="mso-spacerun: yes">&nbsp;</SPAN></FONT></SPAN></FONT><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><FONT face=Tahoma size=2><SPAN 
+            style="mso-tab-count: 1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN><B style="mso-bidi-font-weight: normal">Программируемые 
+            ПЗУ</B> (ППЗУ). ППЗУ выпускаются заводом-изготовителем в "чистом 
+            виде", т.е. по всем адресам записаны"0". Программирование ППЗУ 
+            осуществляется пользователем ППЗУ на специальной установке, 
+            называемой программатором. В ППЗУ можно записать (его 
+            программировать) информацию только один раз. Изменить записанную 
+            информацию или исправить ее нельзя. ППЗУ нашли широкое применение в 
+            ЭВМ для хранения запускающих программ. Они обладают большим 
+            быстродействием, чем репрограммируемые ПЗУ (РПЗУ).<O:P> 
+            </O:P></FONT></SPAN></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><B 
+            style="mso-bidi-font-weight: normal"><FONT size=2><FONT 
+            face=Tahoma><SPAN 
+            style="mso-bidi-font-size: 10.0pt; mso-tab-count: 1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN></FONT><SPAN style="mso-bidi-font-size: 10.0pt"><FONT 
+            face=Tahoma>Репрограммируемые ПЗУ</FONT></SPAN></FONT></B><FONT 
+            face=Tahoma size=2><SPAN style="mso-bidi-font-size: 10.0pt"> 
+            позволяют, при необходимости, перепрограммировать ПЗУ, т.е. стереть 
+            ранее записанную информацию и записать новую.<O:P> 
+            </O:P></SPAN></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma><SPAN style="mso-bidi-font-size: 10.0pt"><FONT 
+            size=2><SPAN 
+            style="mso-tab-count: 1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN></FONT></SPAN></FONT><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><FONT face=Tahoma size=2>По 
+            способу стирания ранее записанной информации РПЗУ бывают с 
+            ультрафиолетовым (ультрафиолетовыми лучами) и электрическим 
+            стиранием. РПЗУ позволяют десятки (некоторые до 1000) раз 
+            перепрограммировать и<SPAN style="mso-spacerun: yes">&nbsp; 
+            </SPAN>сохранять записанную информацию десятки и сотни тысяч часов. 
+            Быстродействие РПЗУ несколько хуже быстродействия ППЗУ.<O:P> 
+            </O:P></FONT></SPAN></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma><SPAN style="mso-bidi-font-size: 10.0pt"><FONT 
+            size=2><SPAN 
+            style="mso-tab-count: 1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN></FONT></SPAN></FONT><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><FONT face=Tahoma 
+            size=2>Независимо от типа и способа стирания ПЗУ имеют структуру, 
+            приведенную на рис. 2.29.</FONT></SPAN></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2><SPAN 
+            style="mso-bidi-font-size: 10.0pt">&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN></FONT><SPAN style="mso-bidi-font-size: 10.0pt"><FONT 
+            face=Tahoma size=2><O:P></O:P></FONT></SPAN></P>
+            <P class=MsoNormal style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px" 
+            align=center><FONT face=Tahoma size=2><!--[if gte vml 1]><V:SHAPE 
+            id=_x0000_i1034 style="WIDTH: 156pt; HEIGHT: 157.5pt" 
+            fillcolor="window" type="#_x0000_t75" o:ole=""><V:IMAGEDATA 
+            o:title="" 
+            src="file:///C:\DOCUME~1\ADMIN~1.MAS\LOCALS~1\Temp\msohtml1\01\clip_image011.png" 
+            /></V:SHAPE><![endif]--><IMG height=210 
+            src="Основы цифровой электроники.files/9.htm6.gif" width=208 
+            v:shapes="_x0000_i1034"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="CorelPhotoPaint.Image.7"
+  ShapeID="_x0000_i1034" DrawAspect="Content" ObjectID="_1076334310">
+ </o:OLEObject>
+</xml><![endif]--> 
+            <SPAN lang=EN-US 
+            style="mso-bidi-font-size: 10.0pt; mso-ansi-language: EN-US"><O:P></O:P></SPAN></FONT></P>
+            <P class=MsoNormal style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px" 
+            align=center><FONT size=2><FONT face=Tahoma><SPAN 
+            style="mso-bidi-font-size: 10.0pt; mso-no-proof: yes">Рис.2.29. 
+            Структурная схема постоянного запоминающего устройства</SPAN><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><O:P> 
+            </O:P></SPAN></FONT></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><O:P>&nbsp;</O:P> 
+            </SPAN></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2><SPAN style="mso-bidi-font-size: 10.0pt"><SPAN 
+            style="mso-spacerun: yes">&nbsp;</SPAN><SPAN 
+            style="mso-tab-count: 1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN>Структурная схема ПЗУ содержит дешифратор на S входов и 
+            2<SUP>S</SUP> -выходов, а также матрицу М2.<O:P> 
+            </O:P></SPAN></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2><SPAN 
+            style="mso-bidi-font-size: 10.0pt">Информационная емкость ПЗУ 
+            определяется как Sпзу = 2<SUP>S</SUP>, где S- количество входов X. В 
+            этом определении емкости (объема) памяти не учтено количество 
+            выходов Y(t). Обычно число t бывает 4, 8, и 16 (полубайтовая, 
+            байтовая и двухбайтовая организация памяти). "Битовая" емкость ПЗУ 
+            определяется как<O:P> </O:P></SPAN></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><O:P>&nbsp;</O:P> 
+            </SPAN></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2><SPAN style="mso-bidi-font-size: 10.0pt"><SPAN 
+            style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN>Sпзу (бит)<SPAN style="mso-spacerun: yes">&nbsp; 
+            </SPAN>=<SPAN style="mso-spacerun: yes">&nbsp; </SPAN>2<SUP>S</SUP> 
+            t (бит).<O:P> </O:P></SPAN></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><O:P>&nbsp;</O:P> 
+            </SPAN></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2><SPAN style="mso-bidi-font-size: 10.0pt"><SPAN 
+            style="mso-tab-count: 1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN>Промышленностью выпускаются ПЗУ с объемом памяти 
+            (информационной емкостью) на 2 кбайт, 4 кбайт,16 кбайт,32 кбайт и 
+            т.д., где к=1024; 1байт=8бит.<O:P> </O:P></SPAN></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2><!--[if gte vml 1]><V:SHAPE id=_x0000_s1026 
+            style="MARGIN-TOP: 39.5pt; Z-INDEX: 1; LEFT: 0px; MARGIN-LEFT: -2pt; WIDTH: 129.95pt; POSITION: absolute; HEIGHT: 193pt; TEXT-ALIGN: left; mso-position-horizontal: absolute; mso-position-horizontal-relative: text; mso-position-vertical: absolute; mso-position-vertical-relative: text" 
+            type="#_x0000_t75" o:allowincell="f"><V:IMAGEDATA o:title="227" 
+            src="9.htm7.jpg" /><W:WRAP type="square" side="largest" /></V:SHAPE><![endif]--><IMG height=257 hspace=12 
+            src="Основы цифровой электроники.files/9.htm7.jpg" width=173 
+            align=left v:shapes="_x0000_s1026"><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><SPAN 
+            style="mso-tab-count: 1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN>На функциональных и принципиальных схемах РПЗУ с 
+            ультрафиолетовым стиранием изображается так, как показано на рис. 
+            2.30.<O:P> </O:P></SPAN></FONT></P>
+            <P class=MsoBodyText2 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px"><FONT face=Tahoma 
+            size=2><O:P>&nbsp;</O:P> </FONT></P>
+            <P class=MsoBodyText2 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2>Рис. 2.30. Схемное обозначение РПЗУ К573РФ2, 
+            К573РФ5 с ультрафиолетовым стиранием:</FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            size=2><FONT face=Tahoma><SPAN style="mso-bidi-font-size: 10.0pt">А 
+            - адресные входы; </SPAN><SPAN lang=EN-US 
+            style="mso-bidi-font-size: 10.0pt; mso-ansi-language: EN-US">D</SPAN><SPAN 
+            style="mso-bidi-font-size: 10.0pt"> – информационные выходы. 
+            </SPAN><SPAN lang=EN-US 
+            style="mso-bidi-font-size: 10.0pt; mso-ansi-language: EN-US">U<SUB>ce</SUB></SPAN><SPAN 
+            style="mso-bidi-font-size: 10.0pt"> – вход подачи напряжения записи 
+            (в режиме хранения на этот вход подается U<SUB>cc</SUB>); 
+            U<SUB>cc</SUB> – вывод для подачи напряжения питания. СЕ и ОЕ –входы 
+            управления состоянием выводов, если СЕ=ОЕ=1, входы </SPAN><SPAN 
+            lang=EN-US 
+            style="mso-bidi-font-size: 10.0pt; mso-ansi-language: EN-US">D</SPAN><SPAN 
+            style="mso-bidi-font-size: 10.0pt"> имеют высокоимпедансное 
+            состояние. При СЕ=ОЕ=0 вывод информации разрешен.<O:P> 
+            </O:P></SPAN></FONT></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><O:P>&nbsp;</O:P> 
+            </SPAN></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2><SPAN style="mso-bidi-font-size: 10.0pt"><SPAN 
+            style="mso-tab-count: 1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN>Микросхема РПЗУ К573РФ2 (РФ5) имеет одиннадцатиразрядный 
+            дешифратор, выходы которого соединены с восьмиразрядной матрицей М2. 
+            В процессе записи выходные элементы РПЗУ находятся в режиме приема 
+            информации через выводы D<SUB>0 </SUB>. . . D<SUB>7</SUB> (на входе 
+            “ОЕ“ уровень “1”). В режиме считывания записанной информации выводы 
+            “U<SUB>ce</SUB>” и “U<SUB>cc</SUB>” объединяются, и на них подается 
+            напряжение питания +5В.<O:P> </O:P></SPAN></FONT></P>
+            <P class=MsoNormal style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px"><FONT 
+            face=Tahoma size=2><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><O:P>&nbsp;</O:P> 
+            </SPAN></FONT></P>
+            <P style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px">&nbsp;</P></TD>
+          <TD width="2%">
+            <P 
+      style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px"></P></TD></TR></TBODY></TD></TR></TBODY></CENTER></DIV></BODY></HTML>

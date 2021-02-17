@@ -1,0 +1,263 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0053)http://www.uic.bashedu.ru/wsap/posobie/chapter2/2.htm -->
+<!-- saved from url=(0030)http://www.ufagts.ru/isdn.html --><HTML><HEAD><TITLE>Основы цифровой электроники</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1251">
+<META content="MSHTML 6.00.2900.2180" name=GENERATOR></HEAD>
+<BODY vLink=#669999 aLink=#669999 link=#669999 >
+<DIV align=center>
+<CENTER>
+  <TBODY>
+  <TR>
+    <TD vAlign=top borderColor=#ffffff align=left width=760 bgColor=#ffffff 
+    height=1>
+      <DIV align=center>
+      <CENTER>
+      <TABLE height=34 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD align=middle width="100%" bgColor=#ffffff height=30>
+            <TABLE borderColor=#ffffff width="100%" border=1>
+              <TBODY>
+                      <TBODY>
+        <TR>
+          <TD width="2%">
+            <P style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px"></P></TD>
+          <TD width="96%">
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; mso-outline-level: 1" 
+            align=center><SPAN style="mso-bidi-font-size: 10.0pt"><FONT 
+            face=Tahoma><FONT size=2><B></B> </FONT><B 
+            style="mso-bidi-font-weight: normal"><FONT size=2>Гонки в 
+            комбинационных устройствах<O:P> &nbsp; </FONT></B></FONT></SPAN></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; mso-outline-level: 1" 
+            align=center><FONT face=Tahoma size=2><SPAN 
+            style="mso-bidi-font-weight: normal; mso-bidi-font-size: 10.0pt">&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN></FONT><SPAN style="mso-bidi-font-size: 10.0pt"><FONT 
+            face=Tahoma><B style="mso-bidi-font-weight: normal"><FONT 
+            size=2></O:P></FONT></B></FONT></SPAN></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-INDENT: 35.4pt; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2><B style="mso-bidi-font-weight: normal"><SPAN 
+            style="mso-bidi-font-size: 10.0pt">Комбинационное устройство 
+            (КУ)</SPAN></B><SPAN style="mso-bidi-font-size: 10.0pt"> - это 
+            устройство с m входами и n выходами. Если КУ выполнено на базе 
+            идеальных, т.е. безинерционных элементов, состояние выходов 
+            однозначно определяется состоянием входов в тот же момент времени. 
+            Однако, инерционность элементов и наличие различных факторов, 
+            приводящих к задержке распространения сигнала, приводят к задержке 
+            появления выходных сигналов КУ, т.е. сигналы на выходе КУ, 
+            соответствующие новому состоянию входных сигналов, появляются не 
+            сразу, а с некоторой задержкой. При этом в переходный период 
+            возможно появление на выходах устройства некоторых промежуточных 
+            значений сигналов, не соответствующих заданному состоянию 
+            устройства. Такое явление получило название <B 
+            style="mso-bidi-font-weight: normal">состязаний</B> или <B 
+            style="mso-bidi-font-weight: normal">гонок</B>. Обычно, 
+            вырабатываемые узлами КУ промежуточные значения сигналов, 
+            представляют собой импульсы очень малой длительности, являющиеся 
+            помехой для всей цифровой системы. Они могут запускать 
+            непредусмотренное срабатывание триггеров, счетчиков и осуществлять 
+            нежелательные записи в регистры.<O:P> </O:P></SPAN></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><SPAN 
+            style="mso-spacerun: yes"><FONT face=Tahoma 
+            size=2>&nbsp;</FONT></SPAN><FONT face=Tahoma size=2><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><SPAN 
+            style="mso-tab-count: 1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN>Рассмотрим в качестве примера фрагмент схемы комбинационного 
+            устройства (рис. 2.1), где может наблюдаться явление гонок. Для 
+            наглядности процесса формирования промежуточного значения выходного 
+            сигнала приведены временные диаграммы состояний различных цепей 
+            распространения в идеальном и реальном случаях (рис.2.2, рис. 
+            2.3).<O:P> </O:P></SPAN></FONT></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2><!--[if gte vml 1]><O:WRAPBLOCK><V:SHAPETYPE 
+            id=_x0000_t75 stroked="f" filled="f" path="m@4@5l@4@11@9@11@9@5xe" 
+            o:preferrelative="t" o:spt="75" coordsize="21600,21600"><V:STROKE 
+            joinstyle="miter" /><V:FORMULAS><V:F 
+            eqn="if lineDrawn pixelLineWidth 0" /><V:F eqn="sum @0 1 0" /><V:F 
+            eqn="sum 0 0 @1" /><V:F eqn="prod @2 1 2" /><V:F 
+            eqn="prod @3 21600 pixelWidth" /><V:F 
+            eqn="prod @3 21600 pixelHeight" /><V:F eqn="sum @0 0 1" /><V:F 
+            eqn="prod @6 1 2" /><V:F eqn="prod @7 21600 pixelWidth" /><V:F 
+            eqn="sum @8 21600 0" /><V:F eqn="prod @7 21600 pixelHeight" /><V:F 
+            eqn="sum @10 21600 0" /></V:FORMULAS><V:PATH o:connecttype="rect" 
+            gradientshapeok="t" o:extrusionok="f" /><O:LOCK aspectratio="t" 
+            v:ext="edit" /></V:SHAPETYPE><V:SHAPE id=_x0000_s1026 
+            style="MARGIN-TOP: 110.55pt; Z-INDEX: 1; LEFT: 0px; MARGIN-LEFT: 52.7pt; WIDTH: 357.1pt; POSITION: absolute; HEIGHT: 169.55pt; TEXT-ALIGN: left; mso-position-horizontal: absolute; mso-position-horizontal-relative: text; mso-position-vertical: absolute; mso-position-vertical-relative: page" 
+            o:allowincell="f" type="#_x0000_t75"><V:IMAGEDATA o:title="" 
+            src="file:///C:\DOCUME~1\ADMIN~1.MAS\LOCALS~1\Temp\msohtml1\01\clip_image001.wmz" 
+            /><W:WRAP type="topAndBottom" anchory="page" /></V:SHAPE><![if gte mso 9]><o:OLEObject Type="Embed"
+  ProgID="CorelDRAW.Graphic.9" ShapeID="_x0000_s1026" DrawAspect="Content"
+  ObjectID="_1076331651">
+ </o:OLEObject>
+ <![endif]><![endif]--></FONT><SPAN 
+            style="mso-ignore: vglayout">
+            <TABLE cellSpacing=0 cellPadding=0 align=left>
+              <TBODY>
+              <TR>
+                <TD width=70 height=0>
+                  <P style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px"><FONT 
+                  face=Tahoma size=2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                </FONT></P></TD></TR>
+              <TR>
+                <TD>
+                  <P style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px"></P></TD>
+                <TD>
+                  <P style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px"><FONT 
+                  face=Tahoma size=2><IMG height=226 
+                  src="Основы цифровой электроники1.files/2.htm1.gif" width=476 
+                  v:shapes="_x0000_s1026"></FONT></P></TD></TR></TBODY></TABLE></SPAN>
+            <P style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px"><FONT face=Tahoma 
+            size=2><!--[if gte vml 1]></O:WRAPBLOCK><![endif]--><BR 
+            style="mso-ignore: vglayout" clear=all><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><O:P></O:P></SPAN></FONT>
+            <P class=MsoBodyText 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px"><FONT face=Tahoma 
+size=2><!--[if gte vml 1]><O:WRAPBLOCK><V:SHAPE id=_x0000_s1028 
+            style="MARGIN-TOP: 93.2pt; Z-INDEX: 3; LEFT: 0px; MARGIN-LEFT: 47pt; WIDTH: 381.6pt; POSITION: absolute; HEIGHT: 229.9pt; TEXT-ALIGN: left; mso-position-horizontal: absolute; mso-position-horizontal-relative: text; mso-position-vertical: absolute; mso-position-vertical-relative: text" 
+            o:allowincell="f" type="#_x0000_t75"><V:IMAGEDATA o:title="2.2" 
+            src="file:///C:\DOCUME~1\ADMIN~1.MAS\LOCALS~1\Temp\msohtml1\01\clip_image003.jpg" 
+            /><W:WRAP type="topAndBottom" side="right" 
+            /></V:SHAPE><![endif]--></FONT><SPAN style="mso-ignore: vglayout">
+            <TABLE cellSpacing=0 cellPadding=0>
+              <TBODY>
+              <TR>
+                <TD width=63 height=0>
+                  <P style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px"><FONT 
+                  face=Tahoma size=2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  </FONT></P></TD></TR>
+              <TR>
+                <TD>
+                  <P style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px"></P></TD>
+                <TD>
+                  <P style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px"><FONT 
+                  face=Tahoma size=2><IMG height=307 
+                  src="Основы цифровой электроники1.files/2.htm2.jpg" width=509 
+                  v:shapes="_x0000_s1028"></FONT></P>
+                  <P style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px"><FONT 
+                  face=Tahoma size=2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                </FONT></P></TD></TR></TBODY></TABLE></SPAN>
+            <P style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px"><FONT face=Tahoma 
+            size=2><!--[if gte vml 1]></O:WRAPBLOCK><![endif]--><BR 
+            style="mso-ignore: vglayout" clear=all><SPAN 
+            style="mso-tab-count: 1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN>Время задержки импульсов в цепях определяется средним 
+            временем задержки распространения сигнала всеми элементами этой 
+            цепи. Момент времени появления импульса помехи определяется 
+            соотношением числа инвертирующих элементов в конкурирующих цепях 
+            фрагмента схемы КУ (см. рис.2.2, а и рис.2.3).</FONT> 
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><FONT face=Tahoma 
+            size=2><O:P>&nbsp;</O:P> </FONT></SPAN></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><FONT face=Tahoma size=2><SPAN 
+            style="mso-tab-count: 1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN>Как следует из рис.2.2, а, если элементы схемы идеальные, т. 
+            е. безынерционные, (что на практике достичь не удается), на выходе 
+            схемы КУ импульс помехи отсутствует. Однако в реальных схемах всегда 
+            имеет место явление гонок и требуется создать такие схемы, в которых 
+            влияние этого явления устраняется.<O:P> </O:P></FONT></SPAN></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><FONT face=Tahoma size=2><SPAN 
+            style="mso-tab-count: 1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN><B style="mso-bidi-font-weight: normal">Борьба с гонками</B>. 
+            Существует три наиболее часто встречающихся способа борьбы с 
+            гонками:<O:P> </O:P></FONT></SPAN></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><FONT face=Tahoma size=2><SPAN 
+            style="mso-tab-count: 1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN>- тактирование;<O:P> </O:P></FONT></SPAN></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><FONT face=Tahoma size=2><SPAN 
+            style="mso-tab-count: 1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN>- построение противогоночных схем;<O:P> 
+            </O:P></FONT></SPAN></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2><!--[if gte vml 1]><O:WRAPBLOCK><V:SHAPE 
+            id=_x0000_s1029 
+            style="MARGIN-TOP: 25.45pt; Z-INDEX: 4; LEFT: 0px; MARGIN-LEFT: 50pt; WIDTH: 365.5pt; POSITION: absolute; HEIGHT: 167.05pt; TEXT-ALIGN: left; mso-position-horizontal: absolute; mso-position-horizontal-relative: text; mso-position-vertical: absolute; mso-position-vertical-relative: text" 
+            o:allowincell="f" type="#_x0000_t75"><V:IMAGEDATA o:title="2.3" 
+            src="file:///C:\DOCUME~1\ADMIN~1.MAS\LOCALS~1\Temp\msohtml1\01\clip_image005.jpg" 
+            /><W:WRAP type="topAndBottom" side="right" 
+            /></V:SHAPE><![endif]--></FONT><SPAN style="mso-ignore: vglayout">
+            <TABLE cellSpacing=0 cellPadding=0>
+              <TBODY>
+              <TR>
+                <TD width=67 height=0>
+                  <P style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px"><FONT 
+                  face=Tahoma size=2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  </FONT></P></TD></TR>
+              <TR>
+                <TD>
+                  <P style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px"></P></TD>
+                <TD>
+                  <P style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px"><FONT 
+                  face=Tahoma size=2><IMG height=223 
+                  src="Основы цифровой электроники1.files/2.htm3.jpg" width=487 
+                  v:shapes="_x0000_s1029"></FONT></P>
+                  <P style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px"><FONT 
+                  face=Tahoma 
+                  size=2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  </FONT></P></TD></TR></TBODY></TABLE></SPAN>
+            <P style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px"><FONT face=Tahoma 
+            size=2><!--[if gte vml 1]></O:WRAPBLOCK><![endif]--><BR 
+            style="mso-ignore: vglayout" clear=all><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><SPAN 
+            style="mso-tab-count: 1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN>- учет минимального времени задержки распространения 
+            сигнала.<O:P> </O:P></SPAN></FONT>
+            <P class=MsoNormal style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px" 
+            align=center><SPAN style="mso-bidi-font-size: 10.0pt"><FONT 
+            face=Tahoma size=2><O:P>&nbsp;</O:P> </FONT></SPAN></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><FONT face=Tahoma size=2><SPAN 
+            style="mso-tab-count: 1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            </SPAN>Пример реализации тактирования цикла работы комбинационного 
+            устройства (рис.2.4).<O:P> </O:P></FONT></SPAN></P>
+            <P class=MsoNormal 
+            style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; TEXT-ALIGN: justify"><FONT 
+            face=Tahoma size=2><!--[if gte vml 1]><O:WRAPBLOCK><V:SHAPE 
+            id=_x0000_s1027 
+            style="MARGIN-TOP: 7.1pt; Z-INDEX: 2; LEFT: 0px; MARGIN-LEFT: 58.5pt; WIDTH: 357.1pt; POSITION: absolute; HEIGHT: 164.25pt; TEXT-ALIGN: left; mso-position-horizontal: absolute; mso-position-horizontal-relative: text; mso-position-vertical: absolute; mso-position-vertical-relative: text" 
+            o:allowincell="f" type="#_x0000_t75"><V:IMAGEDATA o:title="" 
+            src="file:///C:\DOCUME~1\ADMIN~1.MAS\LOCALS~1\Temp\msohtml1\01\clip_image007.wmz" 
+            /><W:WRAP type="topAndBottom" /></V:SHAPE><![if gte mso 9]><o:OLEObject Type="Embed"
+  ProgID="CorelDRAW.Graphic.9" ShapeID="_x0000_s1027" DrawAspect="Content"
+  ObjectID="_1076331652">
+ </o:OLEObject>
+ <![endif]><![endif]--></FONT><SPAN 
+            style="mso-ignore: vglayout">
+            <TABLE cellSpacing=0 cellPadding=0 align=left>
+              <TBODY>
+              <TR>
+                <TD width=78 height=0>
+                  <P style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px"><FONT 
+                  face=Tahoma 
+                  size=2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  </FONT></P></TD></TR>
+              <TR>
+                <TD>
+                  <P style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px"></P></TD>
+                <TD>
+                  <P style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px"><FONT 
+                  face=Tahoma size=2><IMG height=219 
+                  src="Основы цифровой электроники1.files/2.htm4.gif" width=476 
+                  v:shapes="_x0000_s1027"></FONT></P></TD></TR></TBODY></TABLE></SPAN>
+            <P style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px"><FONT face=Tahoma 
+            size=2><!--[if gte vml 1]></O:WRAPBLOCK><![endif]--><BR 
+            style="mso-ignore: vglayout" clear=all><SPAN 
+            style="mso-bidi-font-size: 10.0pt"><O:P></O:P></SPAN></FONT>
+            <P style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px">&nbsp;</P></TD>
+          <TD width="2%">
+            <P 
+      style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px"></P></TD></TR></TBODY></TABLE></TD></TR></TBODY></CENTER></DIV></BODY></HTML>
