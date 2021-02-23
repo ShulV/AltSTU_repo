@@ -1,0 +1,39 @@
+mvi b,1 	; непосредственна€ загрузка 1 в rB
+stor b,I 	; i:=1
+in 0		; ввод A
+stor a,A	; a:=A
+adr a,b		; A+1
+stor a,AI	; AI:=A+1 (AI -текущее значение A+i)
+stor a,F	; F:=A+1 текущее значение функции (результат при N=2)
+in 1 		; ввод N в rA
+sbi a,1		; N-1
+stor a,N1	; n1 = n-1
+cmi a,1 	; сравнить (rA) с 0 (n-1=1 ?)
+jz exit 	; перейти по символическому адресу exit при (rA)=0
+xchg 		; (rA)-(rB) : в rA - 1(i:=1); в rB - N-1
+cycl: load b,N1	; загрузить в rB N
+load a,I	; загрузить в rA I
+cmr a,b 	; в соответствии с операцией   (R1)-(R2)
+jz exit 	; переход по признаку P (I==n-1)
+load a,AI	; в rA текущее значение функции
+mvi b,1		; непосредственна€ загрузка 1 в rB
+adr a,b		; (A+i)+1
+stor a,AI	; AI:=(A+i)+1(AI -текущее значение A+i)
+load b,F	; в rB текущее значение функции
+mur a,a 	; (rB)*(rA)->(rA,rB) (A+i)*F
+stor b,F	; F=(A+i)*F
+load b,I	; I в rB
+adi b,1 	; I+1
+stor b,I 	; I=I+1
+load a,F	; lllllllllllllllllllllllllllllllllllllllll
+out 7		; lllllllllllllllllllllllllllllllllllllllll
+
+jmp cycl 	; переход на проверку услови€ окончани€ цикла
+exit: load a,F 	; (rA)<- результат вычислени€ выражени€
+out 7 		; вывод результата в порт 1
+stop 		; стоп
+F: .ds 1	; €чейка под текущее значение функции
+A: .ds 1	; €чейка под A
+AI: .ds 1 	; €чейка под текущее значение A+i
+I: .ds 1 	; €чейка под текущее i
+N1: .ds 1 	; €чейка дл€ хранени€ N-1

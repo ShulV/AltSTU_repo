@@ -1,0 +1,120 @@
+    1  00  b8  0a  jmp begin
+    2  02  00      .org 2
+    3  02  80      .db 080
+    4  03  00      .org 3
+    5  03  90      .db 090
+    6  04  00      .org 8
+    7  08  a5      .db 0A5
+    8  09  00      .org 9
+    9  09  e0      .db 0E0
+   10  0a  30  05  begin: mvi a,5
+   11  0c  31  40  mvi b,E
+   12  0e  d2      int 2
+   13  0f  10  40  begin2: load a,E
+   14  11  0a      mov b,a
+   15  12  81      mur a,b
+   16  13  a0  02  dvi a,2
+   17  15  19  46  stor b,P1
+   18  17  10  41  load a,F
+   19  19  18  47  stor a,P2
+   20  1b  c0  49  call min
+   21  1d  10  48  load a,RES
+   22  1f  0a      mov b,a
+   23  20  81      mur a,b
+   24  21  19  45  stor b,V
+   25  23  10  42  load a,C
+   26  25  18  46  stor a,P1
+   27  27  10  43  load a,D
+   28  29  18  47  stor a,P2
+   29  2b  c0  49  call min
+   30  2d  10  48  load a,RES
+   31  2f  0a      mov b,a
+   32  30  81      mur a,b
+   33  31  10  45  load a,V
+   34  33  51      adr a,b
+   35  34  18  46  stor a,P1
+   36  36  10  44  load a,A
+   37  38  18  47  stor a,P2
+   38  3a  c0  49  call min
+   39  3c  10  48  load a,RES
+   40  3e  d3      int 3
+   41  3f  f8      stop
+   43  40  00      E: .ds 1
+   44  41  00      F: .ds 1
+   45  42  00      C: .ds 1
+   46  43  00      D: .ds 1
+   47  44  00      A: .ds 1
+   48  45  00      V: .ds 1
+   49  46  00      P1: .ds 1
+   50  47  00      P2: .ds 1
+   51  48  00      RES: .ds 1
+   53  49  10  46  min: load a,P1
+   54  4b  11  47  load b,P2
+   55  4d  a9      cmr a,b
+   56  4e  bb  51  jp next
+   57  50  0a      mov b,a
+   58  51  19  48  next: stor b,RES
+   59  53  c8      ret
+   61  54  00      .org 080
+   62  80  f0      di
+   63  81  20      CYCLIN: push a
+   64  82  40      in 0
+   65  83  1c  40  stor a,00(b)
+   66  85  61  01  adi b,1
+   67  87  28      pop a
+   68  88  e0  81  loop a,CYCLIN
+   69  8a  e8      ei
+   70  8b  d8      rin
+   72  8c  00      .org 090
+   73  90  f0      di
+   74  91  49      out 1
+   75  92  e8      ei
+   76  93  d8      rin
+   78  94  00      .org 0A5
+   79  a5  f0      di
+   80  a6  10  42  load a,C
+   81  a8  4b      out 3
+   82  a9  10  43  load a,D
+   83  ab  4b      out 3
+   84  ac  43      in 3
+   85  ad  10  42  load a,C
+   86  af  43      in 3
+   87  b0  10  43  load a,D
+   88  b2  31  00  mvi b,00
+   89  b4  19  45  stor b,V
+   90  b6  19  46  stor b,P1
+   91  b8  19  47  stor b,P2
+   92  ba  19  48  stor b,RES
+   93  bc  32  fd  mvi sp,0fd
+   94  be  30  0f  mvi a,begin2
+   95  c0  1c  81  RETURN: stor a,1(sp)
+   96  c2  e8      ei
+   97  c3  d8      rin
+   99  c4  00      .org 0E0
+  100  e0  f0      di
+  101  e1  28      pop a
+  102  e2  20      push a
+  103  e3  4c      out 4
+  104  e4  e8      ei
+
+    ***** Таблица перекрестных ссылок *****
+  имя     определение     ссылки
+
+ V        45              b5  32  22                                           
+ RETURN   c0                                                                   
+ RES      48              bb  52  3d  2e  1e                                   
+ P2       47              b9  4c  39  2a  1a                                   
+ P1       46              b7  4a  35  26  16                                   
+ NEXT     51              4f                                                   
+ MIN      49              3b  2c  1c                                           
+ F        41              18                                                   
+ E        40              10  d                                                
+ D        43              b1  aa  28                                           
+ CYCLIN   81              89                                                   
+ C        42              ae  a7  24                                           
+ BEGIN2   f               bf                                                   
+ BEGIN    a               1                                                    
+ A        44              37                                                   
+
+  **** Не обнаружено ошибок. Успешное завершение ****
+

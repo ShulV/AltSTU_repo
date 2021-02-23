@@ -1,0 +1,141 @@
+.db 0a
+.db 1a
+.org 08
+.db 0b0
+.db 0d0
+
+.org 0a
+di
+mvi b,X
+mvi a,09
+vvod: push a
+in 0
+stor a,0(b)
+adi b,1
+pop a
+loop a,vvod
+ei
+rin
+
+.org 1a
+di
+out 1
+ei
+rin
+ret
+mvi a,1
+stor a,D
+mvi a,1
+stor a,const
+int 0
+start:load a,C
+stor a,memory1
+Load a,L
+stor a,memory2
+load a,const
+stor a,memory3
+call power
+load a,V
+stor a,memory2
+call power1
+load b,memory3
+stor b,res
+load a,B
+stor a,memory1
+load a,U
+stor a,memory2
+load a,const
+stor a,memory3
+call power
+load a, Z
+stor a,memory2
+call power1
+load b,memory3
+dvm a,res
+stor b,res
+load a,A
+stor a,memory1
+load a,W
+stor a,memory2
+load a,const
+stor a,memory3
+call power
+load a, X
+stor a,memory2
+call power1
+load a,memory3
+adm a,res
+int 1
+stop
+D: .ds 1
+X: .ds 1
+Z: .ds 1
+V: .ds 1
+A: .ds 1
+W: .ds 1
+B: .ds 1
+U: .ds 1
+C: .ds 1
+L: .ds 1
+const: .ds 1
+memory1: .ds 1
+memory2: .ds 1
+memory3: .ds 1
+res: .ds 1
+tmp: .ds 1
+
+power: load b,memory1
+mum a,memory1
+dvm a,memory2
+adm b,D
+sbm b,memory3
+stor b, memory1
+ret
+power1:mvi b,1
+load a,memory1
+cmi a,0
+jz exit
+cycl: push a
+mum a,memory2
+pop a
+loop a,cycl
+exit: stor b,memory3
+ret
+
+
+.org 0b0
+di
+in 0
+stor a,D
+in 0
+stor a,const
+pop a
+pop a
+mvi a,0
+stor a,memory1
+mvi a,0
+stor a,memory2
+mvi a,0
+stor a,memory3
+mvi a,0
+stor a,res
+mvi b,start
+push b
+mvi sp,0fd
+ei
+rin
+
+.org 0d0
+di
+push a
+push b
+load a,4(sp)
+out 6
+push sp
+pop a
+out 7
+pop b
+pop a
+ei
+rin
+.end

@@ -1,0 +1,21 @@
+in 0		;ввод D
+mov b,a		;скопировать rA в rB
+mur a,a		;rB*rA D*D
+push b		;D*D в стек
+in 1		;ввод C
+mov b,a		;скопировть rA в rB
+mui a,1		;распространение знака
+dvm a,1(sp)	;dB(C)/вершину стека(D*D)
+push b		;C/(D*D) в стек
+in 2		;ввод B
+push a		;B в стек
+in 3		;ввод A
+mov b,a		;скопировть rA в rB
+mui a,1		;распространение знака
+dvm a,1(sp)	;dB(A)/вершину стека(B)
+pop a		;вытолкнуть B из стека
+pop a		;вытолкнуть C/(D*D) из стека
+sbr b,a		;rB-rA
+mov a,b		;скопировть rB в rA
+out 7		;вывести в 7 порт
+stop		;останов
