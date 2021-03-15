@@ -1,0 +1,72 @@
+.maintitle {
+	FONT-WEIGHT: bold; FONT-SIZE: 22px; COLOR: #000000; LINE-HEIGHT: 120%; FONT-FAMILY: "Trebuchet MS",Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.mainmenu {
+	FONT-SIZE: 11px; COLOR: #000000
+}
+.cattitle {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #274f76; FONT-FAMILY: Arial, Helvetica, sans-serif; LETTER-SPACING: 1px
+}
+A.cattitle {
+	COLOR: #006699; TEXT-DECORATION: none
+}
+A.cattitle:hover {
+	TEXT-DECORATION: underline
+}
+.topictitle {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #000000
+}
+A.topictitle:link {
+	COLOR: #006699; TEXT-DECORATION: none
+}
+A.topictitle:visited {
+	COLOR: #5493b4; TEXT-DECORATION: none
+}
+A.copyright {
+	COLOR: #444444; TEXT-DECORATION: none
+}
+A.copyright:hover {
+	COLOR: #000000; TEXT-DECORATION: underline
+}
+.mainText {
+	PADDING-RIGHT: 20px; PADDING-LEFT: 20px; FONT-WEIGHT: normal; FONT-SIZE: 12px; PADDING-BOTTOM: 3px; CURSOR: default; COLOR: #1a334d; PADDING-TOP: 3px; BACKGROUND-REPEAT: no-repeat; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-ALIGN: justify
+}
+.topicText {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 10px; FONT-WEIGHT: bold; FONT-SIZE: 12px; PADDING-BOTTOM: 0px; COLOR: #ffffff; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #2169ad; TEXT-ALIGN: justify; TEXT-DECORATION: none
+}
+.mainTextsmall {
+	FONT-WEIGHT: normal; FONT-SIZE: 9px; PADDING-BOTTOM: 10px; COLOR: #336699; LINE-HEIGHT: 20px; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: justify
+}
+.mainTitle {
+	FONT-SIZE: medium; COLOR: #8fb8d3; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; FONT-VARIANT: normal
+}
+.topicTextLight {
+	PADDING-LEFT: 40px; FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #ffffff; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #6699cc; TEXT-ALIGN: justify
+}
+.mainColor {
+	COLOR: #009900
+}
+.mainTitle2 {
+	FONT-SIZE: 24px; COLOR: #8fb8d3; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.TopicText1 {
+	BORDER-RIGHT: black 0px solid; PADDING-RIGHT: 20px; BORDER-TOP: black 0px solid; PADDING-LEFT: 20px; FONT-WEIGHT: bold; FONT-SIZE: 12px; BORDER-LEFT: black 0px solid; COLOR: #ffffff; BORDER-BOTTOM: #4691c1 1px solid; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #2b81aa
+}
+.topicTextLight2 {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #ffffff; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #6699cc; TEXT-ALIGN: justify; TEXT-DECORATION: none
+}
+.mainTextBorder {
+	BORDER-RIGHT: #2169ad 1px solid; PADDING-RIGHT: 20px; BORDER-TOP: #2169ad 0px solid; PADDING-LEFT: 20px; FONT-WEIGHT: normal; FONT-SIZE: 12px; PADDING-BOTTOM: 3px; BORDER-LEFT: #2169ad 1px solid; CURSOR: default; COLOR: #2169ad; PADDING-TOP: 3px; BORDER-BOTTOM: #2169ad 1px solid; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: justify
+}
+.mainTextsmall2 {
+	PADDING-RIGHT: 15px; PADDING-LEFT: 15px; FONT-WEIGHT: bold; FONT-SIZE: 12px; PADDING-BOTTOM: 10px; COLOR: #2c5172; LINE-HEIGHT: 14px; PADDING-TOP: 15px; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: justify
+}
+.TopicText2 {
+	BORDER-RIGHT: black 0px solid; PADDING-RIGHT: 20px; BORDER-TOP: black 0px solid; PADDING-LEFT: 20px; FONT-WEIGHT: bold; FONT-SIZE: 12px; BORDER-LEFT: black 0px solid; COLOR: #ffffff; BORDER-BOTTOM: #4691c1 1px solid; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #4691c1; TEXT-ALIGN: justify
+}
+.cattitle1 {
+	WORD-SPACING: normal; FONT: bold 10px Verdana, Arial, Helvetica, sans-serif; TEXT-TRANSFORM: none; COLOR: #ffffff; WHITE-SPACE: pre; LETTER-SPACING: 1px; TEXT-DECORATION: none
+}
+.cattitle ÓÔËÓ‚‡Ú¸ {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: #336699; LETTER-SPACING: 1px; TEXT-DECORATION: none
+}

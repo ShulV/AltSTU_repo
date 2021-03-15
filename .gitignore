@@ -11,6 +11,8 @@ foo.txt
 *.png
 *.jpg
 *.jpeg
+*.bmp
+*.gif
 # Но конкретно foo.html не игнорировать
 !foo.html
 # Игнорировать rar файлы в корне проекта
