@@ -60,10 +60,42 @@ import csv
 # A^(1) =
 #           |A11 * detA      A21 * detA|
 #           |A12 * detA      A22 * detA|
-
+#
+# --- Решение с выбором главного ведущего
+# Среди элементов  a(k)sk,  s=k,k+1,…,m  находят наибольший по модулю,
+# который называют  главным  или ведущим  элементом, и перестановкой строк выводят его на главную диагональ,
+# после чего выполняют цикл исключения.
+# Такая модификация алгоритма называется методом Гаусcа с выбором главного элемента.
+#
+# --- Величина невязки
+# Контроль вычислений можно вести по величине невязки - векторе,
+# который получается при вычитании из правой части системы левой, в которую подставлено полученное решение.
+#
+# --- Ортогона́льная ма́трица
+# - это квадратная матрица A с вещественными элементами,
+# результат умножения которой на транспонированную матрицу A^T равен единичной матрице[1]:
+# или, что эквивалентно, её обратная матрица (которая обязательно существует) равна транспонированной матрице
+#
+# --- Прямой ход метода Гаусса
+# заключается в приведении матрицы системы к треугольному виду
+#
+# --- Количество операций для решения
+# Для решений системы m линейных алгебраических уравнений с m неизвестными требуется порядка M алгебраических операций.
+# M равно: 2/3 * m^3
+#
 # ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
 INPUT_FILENAME = 'input.csv'
 OUTPUT_FILENAME = 'output.csv'
+
+
+def count(func):
+    """Декоратор - счётчик"""
+    def wrapper(*a, **kw):
+        wrapper.count += 1
+        return func(*a, **kw)
+
+    wrapper.count = 0
+    return wrapper
 
 
 def read_input_data(filename, matrix):
@@ -96,6 +128,7 @@ def format_print(a, b, selected=None):
         print("\t) = (\t{1:10.2f})".format(row_ind + 1, b[row_ind]))
 
 
+@count
 def swap_rows(a, b, row1, row2):
     """перемена местами двух строк системы"""
     a[row1], a[row2] = a[row2], a[row1]
@@ -131,32 +164,49 @@ def solve_by_gauss(a, b):
             print("Переставляем строку с найденным элементом повыше:")
             swap_rows(a, b, current_row, column)
             format_print(a, b, (column, column))
-        print("Нормализуем строку с найденным элементом:")
-        divide_row(a, b, column, a[column][column])
+        print(f"Нормализуем строку с найденным элементом (делим на {a[column][column]}):")
+        try:
+            divide_row(a, b, column, a[column][column])
+        except ZeroDivisionError:
+            raise ZeroDivisionError
         format_print(a, b, (column, column))
         print("Обрабатываем нижележащие строки:")
         for r in range(column + 1, len(a)):
             combine_rows(a, b, r, column, -a[r][column])
         format_print(a, b, (column, column))
         column += 1
-    print("Матрица приведена к треугольному виду, считаем решение")
-    x = [0 for _ in b]
-    for i in range(len(b) - 1, -1, -1):
-        x[i] = b[i] - sum(x * a for x, a in zip(x[(i + 1):], a[i][(i + 1):]))
-    print("Получили ответ:")
-    print("\n".join("X{0} =\t{1:10.2f}".format(i + 1, x) for i, x in enumerate(x)))
-    return x
-# --- end of решение системы методом Гаусса (приведением к треугольному виду)
+    print("Матрица приведена к треугольному виду, находим определитель")
+    det = calc_det_triangular_matrix(a)
+    if det == 0:
+        print('Определитель равен нулю => матрица вырожденная')
+        return None
+    else:
+        print("Определитель равен {0} => матрица невырожденная, считаем решение".format(det))
+        x = [0 for _ in b]
+        for i in range(len(b) - 1, -1, -1):
+            x[i] = b[i] - sum(x * a for x, a in zip(x[(i + 1):], a[i][(i + 1):]))
+        print("Получили ответ:")
+        print("\n".join("X{0} =\t{1:10.2f}".format(i + 1, x) for i, x in enumerate(x)))
+        return x
+
+
+def calc_det_triangular_matrix(matrix):
+    swap_number = swap_rows.count
+    det = (1 if swap_number % 2 == 0 else -1)
+    for i in range(len(matrix)):
+        det *= matrix[i][i]
+    return det
 
 
 def main():
+    swap_number = 0
     expanded_matrix = list()
     try:
         read_input_data(INPUT_FILENAME, expanded_matrix)
     except Exception:
-        print('Ошибка при чтении файла')
+        print("Ошибка при чтении файла")
         return
-    
+
     free_factors = []
     for _row in expanded_matrix:
         free_factors.append(_row.pop())
@@ -165,11 +215,16 @@ def main():
     print("Исходная система:")
     format_print(factors_at_unknowns, free_factors, None)
     print("Решаем:")
-    solve_by_gauss(factors_at_unknowns, free_factors)
+    try:
+        solve_by_gauss(factors_at_unknowns, free_factors)
+    except ZeroDivisionError:
+        print("Определитель равен нулю!")
+    except Exception:
+        print("Непредвиденная ошибка")
     try:
         write_output_data(OUTPUT_FILENAME, expanded_matrix)
     except Exception:
-        print('Ошибка при записи в файл')
+        print("Ошибка при записи в файл")
         return
 
 
