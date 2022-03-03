@@ -9,7 +9,8 @@ class Graph:
         self.graph_table = {'arc_start': [],
                             'arc_end': [],
                             'weight': [],
-                            'is_visited': [], }  # таблица, содержащая дуги и веса графа
+                            'is_visited': [],
+                            'layer': [], }  # таблица, содержащая дуги и веса графа
         self.struct_graph_table = {'arc_start': [],
                                    'arc_end': [],
                                    'weight': [],
@@ -165,26 +166,26 @@ class Graph:
                             self.graph_table['is_visited'][k] = True
                 else:
                     print(f'вершины графа {self.last_top} и {self.graph_table["arc_end"][i]} конечные')
-                    # choice = input('Ввести фиктивную конечную вершину (1-да, 2-нет): ')
-                    # choice = '1'
-                    # if choice == '1':
-                    print('создание фиктвной последней вершины')
-                    self.add_row_in_graph_table(self.last_top, self.fictive_end_top, 0)
-                    self.add_row_in_graph_table(self.graph_table['arc_end'][i], self.fictive_end_top, 0)
-                    if self.last_top != self.fictive_end_top:
-                        self.last_top = self.fictive_end_top
+                    choice = input('Ввести фиктивную конечную вершину (1-да, 2-нет): ')
+                    if choice == '1':
+                        print('создание фиктвной последней вершины')
+                        self.add_row_in_graph_table(self.last_top, self.fictive_end_top, 0)
+                        self.add_row_in_graph_table(self.graph_table['arc_end'][i], self.fictive_end_top, 0)
+                        if self.last_top != self.fictive_end_top:
+                            self.last_top = self.fictive_end_top
 
-                    for index in range(0, self.ways_num):
-                        if self.graph_table['arc_end'][index] == self.graph_table['arc_end'][i]:
-                            self.graph_table['is_visited'][index] = True
+                        for index in range(0, self.ways_num):
+                            if self.graph_table['arc_end'][index] == self.graph_table['arc_end'][i]:
+                                self.graph_table['is_visited'][index] = True
                     # удаление одной из вершин
-                    # else:
-                    #     print(f'удаление вершины {self.graph_table}')
-                    #     self.delete_row_from_graph_table(i)
-                    #     self.last_top = None
-                    #     for index in range(0, self.ways_num):
-                    #         self.graph_table['is_visited'][index] = False
-                    #     self.search_last_top()
+                    else:
+                        print(f'удаление вершины {self.graph_table}')
+                        self.delete_row_from_graph_table(i)
+                        self.last_top = None
+                        for index in range(0, self.ways_num):
+                            self.graph_table['is_visited'][index] = False
+                        self.search_last_top()
+                        break
 
     # def get_first_top_index(self):
     #     for index in range(0, self.ways_num):
@@ -207,9 +208,38 @@ class Graph:
                     j = temp
                 j += 1
             i += 1
+        self.print_graph()
         self.search_last_top()
         for index in range(0, self.ways_num):
             self.graph_table['is_visited'][index] = False
+
+    def find_layers(self):
+        """ нахождение слоев для каждой вершины """
+        # найдем индекс первой вершины
+        first_top_index = 0
+        for i in range(0, self.ways_num):
+            if [self.first_top] ==  self.graph_table['arc_start'][i]:
+                first_top_index = i
+        # присвоим первой вершине слой
+        layer_level = 0
+        self.graph_table['layer'][first_top_index] = layer_level
+        # создадим очередь вершин и поместим туда первую вершину
+        top_queue = [self.graph_table['layer'][first_top_index]]
+        # найдем все вершины второго слоя
+        layer_set = set()
+        for i in range(0, self.ways_num):
+            if self.graph_table['arc_start'][i] == top_queue[len(top_queue) - 1]:
+                # поиск конечной вершины работы и проверка, имеет ли она входящие в неё работы,
+                # находящиеся не в текущем слое
+                has_prev_tops = False
+                for k in range(0, self.ways_num):
+                    if self.graph_table['arc_start'][k] == self.graph_table['arc_end'][i]:
+                        is_last = False
+                layer_set.add(self.graph_table['arc_end'][i])
+
+    def find_layer(self, layer_level, top_queue):
+        # отметка слоев этого уровня и нахождение слоев следующего уровня
+        self.find_layer(layer_level + 1, top_queue)
 
     def struct_graph(self):
         print('упорядочивание графа')
