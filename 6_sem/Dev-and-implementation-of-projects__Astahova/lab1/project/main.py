@@ -18,7 +18,7 @@ class Graph:
         self.last_top = None  # последняя вершина графа
         self.ways_num = 0  # количество путей (работ) графа
         self.struct_graph_ways_num = 0  # количество путей (работ) упорядоченного графа
-        self.top_queue = []
+        self.current_way = []  # текущий путь для вывода всех полных путей
         with open(file_in) as File:
             reader = csv.reader(File, delimiter=';')
             for row in reader:
@@ -105,7 +105,7 @@ class Graph:
                         self.graph_table['is_visited'][index] = True
 
     def delete_top_loops(self, index):
-        """ рекурсивное удаление петель """
+        """ удаление петель """
         start_top = self.graph_table['arc_start'][index]
         end_top = self.graph_table['arc_end'][index]
         if start_top == end_top:
@@ -166,30 +166,30 @@ class Graph:
                 else:
                     print(f'вершины графа {self.last_top} и {self.graph_table["arc_end"][i]} конечные')
                     # choice = input('Ввести фиктивную конечную вершину (1-да, 2-нет): ')
-                    choice = '1'
-                    if choice == '1':
-                        print('создание фиктвной последней вершины')
-                        self.add_row_in_graph_table(self.last_top, self.fictive_end_top, 0)
-                        self.add_row_in_graph_table(self.graph_table['arc_end'][i], self.fictive_end_top, 0)
-                        if self.last_top != self.fictive_end_top:
-                            self.last_top = self.fictive_end_top
+                    # choice = '1'
+                    # if choice == '1':
+                    print('создание фиктвной последней вершины')
+                    self.add_row_in_graph_table(self.last_top, self.fictive_end_top, 0)
+                    self.add_row_in_graph_table(self.graph_table['arc_end'][i], self.fictive_end_top, 0)
+                    if self.last_top != self.fictive_end_top:
+                        self.last_top = self.fictive_end_top
 
-                        for index in range(0, self.ways_num):
-                            if self.graph_table['arc_end'][index] == self.graph_table['arc_end'][i]:
-                                self.graph_table['is_visited'][index] = True
+                    for index in range(0, self.ways_num):
+                        if self.graph_table['arc_end'][index] == self.graph_table['arc_end'][i]:
+                            self.graph_table['is_visited'][index] = True
                     # удаление одной из вершин
-                    else:
-                        print(f'удаление вершины {self.graph_table}')
-                        self.delete_row_from_graph_table(i)
-                        self.last_top = None
-                        for index in range(0, self.ways_num):
-                            self.graph_table['is_visited'][index] = False
-                        self.search_last_top()
+                    # else:
+                    #     print(f'удаление вершины {self.graph_table}')
+                    #     self.delete_row_from_graph_table(i)
+                    #     self.last_top = None
+                    #     for index in range(0, self.ways_num):
+                    #         self.graph_table['is_visited'][index] = False
+                    #     self.search_last_top()
 
-    def get_first_top_index(self):
-        for index in range(0, self.ways_num):
-            if self.first_top == self.graph_table['arc_start'][index]:
-                return index
+    # def get_first_top_index(self):
+    #     for index in range(0, self.ways_num):
+    #         if self.first_top == self.graph_table['arc_start'][index]:
+    #             return index
 
     def optimize_graph(self):
         """ оптимизация графа (удаление петель, одинаковых работ, поиск последней вершины"""
@@ -212,11 +212,10 @@ class Graph:
             self.graph_table['is_visited'][index] = False
 
     def struct_graph(self):
+        print('упорядочивание графа')
         vertex_queue = [self.first_top]
         while self.ways_num != self.struct_graph_ways_num:
             for i in range(0, self.ways_num):
-                self.print_row(i)
-                print(f'size = {self.struct_graph_ways_num}')
                 if vertex_queue[0] == self.graph_table['arc_start'][i] and not self.graph_table['is_visited'][i]:
                     self.copy_row_to_struct_graph_table(i)
                     vertex_queue.append(self.graph_table['arc_end'][i])
@@ -224,13 +223,30 @@ class Graph:
 
             vertex_queue.pop(0)
 
-    def recursive_search(self):
-        """ рекурсивный обход графа """
-        pass
-
     def search_full_ways(self):
         """ нахождение всех полных путей графа """
-        pass
+        self.current_way = [self.first_top]
+        print('полные пути графа:')
+        for i in range(0, self.ways_num):
+            if self.graph_table['arc_start'][i] == self.first_top:
+                self.current_way.append(self.graph_table['arc_end'][i])  # запомнить следуюущую вершину в списке путей
+                self.recursive_search()
+
+    def recursive_search(self):
+        """ рекурсивный обход графа """
+        if self.current_way[len(self.current_way) - 1] == self.last_top:
+            for i in range(0, len(self.current_way)):
+                print(f'{self.current_way[i]} ', end='')
+            print()
+            self.current_way.pop()  # удаление последней вершины, возврат по стеку
+            return
+
+        for i in range(0, self.ways_num):
+            if self.graph_table['arc_start'][i] == self.current_way[len(self.current_way) - 1]:
+                self.current_way.append(self.graph_table['arc_end'][i])  # запомнить вершину
+                self.recursive_search()
+        self.current_way.pop()  # удаление последней вершины
+        return
 
 
 if __name__ == "__main__":
@@ -240,9 +256,6 @@ if __name__ == "__main__":
     graph.search_first_top()
     graph.optimize_graph()
     graph.print_graph()
-    print(graph.graph_table)
-
     graph.struct_graph()
-    print(graph.struct_graph_table)
-
     graph.print_graph(sorted_graph=True)
+    graph.search_full_ways()
