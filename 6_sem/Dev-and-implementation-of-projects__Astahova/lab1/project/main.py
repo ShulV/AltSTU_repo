@@ -1,6 +1,5 @@
 import csv
 
-
 class Graph:
 
     def __init__(self, file_in):
