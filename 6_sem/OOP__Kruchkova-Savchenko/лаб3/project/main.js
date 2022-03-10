@@ -239,7 +239,7 @@ class RusLangGame extends Game {
     }   
 }
 
-// класс Игра на знания русского языка
+// класс Игра на изучение английского языка
 class EnglishWordsGame extends Game {
     constructor() {
         super.constructor();
