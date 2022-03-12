@@ -9,15 +9,16 @@ class Graph:
                             'arc_end': [],
                             'weight': [],
                             'is_visited': [],
-                            'layer': [], }  # таблица, содержащая дуги и веса графа
+                            # 'layer': [],
+                            }  # таблица, содержащая дуги и веса графа
         self.struct_graph_table = {'arc_start': [],
                                    'arc_end': [],
                                    'weight': [],
                                    'is_visited': [], }  # упоряденная таблица, содержащая дуги и веса графа
         self.first_top = None  # первая вершина графа
         self.last_top = None  # последняя вершина графа
-        self.ways_num = 0  # количество путей (работ) графа
-        self.struct_graph_ways_num = 0  # количество путей (работ) упорядоченного графа
+        self.ways_num = 0  # количество работ графа
+        self.struct_graph_ways_num = 0  # количество работ упорядоченного графа
         self.current_way = []  # текущий путь для вывода всех полных путей
         with open(file_in) as File:
             reader = csv.reader(File, delimiter=';')
@@ -53,17 +54,6 @@ class Graph:
         self.graph_table['is_visited'].pop(index)
         self.ways_num -= 1
 
-    def print_graph(self, sorted_graph=False):
-        """ печать таблицы |A|B|time|"""
-        print('_' * 100)
-        print('Вывод таблицы путей графа')
-        print('|{start:^10}|{end:^10}|{weight:^10}|'.format(start='--A--', end='--B--', weight='--Вес--'))
-        for row_index in range(0, self.ways_num):
-            self.print_row(row_index, sorted_graph)
-        print(f'Первая вершина: {self.first_top}')
-        print(f'Последняя вершина: {self.last_top}')
-        print('_' * 100)
-
     def print_row(self, row_index, sorted_graph=False):
         if sorted_graph:
             print('|{start:^10}|{end:^10}|{weight:^10}|'.format(
@@ -75,6 +65,17 @@ class Graph:
                 start=self.graph_table['arc_start'][row_index],
                 end=self.graph_table['arc_end'][row_index],
                 weight=self.graph_table['weight'][row_index]))
+
+    def print_graph(self, sorted_graph=False):
+        """ печать таблицы |A|B|time|"""
+        print('_' * 100)
+        print('Вывод таблицы путей графа')
+        print('|{start:^10}|{end:^10}|{weight:^10}|'.format(start='--A--', end='--B--', weight='--Вес--'))
+        for row_index in range(0, self.ways_num):
+            self.print_row(row_index, sorted_graph)
+        print(f'Первая вершина: {self.first_top}')
+        print(f'Последняя вершина: {self.last_top}')
+        print('_' * 100)
 
     def search_first_top(self):
         """ поиск первой вершины графа """
@@ -93,6 +94,7 @@ class Graph:
                 # если это первая первая вершина (не изменялась после инициализации)
                 if self.first_top is None:
                     self.first_top = self.graph_table['arc_start'][i]
+                # иначе она уже не первая, нарушаются правила СГ, нужно создавать фиктив. вершину
                 else:
                     print('создание фиктивной первой вершины')
                     self.add_row_in_graph_table(self.fictive_start_top, self.first_top, 0)
@@ -141,6 +143,27 @@ class Graph:
                 print(f'работа имеет одинаковый вес {self.graph_table["weight"][i]}; автоматическое удаление')
                 self.delete_row_from_graph_table(j)
                 return 0
+
+    def optimize_graph(self):
+        """ оптимизация графа (удаление петель, одинаковых работ, поиск последней вершины"""
+        print('оптимизация:')
+        i = 0
+        while i < self.ways_num:
+            # one
+            i = self.delete_top_loops(i)
+            # two
+            j = 0
+            while j < self.ways_num:  # сравнение всех вершин СГ
+                temp = self.check_duplication(i, j)
+                # None при запуске optimize_graph рекурсивно из check_duplication(i, j). Иначе обнуляется счётчик цикла.
+                j += 1
+                if temp is not None:
+                    j = temp
+            i += 1
+        self.print_graph()
+        self.search_last_top()
+        for index in range(0, self.ways_num):
+            self.graph_table['is_visited'][index] = False
 
     def search_last_top(self):
         """ поиск последней вершины графа """
@@ -193,27 +216,6 @@ class Graph:
     #         if self.first_top == self.graph_table['arc_start'][index]:
     #             return index
 
-    def optimize_graph(self):
-        """ оптимизация графа (удаление петель, одинаковых работ, поиск последней вершины"""
-        print('оптимизация:')
-        i = 0
-        while i < self.ways_num:
-            # one
-            i = self.delete_top_loops(i)
-            # two
-            j = 0
-            while j < self.ways_num:  # сравнение всех вершин СГ
-                temp = self.check_duplication(i, j)
-                # None при запуске optimize_graph рекурсивно из check_duplication(i, j). Иначе обнуляется счётчик цикла.
-                if temp is not None:
-                    j = temp
-                j += 1
-            i += 1
-        self.print_graph()
-        self.search_last_top()
-        for index in range(0, self.ways_num):
-            self.graph_table['is_visited'][index] = False
-
     # def find_layers(self):
     #     """ нахождение слоев для каждой вершины """
     #     # найдем индекс первой вершины
@@ -238,9 +240,9 @@ class Graph:
     #                     is_last = False
     #             layer_set.add(self.graph_table['arc_end'][i])
 
-    def find_layer(self, layer_level, top_queue):
-        # отметка слоев этого уровня и нахождение слоев следующего уровня
-        self.find_layer(layer_level + 1, top_queue)
+    # def find_layer(self, layer_level, top_queue):
+    #     # отметка слоев этого уровня и нахождение слоев следующего уровня
+    #     self.find_layer(layer_level + 1, top_queue)
 
     def struct_graph(self):
         print('упорядочивание графа')
