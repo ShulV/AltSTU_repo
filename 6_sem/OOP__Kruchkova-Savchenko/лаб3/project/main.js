@@ -1,23 +1,141 @@
-const MIN_MATH_GAME_NUMBER = -10;
-const MAX_MATH_GAME_NUMBER = 10;
-const EXPERIENCE_FOR_ONE_EXERCISE_IN_MATH_GAME = 100;
-const EXPERIENCE_FOR_ONE_EXERCISE_IN_RUS_LANG_GAME = 100;
-const EXPERIENCE_FOR_ONE_EXERCISE_IN_ENGLISH_WORDS_GAME = 50;
+
 const RUS_LANG_QUESTIONS_FILENAME = 'rus_lang_questions.json';
 const ENGLISH_WORDS_TRANSLATION_FILENAME = 'english_words.json';
+const GAMER_STAT = 'gamer_stat.json';
+const MATH_GAME_NAME = "Математика";
+const RUS_LANG_GAME_NAME = "Русский язык";
+const ENGLISH_WORDS_GAME_NAME = "Английский язык";
+
+const INIT_STAT_ARRAY = {
+    gameNumber: 3,
+    games: [
+        {
+            gameName: MATH_GAME_NAME,
+            experience: 0,
+            answeredExercisesNum: 0,
+        },
+        {
+            gameName: RUS_LANG_GAME_NAME,
+            experience: 0,
+            answeredExercisesNum: 0,
+        },
+        {
+            gameName: ENGLISH_WORDS_GAME_NAME,
+            experience: 0,
+            answeredExercisesNum: 0,
+        }
+    ]
+}
+
+const MATH_GAME_CONFIG = {
+    experienceForOneExercise: 100,
+    minNumber: -10,
+    maxNumber: 10,
+}
+
+const RUS_LANG_CONFIG = {
+    experienceForOneExercise: 100,
+}
+
+const ENGLISH_WORDS_GAME_CONFIG = {
+    experienceForOneExercise: 50,
+}
 
 // получение произвольного случайного числа
 function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
 }
 
+// класс Конфигурации игры
+class GameConfig {
+
+    #gameConfig;
+
+    constructor(_gameConfig) {
+        this.#gameConfig = _gameConfig;
+    }
+    
+    changeGameConfig(gameConfig) {
+        // TODO изменение конфига
+    }
+
+    writeConfigInFile(filename) {
+        // TODO запись объекта в json файл
+    }
+
+    readConfigFromFile(filename) {
+        // TODO чтение объекта json файла в переменную
+    }
+
+    // getters и setters
+    
+    get gameConfig() {
+        return this.#gameConfig;
+    }
+
+    set gameConfig(value) {
+        this.#gameConfig = value;
+    }
+}
+
+//класс Статистика игрока
+class GamesStat {
+
+    #gamesStat;
+
+    constructor(_gamesStat) {
+        this.#gamesStat = [];
+        for(let i=0 ; i < _gamesStat.gameNumber; i++) {
+            this.gamesStat.push(_gamesStat.games[i]);
+        }
+    }
+
+    changeGameStat(gameName, experience, exercises) {
+        gameNum = this.gamesStat.gameNumber;
+        for(let i=0; i < gameNum; i++) {
+            if (this.gamesStat.games[i].gameName == gameName) {
+                this.gamesStat.games[i].experience = experience;
+                this.gamesStat.games[i].answeredExercisesNum = exercises;
+            }
+        }
+    }
+
+    writeStatInFile(filename) {
+        // TODO запись объекта в json файл
+    }
+
+    readStatFromFile(filename) {
+        // TODO чтение объекта json файла в переменную
+    }
+
+    // getters и setters
+    
+    get gamesStat() {
+        return this.#gamesStat;
+    }
+
+    set gamesStat(value) {
+        this.#gamesStat = value;
+    }
+}
+
 // класс Игрок
 class Player {
 
-    constructor(nickname) {
-        this.#nickname = nickname;
+    #nickname;
+    #gamesStat;
+
+    constructor(_nickname, _gamesStat) {
+        this.#nickname = _nickname;
+        this.#gamesStat = new GamesStat(_gamesStat);
     }
 
+    changeNickname(_nickname) {
+        this.nickname = _nickname;
+    }
+
+    // getters и setters
+    
     get nickname() {
         return this.#nickname;
     }
@@ -25,15 +143,31 @@ class Player {
     set nickname(value) {
         this.#nickname = value;
     }
+
+    get gamesStat() {
+        return this.#gamesStat;
+    }
+
+    set gamesStat(value) {
+        this.#gamesStat = value;
+    }
 }
 
 // класс игра
 class Game {
 
-    constructor() {
-        this.#experience = 0; //инит кол-ва опыта
-        this.#experienceForOneExercise = 0; //инит кол-ва опыта за прохождение 1 упражнения (вопроса)
-        this.#exercisesAnsweredNum = 0; //кол-во отвеченных заданий (вопросов/слов/примеров...)
+    #playerAnswer; //ответ пользователя
+    #correctAnswer; //правильный ответ
+    #name;
+    #experience;
+    #experienceForOneExercise;
+    #answeredExercisesNum;
+    
+    constructor(gameStat, gameConfig) {
+        this.#name = gameStat.name;
+        this.#experience = gameStat.experience; //инит кол-ва опыта
+        this.#experienceForOneExercise = gameConfig.experienceForOneExercise; //инит кол-ва опыта за прохождение 1 упражнения (вопроса)
+        this.#answeredExercisesNum = gameStat.addAnsweredExercises; //кол-во отвеченных заданий (вопросов/слов/примеров...)
     }
 
     displayAnswerResultMessage(isAnswerTrue) {
@@ -52,16 +186,24 @@ class Game {
         // TODO переход на следующий уровень в интерфейсе
     }
 
-    addExperience() {
+    #addExperience() {
         console.log('Добавили опыта!')
         this.experience += this.experienceForOneExercise;
         // TODO добавление опыта текущему игроку
     }
 
-    
-    addAnsweredExercises() {
+    #addAnsweredExercises() {
         console.log('Прошли ещё одно задание!')
-        this.exercisesAnsweredNum += 1;
+        this.answeredExercisesNum += 1;
+    }
+
+    checkCorrectAnswer() {
+        if (this.playerAnswer == this.correctAnswer) {
+            this.#addAnsweredExercises();
+            this.#addExperience();
+            return true;
+        }
+        else return false;
     }
 
     // getters и setters
@@ -74,26 +216,58 @@ class Game {
         this.#experience = value;
     }
 
-    get exercisesAnsweredNum() {
-        return this.#exercisesAnsweredNum;
+    get answeredExercisesNum() {
+        return this.#answeredExercisesNum;
     }
 
-    set exercisesAnsweredNum() {
-        this.#exercisesAnsweredNum = value;
+    set answeredExercisesNum(value) {
+        this.#answeredExercisesNum = value;
+    }
+
+    get experienceForOneExercise() {
+        return this.#experienceForOneExercise;
+    }
+
+    set experienceForOneExercise(value) {
+        this.#experienceForOneExercise = value;
+    }
+ 
+    get correctAnswer() {
+        return this.#correctAnswer;
+    }
+
+    set correctAnswer(value) {
+        this.#correctAnswer = value;
+    }
+
+    get playerAnswer() {
+        return this.#playerAnswer;
+    }
+
+    set playerAnswer(value) {
+        this.#playerAnswer = value;
+    } 
+
+    // сеттера для имени игры нет
+    get name() {
+        return this.#name;
     }
 }
 
 // класс Математическая игра
 class MathGame extends Game {
 
-    constructor() {
-        super.constructor();
-        this.#minNumber = MIN_MATH_GAME_NUMBER;
-        this.#maxNumber = MAX_MATH_GAME_NUMBER;
-        this.#experienceForOneExercise = EXPERIENCE_FOR_ONE_EXERCISE_IN_MATH_GAME;
+    #minNumber;
+    #maxNumber;
+    #curRandNum1;
+    #curRandNum2;
+
+    constructor(gameStat, gameConfig) {
+        super.constructor(gameStat, gameConfig);
+        this.#minNumber = gameConfig.minNumber;
+        this.#maxNumber = gameConfig.maxNumber;
         this.#curRandNum1 = 0; //инит случайного числа 1
         this.#curRandNum2 = 0; //инит случайного числа 2
-        this.#playerAnswer = 0; //инит ответа суммы
     }
 
     generateRandomNums() {
@@ -101,19 +275,13 @@ class MathGame extends Game {
         this.curRandNum2 = getRandomArbitrary(this.minNumber, this.maxNumber);
     }
 
+    countRandNumsSum() {
+        this.correctAnswer = this.curRandNum1 + this.curRandNum2
+    }
+
     displayAsk() {
         console.log('Какова сумма чисел (' + str(this.curRandNum1) + ') и (' + str(this.curRandNum2) + ')?');
         // TODO вывод вопроса в интерфейса
-    }
-
-    checkCorrectAnswer() {
-        sum = this.curRandNum1 + this.curRandNum2;
-        if (this.playerAnswer == sum) {
-            this.addAnsweredExercises();
-            this.addExperience();
-            return true;
-        }
-        else return false;
     }
 
     // getters и setters
@@ -134,14 +302,6 @@ class MathGame extends Game {
         this.#maxNumber = value;
     }
 
-    get experienceForOneExercise() {
-        return this.#experienceForOneExercise;
-    }
-
-    set experienceForOneExercise(value) {
-        this.#experienceForOneExercise = value;
-    }
-
     get curRandNum1() {
         return this.#curRandNum1;
     }
@@ -157,30 +317,20 @@ class MathGame extends Game {
     set curRandNum2(value) {
         this.#curRandNum2 = value;
     }
-
-    get playerAnswer() {
-        return this.#playerAnswer;
-    }
-
-    set playerAnswer(value) {
-        this.#playerAnswer = value;
-    }
     
 }
 
 // класс Игра на знания русского языка
 class RusLangGame extends Game {
-
-    constructor() {
-        super.constructor();
-        this.#experienceForOneExercise = EXPERIENCE_FOR_ONE_EXERCISE_IN_RUS_LANG_GAME;
+    #ask;
+    #answers;
+    constructor(gameStat, gameConfig) {
+        super.constructor(gameStat, gameConfig);
         this.#ask = ''; //инит вопроса
         this.#answers = Array(); //инит списка ответов
-        this.#correctAnswer = ''; //инит правильного ответа
-        this.#playerAnswer = ''; //инит ответа на вопрос
     }
 
-    getAskFromFile(RUS_LANG_QUESTIONS_FILENAME) {
+    getAskFromFile(filename) {
         // TODO получение вопроса из файла
         question = '';
         return question;
@@ -193,15 +343,6 @@ class RusLangGame extends Game {
     displayAsk() {
         console.log('Вопрос: ' + str(this.ask) + ' Варианты ответов: ' + str(this.answers));
         // TODO вывод вопроса в интерфейса
-    }
-
-    checkCorrectAnswer() {
-        if (this.playerAnswer == this.correctAnswer) {
-            this.addAnsweredExercises();
-            this.addExperience();
-            return true;
-        }
-        else return false;
     }
 
     // getters и setters
@@ -220,59 +361,34 @@ class RusLangGame extends Game {
 
     set answers(value) {
         this.#answers = value;
-    }
-
-    get correctAnswer() {
-        return this.#correctAnswer;
-    }
-
-    set correctAnswer(value) {
-        this.#correctAnswer = value;
-    }
-
-    get playerAnswer() {
-        return this.#playerAnswer;
-    }
-
-    set playerAnswer(value) {
-        this.#playerAnswer = value;
-    }   
+    }  
 }
 
 // класс Игра на изучение английского языка
 class EnglishWordsGame extends Game {
-    constructor() {
-        super.constructor();
-        this.#experienceForOneExercise = EXPERIENCE_FOR_ONE_EXERCISE_IN_ENGLISH_WORDS_GAME;
+    #word;
+    #isFromEnglishToRussian;
+    constructor(gameStat, gameConfig) {
+        super.constructor(gameStat, gameConfig);
         this.#word = ''; //инит слова
-        this.#wordTranslation = ''; //инит перевода слова
-        this.#playerAnswer = ''; //инит ответа с переводом
         this.#isFromEnglishToRussian = true; //инит режима: с английского на русский (при false наоборот)
     }
 
-    getWordFromFile(ENGLISH_WORDS_TRANSLATION_FILENAME) {
+    getWordPairFromFile(filename) {
         // TODO получение слова и его перевода из файла
-        word = '';
-        wordTranslation = '';
+        this.word = '';
+        this.correctAnswer = ''; //правильный ответ (перевод слова)
+        question = '';
         return question;
     }
 
-    displayAsk() {
+    showCard() {
         console.log('Слово: ' + str(this.word) + '; Перевод на обратной стороне: ' + str(this.wordTranslation));
-        // TODO вывод слова в интерфейса
+        // TODO вывод слова в интерфейсе
     }
 
     rotateCard() {
         // TODO поворот карточки (на обратное стороне перевод)
-    }
-
-    checkCorrectAnswer() {
-        if (this.playerAnswer == this.wordTranslation) {
-            this.addAnsweredExercises();
-            this.addExperience();
-            return true;
-        }
-        else return false;
     }
     
     // getters и setters
@@ -284,22 +400,6 @@ class EnglishWordsGame extends Game {
     set word(value) {
         this.#word = value;
     } 
-
-    get wordTranslation() {
-        return this.#wordTranslation;
-    }
-
-    set wordTranslation(value) {
-        this.#wordTranslation = value;
-    } 
-
-    get playerAnswer() {
-        return this.#playerAnswer;
-    }
-
-    set playerAnswer(value) {
-        this.#playerAnswer = value;
-    }
 
     get isFromEnglishToRussian() {
         return this.#isFromEnglishToRussian;
