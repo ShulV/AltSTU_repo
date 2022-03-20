@@ -5,19 +5,19 @@ INPUT_FILENAME = 'input.csv'
 OUTPUT_FILENAME = 'output.csv'
 
 
-def count(func):
-    """декоратор - счётчик"""
-
-    def wrapper(*a, **kw):
-        wrapper.count += 1
-        return func(*a, **kw)
-
-    wrapper.count = 0
-    return wrapper
+# def count(func):
+#     """декоратор - счётчик"""
+#
+#     def wrapper(*a, **kw):
+#         wrapper.count += 1
+#         return func(*a, **kw)
+#
+#     wrapper.count = 0
+#     return wrapper
 
 
 def read_input_data(filename, expended_matrix):
-    """чтение расширенной матрицы из файла"""
+    """ чтение расширенной матрицы из файла """
     with open(filename) as File:
         reader = csv.reader(File, delimiter=';')
         for row_index, row in enumerate(reader):
@@ -28,7 +28,8 @@ def read_input_data(filename, expended_matrix):
 
 
 def write_output_matrix(filename, matrix, title=""):
-    """запись результатов в файл"""
+    """ запись результатов в файл """
+
     # TODO сделать запись расишернной, записывается без столбца свободных членов
     with open(filename, mode="a", encoding='utf-8') as FILE:
         file_writer = csv.writer(FILE, delimiter=",", lineterminator="\r")
@@ -39,7 +40,8 @@ def write_output_matrix(filename, matrix, title=""):
 
 
 def write_output_list(filename, _list, title=""):
-    """запись результатов в файл"""
+    """ запись результатов в файл """
+
     with open(filename, mode="a", encoding='utf-8') as FILE:
         file_writer = csv.writer(FILE, delimiter=",", lineterminator="\r")
         file_writer.writerow([title])
@@ -48,7 +50,8 @@ def write_output_list(filename, _list, title=""):
 
 
 def format_print(n, a, b=None, selected=None):
-    """вывод системы на экран"""
+    """ вывод системы на экран """
+
     for row_ind in range(n):
         print("(", end='')
         for col_ind in range(n):
@@ -62,6 +65,7 @@ def format_print(n, a, b=None, selected=None):
 
 def check_diagonal_dominance(factors_at_unknowns):
     """ проверка матрицы на диагональное преобладание """
+
     print('\nПРОВЕРКА МАТРИЦЫ НА ДИАГОНАЛЬНОЕ ПРЕОБЛАДАНИЕ')
     cols = len(factors_at_unknowns[0])
     rows = len(factors_at_unknowns)
@@ -89,8 +93,8 @@ def check_diagonal_dominance(factors_at_unknowns):
 def count_null_x(b, diagonal_a):
     """ посчет x для нулевого приближения
     b - свободный член строки,
-    diagonal_a - свободный член диагонального элемента строки
-    """
+    diagonal_a - свободный член диагонального элемента строки """
+
     return b / diagonal_a
 
 
@@ -98,6 +102,7 @@ def get_null_x_list(factors_at_unknowns, free_factors):
     """ подсчет всех x для нулевого приближения и их возврат
     factors_at_unknowns - двумерных массив членов при неизвестных
     free_factors - столбец свободных членов """
+
     print('\nПОДСЧЕТ ВСЕХ X ДЛЯ НУЛЕВОГО ПРИБЛИЖЕНИЯ (k=0)')
     null_x_list = []
     for i in range(len(free_factors)):
@@ -114,8 +119,7 @@ def func_x(b, a_array, diagonal_x_index):
     """ динамическое создание функции для подсчёта x (для строки)
     b - свободный член строки,
     a_array - массив свободных членов строки,
-    diagonal_x_index - индекс подсчитываемого x (этот элем. на главной диагонали)
-    """
+    diagonal_x_index - индекс подсчитываемого x (этот элем. на главной диагонали) """
 
     def created_func_x(x_array, k):
         """ формула подсчета x с предустановленными свободными членами """
@@ -136,8 +140,8 @@ def func_x(b, a_array, diagonal_x_index):
 def create_x_functions(factors_at_unknowns, free_factors):
     """ динамическое создание формул (функций) для подсчёта x (для строки)
     factors_at_unknowns - двумерных массив членов при неизвестных
-    free_factors - столбец свободных членов
-    """
+    free_factors - столбец свободных членов """
+
     print('\nДИНАМИЧЕСКОЕ СОЗДАНИЕ ФОРМУЛ (ФУНКЦИЙ) ДЛЯ ПОДСЧЁТА X (ДЛЯ КАЖДОЙ СТРОКИ)')
     x_counting_functions = []
     rows = len(free_factors)
@@ -149,15 +153,13 @@ def create_x_functions(factors_at_unknowns, free_factors):
 
 def count_x_error(x_prev, x):
     """ подсчитывает погрешность для x
-    |x (k) - x (k-1)|/ |x (k)|
-    """
+    |x (k) - x (k-1)|/ |x (k)| """
     return abs(x - x_prev) / abs(x)
 
 
 def check_accuracy_is_done(epsilon, errors):
     """ проверка выполнения всеми x заданной погрешности,
-    если все погрешности меньше, чем заданная - True, иначе - False
-    """
+    если все погрешности меньше, чем заданная - True, иначе - False """
     for i in range(len(errors)):
         if epsilon < errors[i]:
             print('проверка достижений погрешности: требуемая погрешность пока не достигнута')
@@ -211,7 +213,7 @@ def solve_by_yacobi(factors_at_unknowns, free_factors, x_lists, x_errors, epsilo
         # счетчик номера приближения
         k += 1
         print(f'\nПОДСЧЕТ X И ПОГРЕШНОСТЕЙ ДЛЯ {k}-ОГО ПРИБЛИЖЕНИЯ')
-        # подсчёт x-ов их погрешностей
+        # подсчёт x-ов и их погрешностей
         cur_x_list = []
         cur_x_error_list = []
         for i in range(rows):
@@ -228,7 +230,7 @@ def solve_by_yacobi(factors_at_unknowns, free_factors, x_lists, x_errors, epsilo
 
 
 def check_discrepancy(a, b, x):
-    """проверка на соотвествие (невязка)"""
+    """проверка на соотвествие (невязка) """
     print("\nПодсчёт невязки:")
     text_discrepancy = ''
     for row_ind in range(len(b)):
@@ -257,13 +259,13 @@ def main():
     n = len(factors_at_unknowns)
     print("\nИсходная система:")
     format_print(n, factors_at_unknowns, free_factors, None)
+
     print("\nРешаем:")
     check_diagonal_dominance(factors_at_unknowns)
     x_lists = []
     x_errors = []
     epsilon = 0.01
     solve_by_yacobi(factors_at_unknowns, free_factors, x_lists, x_errors, epsilon)
-
     format_print_x_and_errors(x_lists, x_errors)
 
     try:
