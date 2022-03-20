@@ -1,88 +1,5 @@
 import csv
 
-
-# Решение уравнений методом Гаусса
-#
-# P.S.
-# В функциях используются переменные a и b
-# a - матрица коэффициентов при неизвестных
-# b - столбец свободных коэффициентов
-#
-# ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ТЕОРИЯ:
-# --- Единичная матрица (E) - матрица, у которой на главной диагонали единицы, а на всех остальных местах нули.
-#
-# 1 0 0     Пример
-# 0 1 0
-# 0 0 1
-#
-# --- Умножение матрицы на её обратную матрицы даёт единичную матрицу: A * A^(-1) = E или A^(-1) * A = E
-# --- Чтобы найти определитель матрицы, нужно:
-# - Пример для матрицы 2x2:
-#
-# 1 2
-# 3 4
-#
-# определитель A = delta A = det A = 1*2 - 3*2 = -4
-#
-# - Пример для матрицы 3x3 (сводится к 2x2):
-#
-# 1 2 3
-# 4 5 6
-# 7 8 9
-#
-# det A = + 1 * (5*9 - 8*6) - 2 * (4*9 - 7*6) + 3 * (4*8-7*5)
-#
-# Знаки:
-#       + - +
-#       - + -
-#       + - +
-#
-# --- Вырожденная матрица - матрица, определитель которой равен НУЛЮ. У неё не может быть обратной матрицы.
-# --- Алгебраическое дополнение:
-#
-# 1 2 3
-# 4 5 6
-# 7 8 9
-#       1 * 3
-#       4 * 6
-#       * * *
-#
-# Алгебраическое дополнение A32 =
-# (-1)^(3+2)  * |1 3|   =   -1 * (6-4*3)    =   6
-#               |4 6|
-#
-# --- Обратная матрица
-#
-# A =
-# 1 2
-# 3 4
-#
-# A^(1) =
-#           |A11 * detA      A21 * detA|
-#           |A12 * detA      A22 * detA|
-#
-# --- Решение с выбором главного ведущего
-# Среди элементов  a(k)sk,  s=k,k+1,…,m  находят наибольший по модулю,
-# который называют  главным  или ведущим  элементом, и перестановкой строк выводят его на главную диагональ,
-# после чего выполняют цикл исключения.
-# Такая модификация алгоритма называется методом Гаусcа с выбором главного элемента.
-#
-# --- Величина невязки
-# Контроль вычислений можно вести по величине невязки - векторе,
-# который получается при вычитании из правой части системы левой, в которую подставлено полученное решение.
-#
-# --- Ортогона́льная ма́трица
-# - это квадратная матрица A с вещественными элементами,
-# результат умножения которой на транспонированную матрицу A^T равен единичной матрице[1]:
-# или, что эквивалентно, её обратная матрица (которая обязательно существует) равна транспонированной матрице
-#
-# --- Прямой ход метода Гаусса
-# заключается в приведении матрицы системы к треугольному виду
-#
-# --- Количество операций для решения
-# Для решений системы m линейных алгебраических уравнений с m неизвестными требуется порядка M алгебраических операций.
-# M равно: 2/3 * m^3
-#
 # ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
 INPUT_FILENAME = 'input.csv'
 OUTPUT_FILENAME = 'output.csv'
@@ -90,6 +7,7 @@ OUTPUT_FILENAME = 'output.csv'
 
 def count(func):
     """декоратор - счётчик"""
+
     def wrapper(*a, **kw):
         wrapper.count += 1
         return func(*a, **kw)
@@ -98,19 +16,20 @@ def count(func):
     return wrapper
 
 
-def read_input_data(filename, matrix):
-    """чтение матрицы из файла"""
+def read_input_data(filename, expended_matrix):
+    """чтение расширенной матрицы из файла"""
     with open(filename) as File:
-        reader = csv.reader(File, delimiter=',')
+        reader = csv.reader(File, delimiter=';')
         for row_index, row in enumerate(reader):
-            matrix.append([])
+            expended_matrix.append([])
             for item in row:
-                matrix[row_index].append(float(item))
+                expended_matrix[row_index].append(float(item))
         print('Чтение из файла проведено успешно')
 
 
 def write_output_matrix(filename, matrix, title=""):
     """запись результатов в файл"""
+    # TODO сделать запись расишернной, записывается без столбца свободных членов
     with open(filename, mode="a", encoding='utf-8') as FILE:
         file_writer = csv.writer(FILE, delimiter=",", lineterminator="\r")
         file_writer.writerow([title])
@@ -141,6 +60,173 @@ def format_print(n, a, b=None, selected=None):
             print("\t)")
 
 
+def check_diagonal_dominance(factors_at_unknowns):
+    """ проверка матрицы на диагональное преобладание """
+    print('\nПРОВЕРКА МАТРИЦЫ НА ДИАГОНАЛЬНОЕ ПРЕОБЛАДАНИЕ')
+    cols = len(factors_at_unknowns[0])
+    rows = len(factors_at_unknowns)
+    is_diagonal_dominant = True
+    for i in range(rows):
+        row_off_diagonal_sum = 0
+        for j in range(cols):
+            if i != j:
+                row_off_diagonal_sum += abs(factors_at_unknowns[i][j])
+        diagonal_elem = abs(factors_at_unknowns[i][i])
+        print(
+            f'Диаг. элемент {i}-й строки = {factors_at_unknowns[i][i]}; сумма недиаг. элементов строки = {row_off_diagonal_sum}')
+        if diagonal_elem > row_off_diagonal_sum:
+            print('В строке выполняется диагональное преобладание')
+        else:
+            is_diagonal_dominant = False
+            print('В строке не выполняется диагональное преобладание')
+    if is_diagonal_dominant:
+        print('В матрице выполняется диагональное преобладание')
+    else:
+        print('В матрице не выполняется диагональное преобладание')
+    return is_diagonal_dominant
+
+
+def count_null_x(b, diagonal_a):
+    """ посчет x для нулевого приближения
+    b - свободный член строки,
+    diagonal_a - свободный член диагонального элемента строки
+    """
+    return b / diagonal_a
+
+
+def get_null_x_list(factors_at_unknowns, free_factors):
+    """ подсчет всех x для нулевого приближения и их возврат
+    factors_at_unknowns - двумерных массив членов при неизвестных
+    free_factors - столбец свободных членов """
+    print('\nПОДСЧЕТ ВСЕХ X ДЛЯ НУЛЕВОГО ПРИБЛИЖЕНИЯ (k=0)')
+    null_x_list = []
+    for i in range(len(free_factors)):
+        null_x = count_null_x(free_factors[i], factors_at_unknowns[i][i])
+        null_x_list.append(null_x)
+
+    for i in range(len(null_x_list)):
+        print(f'x{i + 1} (k=0) = {null_x_list[i]}')
+
+    return null_x_list
+
+
+def func_x(b, a_array, diagonal_x_index):
+    """ динамическое создание функции для подсчёта x (для строки)
+    b - свободный член строки,
+    a_array - массив свободных членов строки,
+    diagonal_x_index - индекс подсчитываемого x (этот элем. на главной диагонали)
+    """
+
+    def created_func_x(x_array, k):
+        """ формула подсчета x с предустановленными свободными членами """
+        print(f'подсчёт x{diagonal_x_index + 1} (k={k})')
+        a_array_len = len(a_array)
+        x = b
+        for i in range(0, a_array_len):
+            if i != diagonal_x_index:
+                x -= a_array[i] * x_array[i]  # вычитаем все a[i]*x[i], кроме диагонального
+                # print(f'минус {a_array[i] * x_array[i]}')
+        x /= a_array[diagonal_x_index]  # делим на коэф. a текущего x
+        # print(f'делим на {a_array[diagonal_x_index]}')
+        return x
+
+    return created_func_x
+
+
+def create_x_functions(factors_at_unknowns, free_factors):
+    """ динамическое создание формул (функций) для подсчёта x (для строки)
+    factors_at_unknowns - двумерных массив членов при неизвестных
+    free_factors - столбец свободных членов
+    """
+    print('\nДИНАМИЧЕСКОЕ СОЗДАНИЕ ФОРМУЛ (ФУНКЦИЙ) ДЛЯ ПОДСЧЁТА X (ДЛЯ КАЖДОЙ СТРОКИ)')
+    x_counting_functions = []
+    rows = len(free_factors)
+    for i in range(rows):
+        x_counting_func = func_x(free_factors[i], factors_at_unknowns[i], i)
+        x_counting_functions.append(x_counting_func)
+    return x_counting_functions
+
+
+def count_x_error(x_prev, x):
+    """ подсчитывает погрешность для x
+    |x (k) - x (k-1)|/ |x (k)|
+    """
+    return abs(x - x_prev) / abs(x)
+
+
+def check_accuracy_is_done(epsilon, errors):
+    """ проверка выполнения всеми x заданной погрешности,
+    если все погрешности меньше, чем заданная - True, иначе - False
+    """
+    for i in range(len(errors)):
+        if epsilon < errors[i]:
+            print('проверка достижений погрешности: требуемая погрешность пока не достигнута')
+            return False
+        print('проверка достижений погрешности: требуемая погрешность достигнута')
+        return True
+
+
+def format_print_x_and_errors(x_lists, x_errors):
+    """ вывод таблицы вида | k | x1 x2 ... xn | e1 e2 ... en |"""
+    print('\nВЫВОД X-ОВ И ИХ ПОГРЕШНОСТЕЙ')
+    print("|{0:^4}".format('k'), end='')
+    for i in range(len(x_lists[0])):
+        print('|{0:^8}'.format(f'x{i + 1}'), end='')
+    for i in range(len(x_lists[0])):
+        print('|{0:^8}'.format(f'e{i + 1}'), end='')
+    print('|')
+    for k in range(len(x_lists)):
+        print("|{0:^4}".format(k), end='')
+        for i in range(len(x_lists[0])):
+            print('|{0:^8.4f}'.format(x_lists[k][i]), end='')
+        for i in range(len(x_lists[0])):
+            if k == 0:
+                print('|{0:^8}'.format(x_errors[k][i]), end='')
+            else:
+                print('|{0:^8.4f}'.format(x_errors[k][i]), end='')
+        print('|')
+
+
+def solve_by_yacobi(factors_at_unknowns, free_factors, x_lists, x_errors, epsilon):
+    """ решение системы методом Якоби
+    factors_at_unknowns - двумерных массив членов при неизвестных
+    free_factors - столбец свободных членов
+    x_lists - таблица x-ов по всем приближениям
+    x_errors - таблица погрешностей (по x-ам) для всех приближений
+    epsilon - величина допустимой погрешности """
+    print('\nРЕШЕНИЕ СИСТЕМЫ МЕТОДОМ ЯКОБИ')
+    cols = len(factors_at_unknowns[0])
+    rows = len(factors_at_unknowns)
+
+    null_x_list = get_null_x_list(factors_at_unknowns, free_factors)  # подсчет всех x для нулевого приближения
+    x_lists.append(null_x_list)  # добавление x-ов (0-го приближения) в таблицу x-ов всех приближений
+    empty_error_list = ["-" for _ in range(cols)]  # пустая строка для первой строки таблицы погрешностей
+    x_errors.append(empty_error_list)  # добавление пустой строки в таблицу погрешностей
+    x_counting_functions = create_x_functions(factors_at_unknowns, free_factors)  # создание формул для подсчёта x-ов
+
+    # цикл по приближениям (k)
+    accuracy_is_done = False
+    k = 0
+    while accuracy_is_done is not True:
+        # счетчик номера приближения
+        k += 1
+        print(f'\nПОДСЧЕТ X И ПОГРЕШНОСТЕЙ ДЛЯ {k}-ОГО ПРИБЛИЖЕНИЯ')
+        # подсчёт x-ов их погрешностей
+        cur_x_list = []
+        cur_x_error_list = []
+        for i in range(rows):
+            x = x_counting_functions[i](x_lists[k - 1], k)
+            cur_x_list.append(x)
+            x_prev = x_lists[k - 1][i]  # соотвествующий предыдущий x (k-1)
+            x_error = count_x_error(x_prev, x)
+            cur_x_error_list.append(x_error)
+        x_lists.append(cur_x_list)
+        x_errors.append(cur_x_error_list)
+        print(f'k: {k};\nx: {cur_x_list};\nпогрешности: {cur_x_error_list}')
+        # проверка достижения требуемой погрешности
+        accuracy_is_done = check_accuracy_is_done(epsilon, cur_x_error_list)
+
+
 def check_discrepancy(a, b, x):
     """проверка на соотвествие (невязка)"""
     print("\nПодсчёт невязки:")
@@ -154,154 +240,7 @@ def check_discrepancy(a, b, x):
     return text_discrepancy
 
 
-@count
-def swap_rows(a, b, row1, row2):
-    """перемена местами двух строк системы"""
-    a[row1], a[row2] = a[row2], a[row1]
-    b[row1], b[row2] = b[row2], b[row1]
-
-
-def divide_row(a, b, changeable_row, divider):
-    """деление строки системы на число"""
-    a[changeable_row] = [a / divider for a in a[changeable_row]]
-    b[changeable_row] /= divider
-
-
-def combine_rows(a, b, changeable_row, source_row, multiplier):
-    """сложение строки системы с другой строкой, умноженной на число"""
-    a[changeable_row] = [(a + k * multiplier) for a, k in zip(a[changeable_row], a[source_row])]
-    b[changeable_row] += b[source_row] * multiplier
-
-
-def fill_identity_matrix(max_i, max_j):
-    identity_matrix = [[0 for j in range(max_j)] for i in range(max_i)]
-    for i in range(0, max_i):
-        for j in range(0, max_j):
-            if i == j:
-                identity_matrix[i][j] = 1
-            else:
-                identity_matrix[i][j] = 0
-    return identity_matrix
-
-
-def solve_by_gauss(a, b, n):
-    """решение системы методом Гаусса (приведением к треугольному виду)"""
-    column = 0
-    while column < n:
-        current_row = None
-        for r in range(column, n):
-            if current_row is None or abs(a[r][column]) > abs(a[current_row][column]):
-                current_row = r
-        if current_row is None:
-            return None
-        if current_row != column:
-            swap_rows(a, b, current_row, column)
-        try:
-            divide_row(a, b, column, a[column][column])
-        except ZeroDivisionError:
-            raise ZeroDivisionError
-        for r in range(column + 1, n):
-            combine_rows(a, b, r, column, -a[r][column])
-        column += 1
-    det = calc_det_triangular_matrix(a)
-    if det == 0:
-        return None
-    else:
-        x = [0 for _ in b]
-        for i in range(n - 1, -1, -1):
-            x[i] = b[i] - sum(x * a for x, a in zip(x[(i + 1):], a[i][(i + 1):]))  # zip создает итератор кортежей
-        return x
-
-
-def transpose_matrix(a, n):
-    """транспонировать матрицу"""
-    transposed_matrix = [[0 for j in range(n)] for i in range(n)]
-    for i in range(n):
-        for j in range(n):
-            transposed_matrix[j][i] = a[i][j]
-    return transposed_matrix
-
-
-def get_inverse_matrix(a, n):
-    """получить обратную матрицу"""
-    inverse_matrix = []  # обартная матрица
-    identity_row = [0 for j in range(n)]  # столбец свободных слагаемых
-    for i in range(n):
-        for j in range(n):
-            if i == j:
-                identity_row[j] = 1
-            else:
-                identity_row[j] = 0
-        inverse_matrix_col = solve_by_gauss(a.copy(), identity_row, n)
-        inverse_matrix.append(inverse_matrix_col)
-
-    return transpose_matrix(inverse_matrix, n)
-
-
-def detailed_solve_by_gauss(a, b, n):
-    """решение системы методом Гаусса (приведением к треугольному виду)"""
-    column = 0
-    unchanged_a = a.copy()
-    unchanged_b = b.copy()
-
-    while column < n:
-        print("Ищем максимальный по модулю элемент в {0}-м столбце:".format(column + 1))
-        current_row = None
-        for r in range(column, n):
-            if current_row is None or abs(a[r][column]) > abs(a[current_row][column]):
-                current_row = r
-        if current_row is None:
-            print("решений нет")
-            return None
-        format_print(n, a, b, (current_row, column))
-        if current_row != column:
-            print("Переставляем строку с найденным элементом повыше:")
-            swap_rows(a, b, current_row, column)
-            format_print(n, a, b, (column, column))
-        print(f"Нормализуем строку с найденным элементом (делим на {a[column][column]}):")
-        try:
-            divide_row(a, b, column, a[column][column])
-        except ZeroDivisionError:
-            raise ZeroDivisionError
-        format_print(n, a, b, (column, column))
-        print("Обрабатываем нижележащие строки:")
-        for r in range(column + 1, n):
-            combine_rows(a, b, r, column, -a[r][column])
-        format_print(n, a, b, (column, column))
-        column += 1
-    print("Матрица приведена к треугольному виду, находим определитель")
-    det = calc_det_triangular_matrix(a)
-    if det == 0:
-        print('Определитель равен нулю => матрица вырожденная')
-        return None
-    else:
-        print("Определитель равен {0} => матрица невырожденная, считаем решение".format(det))
-        x = [0 for _ in b]
-        for i in range(n - 1, -1, -1):
-            x[i] = b[i] - sum(x * a for x, a in zip(x[(i + 1):], a[i][(i + 1):]))  # zip создает итератор кортежей
-        print("\nПолучили ответ:")
-        print("\n".join("X{0} =\t{1:10.2f}".format(i + 1, x) for i, x in enumerate(x)))
-
-        list_discrepancy = check_discrepancy(unchanged_a, unchanged_b, x)
-        write_output_list(OUTPUT_FILENAME, list_discrepancy, 'Невязка')
-        inverse_matrix = get_inverse_matrix(unchanged_a, n)
-
-        print("\nОбратная матрица:")
-        format_print(n, inverse_matrix)
-        write_output_matrix(OUTPUT_FILENAME, inverse_matrix, 'Обратная матрица')
-        return x
-
-
-def calc_det_triangular_matrix(matrix):
-    swap_number = swap_rows.count
-    det = (1 if swap_number % 2 == 0 else -1)
-    for i in range(len(matrix)):
-        det *= matrix[i][i]
-    return det
-
-
 def main():
-    swap_number = 0
     expanded_matrix = list()
     with open(OUTPUT_FILENAME, mode="w", encoding='utf-8'):
         pass
@@ -319,11 +258,13 @@ def main():
     print("\nИсходная система:")
     format_print(n, factors_at_unknowns, free_factors, None)
     print("\nРешаем:")
+    check_diagonal_dominance(factors_at_unknowns)
+    x_lists = []
+    x_errors = []
+    epsilon = 0.01
+    solve_by_yacobi(factors_at_unknowns, free_factors, x_lists, x_errors, epsilon)
 
-    try:
-        detailed_solve_by_gauss(factors_at_unknowns, free_factors, n)
-    except ZeroDivisionError:
-        print("Определитель равен нулю!")
+    format_print_x_and_errors(x_lists, x_errors)
 
     try:
         write_output_matrix(OUTPUT_FILENAME, expanded_matrix, 'Расширенная матрица')
