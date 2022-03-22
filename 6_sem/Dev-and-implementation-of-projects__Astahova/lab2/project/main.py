@@ -138,19 +138,24 @@ class Graph:
     def check_vertex_includes_only_prev_layers_vertices(self, index):
         """ проверить, что в вершину входят только вершины предыдущих слоев """
         ins_len = len(self.graph_events['in_works'][index])
-
+        # print(f'\nПРОВЕРКА СОБЫТИЯ {self.graph_events["event"][index]}\nего входящие события: {str(self.graph_events["in_works"][index])}')
         for i in range(ins_len):
             if self.graph_events['layer'][i] is None:
+                # print(f'проверка события {self.graph_events["event"][i]} False')
                 return False
+            # else:
+            #     print(f'проверка события {self.graph_events["event"][i]} True')
         return True
 
     def find_vertex_layers(self, vertex_index, layer=0):
+        # TODO переделать обход в глубину на обход в ширину
         """ находим слой каждой вершины """
         # если нет входящих работ - слой 0
+        print(f'ПРОВЕРЯЕМ ВЕРШИНУ {self.graph_events["event"][vertex_index]}')
         if not self.graph_events['in_works'][vertex_index]:
             self.graph_events['layer'][vertex_index] = 0  # ноль
-            outs_len = len(self.graph_events['out_works'][vertex_index])  # количество выходящих вершин
-            # print(f'Кол-во выходящих вершин: {outs_len} у вершины {self.graph_events["event"][vertex_index]}')
+            outs_len = len(self.graph_events['out_works'][vertex_index])  # выходящие вершины
+            # print(f'выходящие вершин: {outs_len} у вершины {self.graph_events["event"][vertex_index]}')
             # print('Их шифры/индексы:')
             for i in range(outs_len):
                 out_event = self.graph_events['out_works'][vertex_index][i]  # шифр события, выходящего из текущ. соб.
@@ -163,7 +168,7 @@ class Graph:
         # если это так, то уже можно работать с текущей вершиной (flag = True),
         # если нет (flag = False), то мы до её слоя ещё не дошли
         flag = self.check_vertex_includes_only_prev_layers_vertices(vertex_index)
-        if flag:
+        if flag and (self.graph_events['layer'][vertex_index] is None):
             self.graph_events['layer'][vertex_index] = layer
             outs_len = len(self.graph_events['out_works'][vertex_index])  # количество выходящих вершин
             # print(f'Кол-во выходящих вершин: {outs_len} у вершины {self.graph_events["event"][vertex_index]}')
@@ -497,7 +502,6 @@ if __name__ == "__main__":
     graph.print_graph(sorted_graph=True)
     graph.search_full_ways()
     graph.find_all_vertices()
-    print(f'События: {graph.graph_events["event"]}')
     graph.count_ins_and_outs()
     graph.find_vertex_layers(0, layer=0)
 
@@ -510,21 +514,21 @@ if __name__ == "__main__":
             event=graph.graph_events['event'][i],
             ins=str(graph.graph_events["in_works"][i]),
             outs=str(graph.graph_events['out_works'][i]),
-            layer=graph.graph_events['layer'][i],
+            layer=str(graph.graph_events['layer'][i]),
             early_term=str(graph.graph_events['early_term'][i]),
         ))
 
-    graph.sort_events_by_layers()
+    # graph.sort_events_by_layers()
 
-    print()
-    for i in range(0, vertices_num):
-        print('|{event:^5}|{ins:^20}|{outs:^20}|{layer:^5}|{early_term:^5}|'.format(
-            event=graph.graph_events['event'][i],
-            ins=str(graph.graph_events["in_works"][i]),
-            outs=str(graph.graph_events['out_works'][i]),
-            layer=graph.graph_events['layer'][i],
-            early_term=str(graph.graph_events['early_term'][i]),
-        ))
+    # print()
+    # for i in range(0, vertices_num):
+    #     print('|{event:^5}|{ins:^20}|{outs:^20}|{layer:^5}|{early_term:^5}|'.format(
+    #         event=graph.graph_events['event'][i],
+    #         ins=str(graph.graph_events["in_works"][i]),
+    #         outs=str(graph.graph_events['out_works'][i]),
+    #         layer=graph.graph_events['layer'][i],
+    #         early_term=str(graph.graph_events['early_term'][i]),
+    #     ))
 
     # graph.find_early_term_for_all_event()
 
