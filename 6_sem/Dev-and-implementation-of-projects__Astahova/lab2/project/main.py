@@ -27,6 +27,7 @@ class Graph:
                              'in_works': [],
                              'out_works': [],
                              'layer': [],
+                             'visited': []
                              }
         self.first_top = None  # первая вершина графа
         self.last_top = None  # последняя вершина графа
@@ -48,6 +49,7 @@ class Graph:
         self.graph_events['early_term'].append(None)
         self.graph_events['late_term'].append(None)
         self.graph_events['reserve_time'].append(None)
+        self.graph_events['visited'].append(None)
 
     def swap_events(self, i, j):
         """ поменять местами строки """
@@ -79,9 +81,14 @@ class Graph:
         buff = self.graph_events['reserve_time'][i]
         self.graph_events['reserve_time'][i] = self.graph_events['reserve_time'][j]
         self.graph_events['reserve_time'][j] = buff
+        # посещенность
+        buff = self.graph_events['visited'][i]
+        self.graph_events['visited'][i] = self.graph_events['visited'][j]
+        self.graph_events['visited'][j] = buff
 
     def sort_events_by_layers(self):
         """ сортировка событий по слоям по возрастанию """
+        print('_' * 100)
         print('Сортировка по слоям')
         n = len(self.graph_events['event'])
         for i in range(n - 1):
@@ -89,8 +96,8 @@ class Graph:
                 # print(
                 #     f'i={i} layer[i]={self.graph_events["layer"][i]}; j={j} layer[j]={self.graph_events["layer"][j]}; ')
                 if self.graph_events['layer'][j] > self.graph_events['layer'][j+1]:
-
                     self.swap_events(j, j + 1)
+        print('_' * 100)
 
     def find_early_term_for_event(self, event):
         """ нахождение раннего срока события """
@@ -99,11 +106,10 @@ class Graph:
         if event == self.first_top:
             self.graph_events['early_term'][event_index] = 0
             return
-
         # нахождение максимального веса из работах связанных с предыдущими событиями
         max_early_term = 0
-        prev_event_early_term = 0
-        max_weight = 0
+        # prev_event_early_term = 0
+        # max_weight = 0
         tmp_event_early_term = 0
         for i in range(0, self.struct_graph_works_num):
             if event == self.struct_graph_table['arc_end'][i]:
@@ -114,18 +120,19 @@ class Graph:
                 tmp_event_early_term = prev_event_early_term + max_weight
             if max_early_term < tmp_event_early_term:
                 max_early_term = tmp_event_early_term
-
         # ранний срок текущего события = ранний срок предыдущего + макс. вес между текущей и предыдущими вершинами
-        print(f'\nнахождение для event {self.graph_events["event"][event_index]}')
-        print(f'prev_event_early_term {prev_event_early_term}')
-        print(f'max_weight {max_weight}')
+        # print(f'\nнахождение для event {self.graph_events["event"][event_index]}')
+        # print(f'prev_event_early_term {prev_event_early_term}')
+        # print(f'max_weight {max_weight}')
         self.graph_events['early_term'][event_index] = max_early_term
 
     def find_early_term_for_all_event(self):
         """ нахождение раннего срока всех событий """
+        print('_' * 100)
         print('Нахождение ранних сроков у событий')
         for event in self.graph_events['event']:
             self.find_early_term_for_event(event)
+        print('_' * 100)
 
     def find_index_by_event(self, event):
         """ нахождение номера (индекса) события в структуре по его шифру """
@@ -137,59 +144,78 @@ class Graph:
 
     def check_vertex_includes_only_prev_layers_vertices(self, index):
         """ проверить, что в вершину входят только вершины предыдущих слоев """
-        ins_len = len(self.graph_events['in_works'][index])
-        # print(f'\nПРОВЕРКА СОБЫТИЯ {self.graph_events["event"][index]}\nего входящие события: {str(self.graph_events["in_works"][index])}')
-        for i in range(ins_len):
-            if self.graph_events['layer'][i] is None:
-                # print(f'проверка события {self.graph_events["event"][i]} False')
+        # print(f'производим проверку предыдыщуих вершин: {str(self.graph_events["in_works"][index])}')
+        for in_work in self.graph_events['in_works'][index]:
+            in_work_index = self.find_index_by_event(in_work)
+            if self.graph_events['layer'][in_work_index] is None:
+                # print(f'проверка события {self.graph_events["event"][in_work_index]} НАШЛАСЬ None предыдущая вершина!')
                 return False
             # else:
-            #     print(f'проверка события {self.graph_events["event"][i]} True')
+            #     print(f'проверка события {self.graph_events["event"][in_work_index]} True')
         return True
 
-    def find_vertex_layers(self, vertex_index, layer=0):
-        # TODO переделать обход в глубину на обход в ширину
-        """ находим слой каждой вершины """
-        # если нет входящих работ - слой 0
-        print(f'ПРОВЕРЯЕМ ВЕРШИНУ {self.graph_events["event"][vertex_index]}')
-        if not self.graph_events['in_works'][vertex_index]:
-            self.graph_events['layer'][vertex_index] = 0  # ноль
-            outs_len = len(self.graph_events['out_works'][vertex_index])  # выходящие вершины
-            # print(f'выходящие вершин: {outs_len} у вершины {self.graph_events["event"][vertex_index]}')
-            # print('Их шифры/индексы:')
-            for i in range(outs_len):
-                out_event = self.graph_events['out_works'][vertex_index][i]  # шифр события, выходящего из текущ. соб.
-                out_event_index = self.find_index_by_event(out_event)  # индекс события, выходящего из текущ. события
-                # print(f'{out_event}/{out_event_index}')
-                self.find_vertex_layers(out_event_index, layer + 1)
-            return
+    def get_max_layer_form_prev_vertices(self, index):
+        """ получаем максимальный слой предыдущих вершин данной вершины """
+        in_works = self.graph_events['in_works'][index]
+        max_layer = 0
+        # print(f'\nвходящие в {self.graph_events["event"][index]} работы {in_works}')
+        for in_work in in_works:
+            vertex = self.find_index_by_event(in_work)
+            layer = self.graph_events['layer'][vertex]
+            if max_layer < layer:
+                max_layer = layer
+        # print(f'max_layer для {self.graph_events["event"][index]} = {max_layer}')
+        return max_layer
 
-        # проверяем все выходящие события текущего события на то, что они находятся в уже пройденных слоях
-        # если это так, то уже можно работать с текущей вершиной (flag = True),
-        # если нет (flag = False), то мы до её слоя ещё не дошли
-        flag = self.check_vertex_includes_only_prev_layers_vertices(vertex_index)
-        if flag and (self.graph_events['layer'][vertex_index] is None):
-            self.graph_events['layer'][vertex_index] = layer
+    def find_vertex_layers(self):
+        """ находим слой каждой вершины обходом в ширину"""
+        # если нет входящих работ - слой 0
+        start_vertex = self.first_top  # начальная вершина
+        end_vertex = self.last_top  # конечная вершина
+        queue = [start_vertex]
+        start_vertex_index = self.find_index_by_event(start_vertex)
+        self.graph_events['layer'][start_vertex_index] = 0  # нулевой слой для начальной вершины
+        self.graph_events['visited'][start_vertex_index] = True  # посещенность вершины
+        layer = 0
+        while len(queue) > 0:
+            layer += 1
+            # удаляем первый (верхний элемент из очереди)
+            # print(f'\nВЕРШИНА {queue[0]} queue = {queue}')
+            vertex = queue.pop(0)
+
+            vertex_index = self.find_index_by_event(vertex)
             outs_len = len(self.graph_events['out_works'][vertex_index])  # количество выходящих вершин
-            # print(f'Кол-во выходящих вершин: {outs_len} у вершины {self.graph_events["event"][vertex_index]}')
-            # print('Их шифры/индексы:')
-            for i in range(outs_len):
-                out_event = self.graph_events['out_works'][vertex_index][i]  # шифр события, выходящего из текущ. соб.
-                out_event_index = self.find_index_by_event(out_event)  # индекс события, выходящего из текущ. события
-                # print(f'{out_event}/{out_event_index}')
-                self.find_vertex_layers(out_event_index, layer + 1)
+            for _i in range(outs_len):
+                out_event = self.graph_events['out_works'][vertex_index][_i]  # шифр соб., выходящего из текущ. соб.
+                out_event_index = self.find_index_by_event(out_event)  # индекс соб., выходящего из текущ. соб.
+                # print(f'проверяем {out_event}')
+                flag = self.check_vertex_includes_only_prev_layers_vertices(out_event_index)
+                # flag = True, когда все входящие в текущую вершину вершины пройдены
+                if self.graph_events['visited'][out_event_index] is not True and flag:
+                    # print(f'вершина {out_event} непосещенная, но все прошлые её вершины имеют слой')
+                    queue.append(out_event)
+                    self.graph_events['visited'][out_event_index] = True
+                    prev_max_layer = self.get_max_layer_form_prev_vertices(out_event_index)
+                    self.graph_events['layer'][out_event_index] = prev_max_layer + 1
+                    if out_event_index == end_vertex:
+                        return True
+
+                # print(f'layer вершины {out_event} = {self.graph_events["layer"][out_event_index]}')
+
+        # если конца не обнаружено
+        return False
 
     def count_ins_and_outs(self):
         """ считаем количество входящих и исходящих работ у вершин """
-        vertices_num = len(self.graph_events['event'])
-        for i in range(0, vertices_num):
+        vertices_number = len(self.graph_events['event'])
+        for _i in range(0, vertices_number):
             for j in range(0, self.works_num):
                 # находим и добавляем структуру входящие вершины
-                if self.struct_graph_table['arc_end'][j] == self.graph_events['event'][i]:
-                    self.graph_events['in_works'][i].append(self.struct_graph_table['arc_start'][j])
+                if self.struct_graph_table['arc_end'][j] == self.graph_events['event'][_i]:
+                    self.graph_events['in_works'][_i].append(self.struct_graph_table['arc_start'][j])
                 # находим и добавляем исходящие
-                if self.struct_graph_table['arc_start'][j] == self.graph_events['event'][i]:
-                    self.graph_events['out_works'][i].append(self.struct_graph_table['arc_end'][j])
+                if self.struct_graph_table['arc_start'][j] == self.graph_events['event'][_i]:
+                    self.graph_events['out_works'][_i].append(self.struct_graph_table['arc_end'][j])
 
         # print(self.graph_events['event'])
         # print(f'входящие {self.graph_events["in_works"]}')
@@ -204,16 +230,16 @@ class Graph:
 
     def find_all_vertices(self):
         """ нахождение всех вершин графа """
-        print('Находим все вершины:')
+        print('Находим все вершины (события):')
         self.current_way = [self.first_top]
         self.append_new_event_in_events_graph(self.first_top)
 
-        for i in range(0, self.works_num):
-            if self.graph_table['arc_start'][i] == self.first_top:
-                self.current_way.append(self.graph_table['arc_end'][i])  # запомнить следуюущую вершину в списке путей
+        for _i in range(0, self.works_num):
+            if self.graph_table['arc_start'][_i] == self.first_top:
+                self.current_way.append(self.graph_table['arc_end'][_i])  # запомнить следуюущую вершину в списке путей
 
-                if self.graph_table['arc_end'][i] not in self.graph_events['event']:
-                    self.append_new_event_in_events_graph(self.graph_table['arc_end'][i])
+                if self.graph_table['arc_end'][_i] not in self.graph_events['event']:
+                    self.append_new_event_in_events_graph(self.graph_table['arc_end'][_i])
                 self.recursive_find_all_vertices()
 
     def recursive_find_all_vertices(self):
@@ -285,6 +311,29 @@ class Graph:
         print(f'Первая вершина: {self.first_top}')
         print(f'Последняя вершина: {self.last_top}')
         print('_' * 100)
+
+    def print_events_table(self):
+        print(f'\nВывод таблицы вершин (событий)')
+        print('|{event:^20}|{ins:^20}|{outs:^20}|{layer:^10}|{early_term:^20}|{late_term:^20}|{reserve:^20}|'.format(
+            event='Событие',
+            ins='Входящие события',
+            outs='Выходящие события',
+            layer='Слой',
+            early_term='Ранний срок',
+            late_term='Поздний срок',
+            reserve='Резерв времени',
+        ))
+        n = len(graph.graph_events['event'])
+        for _i in range(0, n):
+            print('|{event:^20}|{ins:^20}|{outs:^20}|{layer:^10}|{early_term:^20}|{late_term:^20}|{reserve:^20}|'.format(
+                event=self.graph_events['event'][_i],
+                ins=str(self.graph_events["in_works"][_i]),
+                outs=str(self.graph_events['out_works'][_i]),
+                layer=self.graph_events['layer'][_i],
+                early_term=str(self.graph_events['early_term'][_i]),
+                late_term=str(self.graph_events['late_term'][_i]),
+                reserve=str(self.graph_events['reserve_time'][_i]),
+            ))
 
     def search_first_top(self):
         """ поиск первой вершины графа """
@@ -420,39 +469,6 @@ class Graph:
                             self.search_last_top()
                             break
 
-    # def get_first_top_index(self):
-    #     for index in range(0, self.works_num):
-    #         if self.first_top == self.graph_table['arc_start'][index]:
-    #             return index
-
-    # def find_layers(self):
-    #     """ нахождение слоев для каждой вершины """
-    #     # найдем индекс первой вершины
-    #     first_top_index = 0
-    #     for i in range(0, self.works_num):
-    #         if [self.first_top] ==  self.graph_table['arc_start'][i]:
-    #             first_top_index = i
-    #     # присвоим первой вершине слой
-    #     layer_level = 0
-    #     self.graph_table['layer'][first_top_index] = layer_level
-    #     # создадим очередь вершин и поместим туда первую вершину
-    #     top_queue = [self.graph_table['layer'][first_top_index]]
-    #     # найдем все вершины второго слоя
-    #     layer_set = set()
-    #     for i in range(0, self.works_num):
-    #         if self.graph_table['arc_start'][i] == top_queue[len(top_queue) - 1]:
-    #             # поиск конечной вершины работы и проверка, имеет ли она входящие в неё работы,
-    #             # находящиеся не в текущем слое
-    #             has_prev_tops = False
-    #             for k in range(0, self.works_num):
-    #                 if self.graph_table['arc_start'][k] == self.graph_table['arc_end'][i]:
-    #                     is_last = False
-    #             layer_set.add(self.graph_table['arc_end'][i])
-
-    # def find_layer(self, layer_level, top_queue):
-    #     # отметка слоев этого уровня и нахождение слоев следующего уровня
-    #     self.find_layer(layer_level + 1, top_queue)
-
     def struct_graph(self):
         print('упорядочивание графа')
         vertex_queue = [self.first_top]
@@ -473,19 +489,20 @@ class Graph:
             if self.graph_table['arc_start'][i] == self.first_top:
                 self.current_way.append(self.graph_table['arc_end'][i])  # запомнить следуюущую вершину в списке путей
                 self.recursive_search()
+        print('_' * 100)
 
     def recursive_search(self):
         """ рекурсивный обход графа """
         if self.current_way[len(self.current_way) - 1] == self.last_top:
-            for i in range(0, len(self.current_way)):
-                print(f'{self.current_way[i]} ', end='')
+            for _i in range(0, len(self.current_way)):
+                print(f'{self.current_way[_i]} ', end='')
             print()
             self.current_way.pop()  # удаление последней вершины, возврат по стеку
             return
 
-        for i in range(0, self.works_num):
-            if self.graph_table['arc_start'][i] == self.current_way[len(self.current_way) - 1]:
-                self.current_way.append(self.graph_table['arc_end'][i])  # запомнить вершину
+        for _i in range(0, self.works_num):
+            if self.graph_table['arc_start'][_i] == self.current_way[len(self.current_way) - 1]:
+                self.current_way.append(self.graph_table['arc_end'][_i])  # запомнить вершину
                 self.recursive_search()
         self.current_way.pop()  # удаление последней вершины
         return
@@ -503,42 +520,13 @@ if __name__ == "__main__":
     graph.search_full_ways()
     graph.find_all_vertices()
     graph.count_ins_and_outs()
-    graph.find_vertex_layers(0, layer=0)
+    graph.find_vertex_layers()
 
-    print(f'События: {graph.graph_events["event"]}')
+    graph.print_events_table()
 
+    graph.sort_events_by_layers()
+    graph.print_events_table()
 
-    vertices_num = len(graph.graph_events['event'])
-    for i in range(0, vertices_num):
-        print('|{event:^5}|{ins:^20}|{outs:^20}|{layer:^5}|{early_term:^5}|'.format(
-            event=graph.graph_events['event'][i],
-            ins=str(graph.graph_events["in_works"][i]),
-            outs=str(graph.graph_events['out_works'][i]),
-            layer=str(graph.graph_events['layer'][i]),
-            early_term=str(graph.graph_events['early_term'][i]),
-        ))
-
-    # graph.sort_events_by_layers()
-
-    # print()
-    # for i in range(0, vertices_num):
-    #     print('|{event:^5}|{ins:^20}|{outs:^20}|{layer:^5}|{early_term:^5}|'.format(
-    #         event=graph.graph_events['event'][i],
-    #         ins=str(graph.graph_events["in_works"][i]),
-    #         outs=str(graph.graph_events['out_works'][i]),
-    #         layer=graph.graph_events['layer'][i],
-    #         early_term=str(graph.graph_events['early_term'][i]),
-    #     ))
-
-    # graph.find_early_term_for_all_event()
-
-    # print()
-    # for i in range(0, vertices_num):
-    #     print('|{event:^5}|{ins:^20}|{outs:^20}|{layer:^5}|{early_term:^5}|'.format(
-    #         event=graph.graph_events['event'][i],
-    #         ins=str(graph.graph_events["in_works"][i]),
-    #         outs=str(graph.graph_events['out_works'][i]),
-    #         layer=graph.graph_events['layer'][i],
-    #         early_term=str(graph.graph_events['early_term'][i]),
-    #     ))
+    graph.find_early_term_for_all_event()
+    graph.print_events_table()
 
