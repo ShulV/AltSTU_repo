@@ -15,7 +15,10 @@ class Graph:
         self.struct_graph_table = {'arc_start': [],
                                    'arc_end': [],
                                    'weight': [],
-                                   'is_visited': [], }  # упоряденная таблица, содержащая дуги и веса графа
+                                   'is_visited': [],
+                                   'full_time_reserve': [],
+                                   'independent_time_reserve': [],
+                                   }  # упоряденная таблица, содержащая дуги и веса графа
         # таблица, содержащая шифр события, его ранний срок, поздний срок и резервное время
         # количество входящих и выходящих из события работ
         self.graph_events = {'event': [],
@@ -93,9 +96,7 @@ class Graph:
         n = len(self.graph_events['event'])
         for i in range(n - 1):
             for j in range(n - i - 1):
-                # print(
-                #     f'i={i} layer[i]={self.graph_events["layer"][i]}; j={j} layer[j]={self.graph_events["layer"][j]}; ')
-                if self.graph_events['layer'][j] > self.graph_events['layer'][j+1]:
+                if self.graph_events['layer'][j] > self.graph_events['layer'][j + 1]:
                     self.swap_events(j, j + 1)
         print('_' * 100)
 
@@ -106,11 +107,10 @@ class Graph:
         if event == self.first_top:
             self.graph_events['early_term'][event_index] = 0
             return
-        # нахождение максимального веса из работах связанных с предыдущими событиями
+        # нахождение максимального веса из работ, связанных с предыдущими событиями
         max_early_term = 0
-        # prev_event_early_term = 0
-        # max_weight = 0
         tmp_event_early_term = 0
+        # ищем работу, у которой конечное событие равно нашему событию
         for i in range(0, self.struct_graph_works_num):
             if event == self.struct_graph_table['arc_end'][i]:
                 max_weight = self.struct_graph_table['weight'][i]
@@ -120,10 +120,6 @@ class Graph:
                 tmp_event_early_term = prev_event_early_term + max_weight
             if max_early_term < tmp_event_early_term:
                 max_early_term = tmp_event_early_term
-        # ранний срок текущего события = ранний срок предыдущего + макс. вес между текущей и предыдущими вершинами
-        # print(f'\nнахождение для event {self.graph_events["event"][event_index]}')
-        # print(f'prev_event_early_term {prev_event_early_term}')
-        # print(f'max_weight {max_weight}')
         self.graph_events['early_term'][event_index] = max_early_term
 
     def find_early_term_for_all_event(self):
@@ -132,6 +128,104 @@ class Graph:
         print('Нахождение ранних сроков у событий')
         for event in self.graph_events['event']:
             self.find_early_term_for_event(event)
+        print('_' * 100)
+
+    def find_late_term_for_event(self, event):
+        """ нахождение позднего срока события """
+        event_index = self.find_index_by_event(event)
+        # если событие конечное, поздний срок = раннему сроку события
+        if event == self.last_top:
+            self.graph_events['late_term'][event_index] = self.graph_events['early_term'][event_index]
+            return
+        # нахождение минимального веса из работ, связанных с последующими событиями
+        min_late_term = None
+        for i in range(self.struct_graph_works_num):
+            if event == self.struct_graph_table['arc_start'][i]:
+                min_weight = self.struct_graph_table['weight'][i]
+                next_event = self.struct_graph_table['arc_end'][i]
+                next_event_index = self.find_index_by_event(next_event)
+                next_event_late_term = self.graph_events['late_term'][next_event_index]
+                tmp_event_late_term = next_event_late_term - min_weight
+
+                if min_late_term is None:
+                    min_late_term = tmp_event_late_term
+                if min_late_term > tmp_event_late_term:
+                    min_late_term = tmp_event_late_term
+        self.graph_events['late_term'][event_index] = min_late_term
+
+    def find_late_term_for_all_event(self):
+        """ нахождение позднего срока всех событий """
+        print('_' * 100)
+        print('Нахождение поздних сроков у событий')
+        for _i in range(len(self.graph_events['event']) - 1, -1, -1):
+            event = self.graph_events['event'][_i]
+            self.find_late_term_for_event(event)
+        print('_' * 100)
+
+    def find_time_reserves_for_all_event(self):
+        """ нахождение резервов времени для всех событий """
+        print('_' * 100)
+        print('Нахождение резервов времени для событий')
+        for event in self.graph_events['event']:
+            ind = self.find_index_by_event(event)
+            reserve_time = self.graph_events['late_term'][ind] - self.graph_events['early_term'][ind]
+            self.graph_events['reserve_time'][ind] = reserve_time
+        print('_' * 100)
+
+    def get_critical_path_length(self):
+        """ получение критического пути из таблицы событий """
+        print('_' * 100)
+        n = len(self.graph_events['event'])
+        _critical_path_length = self.graph_events['late_term'][n - 1]
+        print(f'Критический путь равен: {_critical_path_length}')
+        print('_' * 100)
+        return _critical_path_length
+
+    def find_full_time_reserve_for_work(self, index):
+        """ нахождение полного временного резерва для работы """
+        # полное время резерва = позднее время конечного события работы - раннее время начального события работы -
+        # - время выполнения работы (вес работы)
+        start_work_vertex = self.struct_graph_table['arc_start'][index]  # начальная вершина работы
+        end_work_vertex = self.struct_graph_table['arc_end'][index]  # конечная вершина работы
+        work_weight = self.struct_graph_table['weight'][index]  # вес работы
+        start_work_vertex_index = self.find_index_by_event(start_work_vertex)  # индекс нач вершины в таблице событий
+        end_work_vertex_index = self.find_index_by_event(end_work_vertex)  # индекс конеч вершины в таблице событий
+        end_vertex_late_term = self.graph_events['late_term'][end_work_vertex_index]  # позднее время конеч события
+        start_vertex_early_term = self.graph_events['early_term'][start_work_vertex_index]  # раннее время нач события
+        full_time_reserve = end_vertex_late_term - start_vertex_early_term - work_weight  # tп(j)-tр(i)-T(i,j)
+        self.struct_graph_table['full_time_reserve'][index] = full_time_reserve
+
+    def find_time_reserve_for_work(self, index, full=True):
+        """ нахождение полного или независмого временного резерва для работы """
+        # ПОЛНЫЙ ВРЕМЕННОЙ РЕЗЕРВ = раннее время конечного события работы - позднее время начального события работы -
+        # - время выполнения работы (вес работы)
+        # НЕЗАВИСИМЫЙ ВРЕМЕННОЙ РЕЗЕРВ = раннее время начального события работы -
+        # - позднее время конечного события работы - время выполнения работы (вес работы)
+        # full = True, то находится полный временной резерв
+        start_work_vertex = self.struct_graph_table['arc_start'][index]  # начальная вершина работы
+        end_work_vertex = self.struct_graph_table['arc_end'][index]  # конечная вершина работы
+        work_weight = self.struct_graph_table['weight'][index]  # вес работы
+        start_work_vertex_index = self.find_index_by_event(start_work_vertex)  # индекс нач вершины в таблице событий
+        end_work_vertex_index = self.find_index_by_event(end_work_vertex)  # индекс конеч вершины в таблице событий
+        if full:
+            end_vertex_late_term = self.graph_events['late_term'][end_work_vertex_index]  # позднее время конеч события
+            start_vertex_early_term = self.graph_events['early_term'][start_work_vertex_index]  # раннее время нач соб
+            full_time_reserve = end_vertex_late_term - start_vertex_early_term - work_weight  # tп(j)-tр(i)-T(i,j)
+            self.struct_graph_table['full_time_reserve'][index] = full_time_reserve
+        else:
+            start_vertex_late_term = self.graph_events['late_term'][start_work_vertex_index]  # позднее время нач соб
+            end_vertex_early_term = self.graph_events['early_term'][end_work_vertex_index]  # раннее время нач события
+            ind_time_reserve = end_vertex_early_term - start_vertex_late_term - work_weight  # tр(j)-tп(i)-T(i,j)
+            self.struct_graph_table['independent_time_reserve'][index] = ind_time_reserve
+
+    def find_time_reserves_for_all_works(self):
+        """ нахождение полных и независимых временных резервов для всех работ """
+        print('_' * 100)
+        print(f'Нахождение полных и независимых временных резервов для всех работ')
+        _n = len(self.struct_graph_table['arc_start'])
+        for i in range(_n):
+            self.find_time_reserve_for_work(i, full=True)  # подчет полного резерва
+            self.find_time_reserve_for_work(i, full=False)  # подсчет независимого резерва
         print('_' * 100)
 
     def find_index_by_event(self, event):
@@ -144,27 +238,21 @@ class Graph:
 
     def check_vertex_includes_only_prev_layers_vertices(self, index):
         """ проверить, что в вершину входят только вершины предыдущих слоев """
-        # print(f'производим проверку предыдыщуих вершин: {str(self.graph_events["in_works"][index])}')
         for in_work in self.graph_events['in_works'][index]:
             in_work_index = self.find_index_by_event(in_work)
             if self.graph_events['layer'][in_work_index] is None:
-                # print(f'проверка события {self.graph_events["event"][in_work_index]} НАШЛАСЬ None предыдущая вершина!')
                 return False
-            # else:
-            #     print(f'проверка события {self.graph_events["event"][in_work_index]} True')
         return True
 
     def get_max_layer_form_prev_vertices(self, index):
         """ получаем максимальный слой предыдущих вершин данной вершины """
         in_works = self.graph_events['in_works'][index]
         max_layer = 0
-        # print(f'\nвходящие в {self.graph_events["event"][index]} работы {in_works}')
         for in_work in in_works:
             vertex = self.find_index_by_event(in_work)
             layer = self.graph_events['layer'][vertex]
             if max_layer < layer:
                 max_layer = layer
-        # print(f'max_layer для {self.graph_events["event"][index]} = {max_layer}')
         return max_layer
 
     def find_vertex_layers(self):
@@ -180,7 +268,6 @@ class Graph:
         while len(queue) > 0:
             layer += 1
             # удаляем первый (верхний элемент из очереди)
-            # print(f'\nВЕРШИНА {queue[0]} queue = {queue}')
             vertex = queue.pop(0)
 
             vertex_index = self.find_index_by_event(vertex)
@@ -188,20 +275,15 @@ class Graph:
             for _i in range(outs_len):
                 out_event = self.graph_events['out_works'][vertex_index][_i]  # шифр соб., выходящего из текущ. соб.
                 out_event_index = self.find_index_by_event(out_event)  # индекс соб., выходящего из текущ. соб.
-                # print(f'проверяем {out_event}')
                 flag = self.check_vertex_includes_only_prev_layers_vertices(out_event_index)
                 # flag = True, когда все входящие в текущую вершину вершины пройдены
                 if self.graph_events['visited'][out_event_index] is not True and flag:
-                    # print(f'вершина {out_event} непосещенная, но все прошлые её вершины имеют слой')
                     queue.append(out_event)
                     self.graph_events['visited'][out_event_index] = True
                     prev_max_layer = self.get_max_layer_form_prev_vertices(out_event_index)
                     self.graph_events['layer'][out_event_index] = prev_max_layer + 1
                     if out_event_index == end_vertex:
                         return True
-
-                # print(f'layer вершины {out_event} = {self.graph_events["layer"][out_event_index]}')
-
         # если конца не обнаружено
         return False
 
@@ -216,17 +298,6 @@ class Graph:
                 # находим и добавляем исходящие
                 if self.struct_graph_table['arc_start'][j] == self.graph_events['event'][_i]:
                     self.graph_events['out_works'][_i].append(self.struct_graph_table['arc_end'][j])
-
-        # print(self.graph_events['event'])
-        # print(f'входящие {self.graph_events["in_works"]}')
-        # print(f"исходящие {self.graph_events['out_works']}")
-        # print('*************************************')
-
-        # for i in range(0, vertices_num):
-        #     print(self.graph_events['event'][i])
-        #     print(f'входящие {self.graph_events["in_works"][i]}')
-        #     print(f"исходящие {self.graph_events['out_works'][i]}")
-        #     print()
 
     def find_all_vertices(self):
         """ нахождение всех вершин графа """
@@ -264,6 +335,8 @@ class Graph:
             self.struct_graph_table['arc_end'].append(end)
             self.struct_graph_table['weight'].append(weight)
             self.struct_graph_table['is_visited'].append(is_visited)
+            self.struct_graph_table['full_time_reserve'].append(None)
+            self.struct_graph_table['independent_time_reserve'].append(None)
             self.struct_graph_works_num += 1
         else:
             self.graph_table['arc_start'].append(start)
@@ -291,10 +364,13 @@ class Graph:
     def print_row(self, row_index, sorted_graph=False):
         """ распечатать строку соотвествующего графа """
         if sorted_graph:
-            print('|{start:^10}|{end:^10}|{weight:^10}|'.format(
+            print('|{start:^10}|{end:^10}|{weight:^25}|{full_res:^25}|{ind_res:^25}|'.format(
                 start=self.struct_graph_table['arc_start'][row_index],
                 end=self.struct_graph_table['arc_end'][row_index],
-                weight=self.struct_graph_table['weight'][row_index]))
+                weight=self.struct_graph_table['weight'][row_index],
+                full_res=str(self.struct_graph_table['full_time_reserve'][row_index]),
+                ind_res=str(self.struct_graph_table['independent_time_reserve'][row_index]),
+            ))
         else:
             print('|{start:^10}|{end:^10}|{weight:^10}|'.format(
                 start=self.graph_table['arc_start'][row_index],
@@ -304,8 +380,21 @@ class Graph:
     def print_graph(self, sorted_graph=False):
         """ печать таблицы |A|B|time|"""
         print('_' * 100)
-        print('Вывод таблицы путей графа')
-        print('|{start:^10}|{end:^10}|{weight:^10}|'.format(start='--A--', end='--B--', weight='--Вес--'))
+        print('Вывод таблицы путей графа (работ)')
+        if sorted_graph:
+            print('|{start:^10}|{end:^10}|{weight:^25}|{full_res:^25}|{ind_res:^25}|'.format(
+                start='A',
+                end='B',
+                weight='Продолжительность (τ)',
+                full_res='Полный резерв (Rп)',
+                ind_res='Независимый резерв (Rн)',
+            ))
+        else:
+            print('|{start:^10}|{end:^10}|{weight:^10}|'.format(
+                start='A',
+                end='B',
+                weight='Вес',
+            ))
         for row_index in range(0, self.works_num):
             self.print_row(row_index, sorted_graph)
         print(f'Первая вершина: {self.first_top}')
@@ -314,26 +403,27 @@ class Graph:
 
     def print_events_table(self):
         print(f'\nВывод таблицы вершин (событий)')
-        print('|{event:^20}|{ins:^20}|{outs:^20}|{layer:^10}|{early_term:^20}|{late_term:^20}|{reserve:^20}|'.format(
+        print('|{event:^20}|{ins:^20}|{outs:^20}|{layer:^10}|{early_term:^25}|{late_term:^25}|{reserve:^25}|'.format(
             event='Событие',
             ins='Входящие события',
             outs='Выходящие события',
             layer='Слой',
-            early_term='Ранний срок',
-            late_term='Поздний срок',
-            reserve='Резерв времени',
+            early_term='Ранний срок (t_р)',
+            late_term='Поздний срок (t_п)',
+            reserve='Резерв времени (R(i))',
         ))
         n = len(graph.graph_events['event'])
         for _i in range(0, n):
-            print('|{event:^20}|{ins:^20}|{outs:^20}|{layer:^10}|{early_term:^20}|{late_term:^20}|{reserve:^20}|'.format(
-                event=self.graph_events['event'][_i],
-                ins=str(self.graph_events["in_works"][_i]),
-                outs=str(self.graph_events['out_works'][_i]),
-                layer=self.graph_events['layer'][_i],
-                early_term=str(self.graph_events['early_term'][_i]),
-                late_term=str(self.graph_events['late_term'][_i]),
-                reserve=str(self.graph_events['reserve_time'][_i]),
-            ))
+            print(
+                '|{event:^20}|{ins:^20}|{outs:^20}|{layer:^10}|{early_term:^25}|{late_term:^25}|{reserve:^25}|'.format(
+                    event=self.graph_events['event'][_i],
+                    ins=str(self.graph_events["in_works"][_i]),
+                    outs=str(self.graph_events['out_works'][_i]),
+                    layer=self.graph_events['layer'][_i],
+                    early_term=str(self.graph_events['early_term'][_i]),
+                    late_term=str(self.graph_events['late_term'][_i]),
+                    reserve=str(self.graph_events['reserve_time'][_i]),
+                ))
 
     def search_first_top(self):
         """ поиск первой вершины графа """
@@ -481,29 +571,53 @@ class Graph:
 
             vertex_queue.pop(0)
 
-    def search_full_ways(self):
+    def search_full_ways(self, check_critical=False):
         """ нахождение всех полных путей графа """
         self.current_way = [self.first_top]
         print('полные пути графа:')
         for i in range(0, self.works_num):
             if self.graph_table['arc_start'][i] == self.first_top:
                 self.current_way.append(self.graph_table['arc_end'][i])  # запомнить следуюущую вершину в списке путей
-                self.recursive_search()
+                self.recursive_search(check_critical)
         print('_' * 100)
 
-    def recursive_search(self):
+    def check_way_criticality(self):
+        """ проверка пути на то, что он является критичным """
+        for _i in range(1, len(self.current_way)):
+            prev_way_vertex = self.current_way[_i - 1]
+            way_vertex = self.current_way[_i]
+            for _j in range(self.struct_graph_works_num):
+                # если определенная работа и пути найдена
+                start_work_vertex = self.struct_graph_table['arc_start'][_j]
+                end_work_vertex = self.struct_graph_table['arc_end'][_j]
+                if start_work_vertex == prev_way_vertex and end_work_vertex == way_vertex:
+                    # если у какого-то события в этом пути Rп != 0 (событие не критическое), то путь не критический
+                    if self.struct_graph_table['full_time_reserve'][_j] != 0:
+                        return False
+        # все события в пути критические, то путь критический
+        return True
+
+    def recursive_search(self, check_critical):
         """ рекурсивный обход графа """
         if self.current_way[len(self.current_way) - 1] == self.last_top:
-            for _i in range(0, len(self.current_way)):
-                print(f'{self.current_way[_i]} ', end='')
-            print()
+            if check_critical:
+                way_is_critical = self.check_way_criticality()
+                if way_is_critical:
+                    print('Критический путь:')
+                    for _i in range(0, len(self.current_way)):
+                        print(f'{self.current_way[_i]} ', end='')
+                    print()
+            else:
+                for _i in range(0, len(self.current_way)):
+                    print(f'{self.current_way[_i]} ', end='')
+                print()
             self.current_way.pop()  # удаление последней вершины, возврат по стеку
             return
 
         for _i in range(0, self.works_num):
             if self.graph_table['arc_start'][_i] == self.current_way[len(self.current_way) - 1]:
                 self.current_way.append(self.graph_table['arc_end'][_i])  # запомнить вершину
-                self.recursive_search()
+                self.recursive_search(check_critical)
         self.current_way.pop()  # удаление последней вершины
         return
 
@@ -530,3 +644,15 @@ if __name__ == "__main__":
     graph.find_early_term_for_all_event()
     graph.print_events_table()
 
+    graph.find_late_term_for_all_event()
+    graph.print_events_table()
+
+    graph.find_time_reserves_for_all_event()
+    graph.print_events_table()
+
+    critical_path_length = graph.get_critical_path_length()
+
+    graph.find_time_reserves_for_all_works()
+    graph.print_graph(sorted_graph=True)
+
+    graph.search_full_ways(check_critical=True)
