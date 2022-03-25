@@ -55,7 +55,7 @@ class Graph:
         self.graph_events['visited'].append(None)
 
     def swap_events(self, i, j):
-        """ поменять местами строки """
+        """ поменять местами строки событий"""
         # шифр события
         buff = self.graph_events['event'][i]
         self.graph_events['event'][i] = self.graph_events['event'][j]
@@ -181,20 +181,6 @@ class Graph:
         print('_' * 100)
         return _critical_path_length
 
-    def find_full_time_reserve_for_work(self, index):
-        """ нахождение полного временного резерва для работы """
-        # полное время резерва = позднее время конечного события работы - раннее время начального события работы -
-        # - время выполнения работы (вес работы)
-        start_work_vertex = self.struct_graph_table['arc_start'][index]  # начальная вершина работы
-        end_work_vertex = self.struct_graph_table['arc_end'][index]  # конечная вершина работы
-        work_weight = self.struct_graph_table['weight'][index]  # вес работы
-        start_work_vertex_index = self.find_index_by_event(start_work_vertex)  # индекс нач вершины в таблице событий
-        end_work_vertex_index = self.find_index_by_event(end_work_vertex)  # индекс конеч вершины в таблице событий
-        end_vertex_late_term = self.graph_events['late_term'][end_work_vertex_index]  # позднее время конеч события
-        start_vertex_early_term = self.graph_events['early_term'][start_work_vertex_index]  # раннее время нач события
-        full_time_reserve = end_vertex_late_term - start_vertex_early_term - work_weight  # tп(j)-tр(i)-T(i,j)
-        self.struct_graph_table['full_time_reserve'][index] = full_time_reserve
-
     def find_time_reserve_for_work(self, index, full=True):
         """ нахождение полного или независмого временного резерва для работы """
         # ПОЛНЫЙ ВРЕМЕННОЙ РЕЗЕРВ = раннее время конечного события работы - позднее время начального события работы -
@@ -287,8 +273,8 @@ class Graph:
         # если конца не обнаружено
         return False
 
-    def count_ins_and_outs(self):
-        """ считаем количество входящих и исходящих работ у вершин """
+    def find_ins_and_outs(self):
+        """ находим входящие и исходящие работы у вершин """
         vertices_number = len(self.graph_events['event'])
         for _i in range(0, vertices_number):
             for j in range(0, self.works_num):
@@ -578,7 +564,7 @@ class Graph:
         for i in range(0, self.works_num):
             if self.graph_table['arc_start'][i] == self.first_top:
                 self.current_way.append(self.graph_table['arc_end'][i])  # запомнить следуюущую вершину в списке путей
-                self.recursive_search(check_critical)
+                self.search_bfs(check_critical)
         print('_' * 100)
 
     def check_way_criticality(self):
@@ -597,8 +583,8 @@ class Graph:
         # все события в пути критические, то путь критический
         return True
 
-    def recursive_search(self, check_critical):
-        """ рекурсивный обход графа """
+    def search_bfs(self, check_critical):
+        """ обход графа в ширину"""
         if self.current_way[len(self.current_way) - 1] == self.last_top:
             if check_critical:
                 way_is_critical = self.check_way_criticality()
@@ -617,7 +603,7 @@ class Graph:
         for _i in range(0, self.works_num):
             if self.graph_table['arc_start'][_i] == self.current_way[len(self.current_way) - 1]:
                 self.current_way.append(self.graph_table['arc_end'][_i])  # запомнить вершину
-                self.recursive_search(check_critical)
+                self.search_bfs(check_critical)
         self.current_way.pop()  # удаление последней вершины
         return
 
@@ -626,33 +612,36 @@ if __name__ == "__main__":
     in_file = "input.csv"
     graph = Graph(in_file)
     graph.print_graph()
+    # находим первую вершину
     graph.search_first_top()
+    # оптимизируем (удаляем петли, дубли), там же находим конечную вершину
     graph.optimize_graph()
     graph.print_graph()
+    # структурируем граф
     graph.struct_graph()
     graph.print_graph(sorted_graph=True)
+    # находим полные пути
     graph.search_full_ways()
+    # находим все вершины
     graph.find_all_vertices()
-    graph.count_ins_and_outs()
+    # находим входящие и исходящие вершины
+    graph.find_ins_and_outs()
+    # находим слои у вершин
     graph.find_vertex_layers()
-
-    graph.print_events_table()
-
+    # сортируем таблицу событий по слоям
     graph.sort_events_by_layers()
     graph.print_events_table()
-
+    # находим ранние сроки для событий
     graph.find_early_term_for_all_event()
-    graph.print_events_table()
-
+    # находим поздние сроки для событий
     graph.find_late_term_for_all_event()
-    graph.print_events_table()
-
+    # находим временной резерв для событий
     graph.find_time_reserves_for_all_event()
     graph.print_events_table()
-
-    critical_path_length = graph.get_critical_path_length()
-
+    # находим полные и независимые временные резервы для работы
     graph.find_time_reserves_for_all_works()
     graph.print_graph(sorted_graph=True)
-
+    # выводим критические пути
     graph.search_full_ways(check_critical=True)
+    # находим длину критического пути
+    critical_path_length = graph.get_critical_path_length()
