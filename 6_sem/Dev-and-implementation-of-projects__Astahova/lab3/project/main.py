@@ -670,7 +670,7 @@ class Graph:
         for i in range(n):
             start_vertex = self.struct_graph_table['arc_start'][i]
             end_vertex = self.struct_graph_table['arc_end'][i]
-            cprint('|{work:^8}:{start_vertex:^4}-{end_vertex:^4}|'.format(work='Работа',
+            cprint('|{work:^8}:{start_vertex:^4};{end_vertex:^4}|'.format(work='Работа',
                                                                           start_vertex=start_vertex,
                                                                           end_vertex=end_vertex),
                    on_color='on_green',
@@ -679,6 +679,8 @@ class Graph:
             early_term = self.graph_events['early_term'][start_vertex_index]
             weight = self.struct_graph_table['weight'][i]
             print(f'{" " * early_term}', end='')
+            if weight == 0:
+                print('фикт', end='1')  # для работ с нулевым весом
             if i % 2 == 0:
                 cprint(' ' * weight, 'green', 'on_cyan')
             else:
@@ -698,7 +700,6 @@ def main():
         graph.search_first_top()
         # оптимизируем (удаляем петли, дубли), там же находим конечную вершину
         graph.optimize_graph()
-        graph.print_graph()
         # структурируем граф
         graph.struct_graph()
         graph.print_graph(sorted_graph=True)
@@ -714,7 +715,6 @@ def main():
         graph.find_vertex_layers()
         # сортируем таблицу событий по слоям
         graph.sort_events_by_layers()
-        graph.print_events_table()
         # находим ранние сроки для событий
         graph.find_early_term_for_all_event()
         # находим поздние сроки для событий

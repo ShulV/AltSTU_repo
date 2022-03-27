@@ -117,7 +117,6 @@ def func_x(b, a_array, diagonal_x_index):
     a_array - массив свободных членов строки,
     diagonal_x_index - индекс подсчитываемого x (этот элем. на главной диагонали)
     """
-
     def created_func_x(x_array, k):
         """ формула подсчета x с предустановленными свободными членами """
         # print(f'подсчёт x{diagonal_x_index + 1} (k={k})')
