@@ -1,0 +1,7 @@
+﻿  Game.cpp
+  IGame.cpp
+  OOP_lab.cpp
+C:\Users\Victor\MyFolder\AltSTU_repo\6_sem\OOP__Kruchkova-Savchenko\лаб4\OOP_lab\OOP_lab\OOP_lab.cpp(10,10): warning C4930: 'Game game(void)': prototyped function not called (was a variable definition intended?)
+  Player.cpp
+  Generating Code...
+  OOP_lab.vcxproj -> C:\Users\Victor\MyFolder\AltSTU_repo\6_sem\OOP__Kruchkova-Savchenko\лаб4\OOP_lab\Debug\OOP_lab.exe

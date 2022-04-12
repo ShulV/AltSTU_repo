@@ -735,15 +735,16 @@ def main():
         graph.copy_graph_from_structed_graph()
         #
         print('\n' * 10)
-        choice = input('Выберите действие:\n'
-                       '\t1 - добавить работу\n'
-                       '\t2 - удалить работу\n'
-                       '\t3 - изменить время работы\n'
-                       '\t0 - выйти\n'
-                       '\t\t\tВаш выбор:\t')
-        wrong_input = True
-        while wrong_input:
-            wrong_input = False
+        loop_again = True
+        while loop_again:
+            choice = input('Выберите действие:\n'
+                           '\t1 - добавить работу\n'
+                           '\t2 - удалить работу\n'
+                           '\t3 - изменить время работы\n'
+                           '\t4 - продолжить\n'
+                           '\t0 - выйти\n'
+                           '\t\t\tВаш выбор:\t')
+            loop_again = True
             if choice == '1':
                 print('Вы выбрали "добавить работу"')
                 start_vertex = int(input('Введите шифр начальной вершины (например: 150):\t'))
@@ -768,12 +769,14 @@ def main():
                     graph.print_graph()
                 else:
                     print('Работы по такому индексу нет')
+            elif choice == '4':
+                print('Продолжить')
+                loop_again = False
             elif choice == '0':
                 print('Вы выбрали "выйти"')
                 return
             else:
                 print('Неверный ввод')
-                wrong_input = False
 
         loop_counter += 1
 
