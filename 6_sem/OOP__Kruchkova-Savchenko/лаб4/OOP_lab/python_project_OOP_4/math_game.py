@@ -27,9 +27,9 @@ class MathGame(Game, IMath):
         """генерация двух случайных чисел для суммирования"""
         self.rand_num_1 = randint(MIN_NUM, MAX_NUM)
         self.rand_num_2 = randint(MIN_NUM, MAX_NUM)
-        self._correct_answer = str(self.add())
 
     def add(self):
         """суммирование 2 чисел"""
-        return self.rand_num_1 + self.rand_num_2
+        self._correct_answer = str(self.rand_num_1 + self.rand_num_2)
+        return self._correct_answer
 
