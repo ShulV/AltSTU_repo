@@ -22,6 +22,7 @@ class Game:
         self._counter += 1
 
     def show_message_about_answer(self, is_correct):
+        """сообщение о правильности ответа"""
         if is_correct:
             print(f'Вы ответили правильно! (ответ: {self._correct_answer})')
         else:
