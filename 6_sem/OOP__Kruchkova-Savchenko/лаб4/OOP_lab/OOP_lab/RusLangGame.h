@@ -1,5 +1,6 @@
 #pragma once
 #include "Game.h"
+#include "IMultipleChoiceQuiz.h"
 #include <string>
 #include <vector>
 

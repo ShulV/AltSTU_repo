@@ -1,7 +1,7 @@
 #include "RusLangGame.h"
 
 RusLangGame::RusLangGame() {
-
+	multiplyChoiceQuizAction = new IMultipleChoiceQuiz();
 }
 RusLangGame::~RusLangGame() {
 

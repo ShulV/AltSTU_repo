@@ -8,6 +8,7 @@ private:
 	int curRandNum1;
 	int curRandNum2;
 public:
+
 	//генерация 2 случайных чисел
 	void generateRandNums();
 	//подсчет суммы 2 случайных чисел
