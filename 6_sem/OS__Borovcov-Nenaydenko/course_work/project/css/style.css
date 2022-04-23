@@ -1,0 +1,77 @@
+.main-container {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    height: 100vh;
+    width: 100vw;
+}
+
+.process-table-container {
+    height: 50%;
+    width: 50%;
+    background-color: white;
+}
+
+.console-container {
+    height: 50%;
+    width: 50%;
+    background-color: black;
+}
+
+.process-diagram-container {
+    height: 50%;
+    width: 50%;
+    background-color: gray;
+}
+
+.process-queues-container {
+    height: 50%;
+    width: 50%;
+    background-color: white;
+}
+
+.add-process-popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 50%;
+    background-color: violet;
+}
+
+.add-process-form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+}
+
+.process-table thead tr th {
+    text-align: center;
+}
+
+.process-table tbody tr td {
+    text-align: center;
+    border: 1px dashed black;
+}
+
+.process-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.process-table thead {
+    font-weight: bold;
+    
+}
+
+.process-table thead,
+.process-table tbody {
+    width: 100%;
+    outline: 1px solid black;
+}
+
+
