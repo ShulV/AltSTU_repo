@@ -11,13 +11,19 @@ class View {
         // this.consoleContainer = this.getElement('#console-container');
         // this.processDiagramContainer = this.getElement('#process-diagram-container');
         // this.processQueuesContainer = this.getElement('#process-queues-container');
-        this.processTable = this.getElement('#process-table');
-
+        //
+        this.openAddProcessFormBtn = this.getElement('#open-add-process-popup-btn');
+        //
+        this.processTable = this.getElement('#process-table-container__table');
+        //
+        this.addProcessPopup = this.getElement('#add-process-popup');
+        this.addProcessPopupCloseBtn = this.getElement('#add-process-popup-close-btn');
+        //this.addProcessForm = this.getElement('#add-process-form');
         this.processNameInput = this.getElement('#process-name-input');
         this.processPriorityInput = this.getElement('#process-priority-input');
         this.processWorkTimeInput = this.getElement('#process-work-time-input');
         this.addProcessBtn = this.getElement('#add-process-btn');
-        
+        //
     };
     //
     createElement(tag, className) {
@@ -70,6 +76,26 @@ class View {
         tbody.appendChild(tr);
     };
     //
+    displayProcessListTable(processList) {
+        //clear the table
+        this.processTable.innerHTML = '';
+        //
+        this.createProcessTableHeaders();
+        const tbody = this.createElement('tbody');
+        processList.forEach(process => {
+            this.createProcessRowInTable(tbody, process);
+        });
+        this.processTable.appendChild(tbody);
+    }
+    //
+    openAddProcessPopup() {
+        this.addProcessPopup.classList.add('open');
+    }
+    //
+    closeAddProcessPopup() {
+        this.addProcessPopup.classList.remove('open');
+    }
+    //
     bindAddProcess(handler) {
         this.addProcessBtn.addEventListener('click', event => {
           if (event.target.className === 'add-process-form__add-btn') {
@@ -82,17 +108,23 @@ class View {
         });
     };
     //
-    displayProcessListTable(processList) {
-        //clear the table
-        this.processTable.innerHTML = '';
-        //
-        this.createProcessTableHeaders();
-        const tbody = this.createElement('tbody');
-        processList.forEach(process => {
-            this.createProcessRowInTable(tbody, process);
-        });
-        this.processTable.appendChild(tbody);
-    }
+    bindOpenAddProcessPopup(handler) {
+        this.openAddProcessFormBtn.addEventListener('click', event => {
+            if (event.target.className === 'process-table-container__open-popup-btn') {
+              this.openAddProcessPopup();
+              handler();
+            };
+          });
+    };
+    //
+    bindAddProcessPopupCloseBtn(handler) {
+        this.addProcessPopupCloseBtn.addEventListener('click', event => {
+            if (event.target.className === 'add-process-form__close-btn') {
+              this.closeAddProcessPopup();
+              handler();
+            };
+          });
+    };
 };
 /* end view */
 
@@ -141,6 +173,8 @@ class Controller {
       this.model = model
       this.view = view
 
+      this.view.bindOpenAddProcessPopup(() => {});
+      this.view.bindAddProcessPopupCloseBtn(() => {})
       this.view.bindAddProcess(this.handleAddProcess);
       this.model.bindProcessListChanged(this.onProcessListChanged);
     };

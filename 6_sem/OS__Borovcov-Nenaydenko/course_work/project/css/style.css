@@ -6,53 +6,17 @@
     width: 100vw;
 }
 
-.process-table-container {
+/*  */
 
+.process-table-container {
     height: 50%;
     width: 50%;
     background-color: white;
     overflow-y: auto;
-    
 }
 
-.console-container {
-    height: 50%;
-    width: 50%;
-    background-color: black;
-}
-
-.process-diagram-container {
-    height: 50%;
-    width: 50%;
-    background-color: gray;
-}
-
-.process-queues-container {
-    height: 50%;
-    width: 50%;
-    background-color: white;
-    
-}
-
-.add-process-popup {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50%;
-    height: 50%;
-    background-color: violet;
-    border-radius: 25px;
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.3);
-}
-
-.add-process-form {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: auto;
+.process-table tbody tr {
+    outline: 1px dashed black;
 }
 
 .process-table thead tr th {
@@ -61,12 +25,12 @@
 
 .process-table tbody tr td {
     text-align: center;
-    outline: 1px dashed black;
 }
 
 .process-table {
     width: 100%;
     border-collapse: collapse;
+    overflow-y: auto;
 }
 
 .process-table thead {
@@ -80,4 +44,124 @@
     outline: 1px solid black;
 }
 
+/*  */
 
+.console-container {
+    height: 50%;
+    width: 50%;
+    background-color: black;
+}
+
+/*  */
+
+.process-diagram-container {
+    height: 50%;
+    width: 50%;
+    background-color: gray;
+}
+
+/*  */
+
+.process-queues-container {
+    height: 50%;
+    width: 50%;
+    background-color: white;
+    
+}
+
+/*  */
+
+.add-process-popup {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 50%;
+    background-color: rgb(0, 106, 193);
+    border-radius: 25px;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.3);
+}
+
+.add-process-popup.open {
+    display: block;
+}
+
+.add-process-form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+}
+
+.add-process-form__close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    height: 32px;
+    width: 32px;
+    background-color: transparent;
+    outline-width: 0;
+    border-width: 0;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.add-process-form__close-btn:hover {
+    background-color: rgb(219, 64, 110);
+}
+
+.add-process-form__close-btn:hover::after,
+.add-process-form__close-btn:hover::before {
+    background-color: white;
+}
+
+.add-process-form__close-btn::after,
+.add-process-form__close-btn::before {
+    content: ' ';
+    position: absolute;
+    height: 3px;
+    width: 31px;
+    border-radius: 2px;
+    background-color: black;
+    top: calc(50% - 2px);
+    left: 0px;
+    opacity: 0.8;
+}
+
+.add-process-form__close-btn::after {
+    transform: rotate(45deg);
+    
+}
+
+.add-process-form__close-btn::before {
+    transform: rotate(-45deg);
+
+}
+
+/*  */
+
+.process-diagram-container__timer {
+    height: 100px;
+    width: 100px;
+    outline: 2px solid black;
+    font-size: 72px;
+    text-align: center;
+}
+
+.process-diagram-container__start-timer-btn {
+    height: 70px;
+    width: 70px;
+    outline: 2px solid black;
+    background-color: green;
+}
+
+.process-diagram-container__start-timer-btn.started {
+
+}
+
+/*  */
