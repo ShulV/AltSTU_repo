@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Курсовая работа</title>
+
+    <script src="main.js" defer></script>
+</head>
+<body>
+    <div id="root" class="main-container">
+        <!--  -->
+        <div id="process-table-container" class="process-table-container">
+            <button class="process-table-container__open-popup-btn" id="open-add-process-popup-btn" type="button">Добавить</button>
+            <caption>Список процессов</caption>
+            <table id="process-table-container__table" class="process-table"></table>
+        </div>
+        <div class="console-container" id="console-container"></div>
+        <div class="process-diagram-container" id="process-diagram-container">
+            <div class="process-diagram-container__timer" id="process-diagram-timer">0</div>
+            <button class="process-diagram-container__start-timer-btn" id="process-diagram-start-timer-btn"  type="button"></button>
+
+        </div>
+        <div id="process-queues-container" class="process-queues-container"></div>
+        <!--  -->
+        <div class="add-process-popup" id="add-process-popup">
+            <form class="add-process-form" id="add-process-form" action="">
+                <h3 class="add-process-form__header">Введите данные о процессе</h3>
+                <label class="add-process-form__label" for="process-name">Название</label>
+                <input class="add-process-form__input" type="text" name="process-name" id="process-name-input">
+                <label class="add-process-form__label" for="process-priority">Приоритет</label>
+                <input class="add-process-form__input" type="number" min="1" name="process-priority" id="process-priority-input">
+                <label class="add-process-form__label" for="process-time">Время выполнения</label>
+                <input class="add-process-form__input" type="number" min="1" name="process-time" id="process-work-time-input">
+                <button class="add-process-form__add-btn" id="add-process-btn" type="button">Добавить процесс</button>
+                <button class="add-process-form__close-btn" id="add-process-popup-close-btn" type="button"></button>
+            </form>
+        </div>
+        <!--  -->
+    </div>
+</body>
+</html>
