@@ -1,6 +1,9 @@
+from abc import ABC, abstractmethod
 
-class IMath:
+
+class IMath(ABC):
     """интерфейс игры математика (сложение чисел)"""
+    @abstractmethod
     def add(self):
         """суммирование 2 чисел"""
-        raise NotImplementedError()
+        pass

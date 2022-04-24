@@ -1,5 +1,9 @@
+from abc import ABC, abstractmethod
 
-class IFileReader:
+
+class IFileReader(ABC):
     """читатель файла"""
-    def get_level_data(self, index):
-        raise NotImplementedError()
+    @abstractmethod
+    def get_concrete_data(self, index):
+        """получение данных для уровня"""
+        pass

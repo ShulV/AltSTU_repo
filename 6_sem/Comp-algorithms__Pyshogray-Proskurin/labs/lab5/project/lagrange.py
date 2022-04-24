@@ -11,22 +11,6 @@ class Lagrange:
         self.computed_x_list = []
         self.computed_y_list = []
 
-    def add_point(self, x, y):
-        """ добавляет точку в список"""
-        self.x_list.append(x)
-        self.y_list.append(y)
-
-    def enter_point(self):
-        """ вводится x,y с консоли"""
-        x = float(input('Введите x:\t'))
-        y = float(input('Введите f(x):\t'))
-        self.add_point(x, y)
-
-    def show_table(self):
-        """ выводится таблица точек """
-        for point in self.points:
-            print(f'x: {point.x:10.2f}; y: {point.y:10.2f}')
-
     def ln(self, x_list, x):
         """ интерполяционный многочлен Лагранжа
         mult_up - верхнее k-ое произведение в формуле

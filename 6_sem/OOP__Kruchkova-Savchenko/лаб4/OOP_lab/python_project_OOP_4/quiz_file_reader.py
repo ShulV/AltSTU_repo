@@ -7,7 +7,7 @@ class QuizFileReader(IFileReader):
     def __init__(self, filename):
         self.__filename = filename
 
-    def get_level_data(self, index):
+    def get_concrete_data(self, index):
         """получать вопрос, номер правильного ответа и варианты ответа"""
 
         with open('quiz_asks.csv', 'r', newline='') as File:

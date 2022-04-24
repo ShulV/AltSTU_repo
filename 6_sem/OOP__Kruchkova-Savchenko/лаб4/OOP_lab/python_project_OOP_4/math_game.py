@@ -11,12 +11,13 @@ class MathGame(Game, IMath):
     """игра - суммирование чисел (математика)"""
     def __init__(self):
         super().__init__()
-        self.rand_num_1 = None
-        self.rand_num_2 = None
+        self.__rand_num_1 = None
+        self.__rand_num_2 = None
 
-    def show_level_ask(self):
-        """показать вопрос"""
-        print(f'Вопрос №{self._counter + 1}\n\tЧему равно {self.rand_num_1} + {self.rand_num_2}?')
+
+    def show_ask(self):
+        """показ вопроса"""
+        print(f'Вопрос №{self._counter + 1}\n\tЧему равно {self.__rand_num_1} + {self.__rand_num_2}?')
 
     def input_answer(self):
         """ввод пользовательского ответа"""
@@ -25,11 +26,11 @@ class MathGame(Game, IMath):
 
     def generate_rand_nums(self):
         """генерация двух случайных чисел для суммирования"""
-        self.rand_num_1 = randint(MIN_NUM, MAX_NUM)
-        self.rand_num_2 = randint(MIN_NUM, MAX_NUM)
+        self.__rand_num_1 = randint(MIN_NUM, MAX_NUM)
+        self.__rand_num_2 = randint(MIN_NUM, MAX_NUM)
 
     def add(self):
         """суммирование 2 чисел"""
-        self._correct_answer = str(self.rand_num_1 + self.rand_num_2)
+        self._correct_answer = str(self.__rand_num_1 + self.__rand_num_2)
         return self._correct_answer
 

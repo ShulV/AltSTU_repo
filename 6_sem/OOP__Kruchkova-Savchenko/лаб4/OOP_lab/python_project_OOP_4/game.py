@@ -16,7 +16,11 @@ class Game:
         """ввод пользовательского ответа"""
         pass
 
-    def go_to_next_level(self):
+    def show_ask(self):
+        """показ вопроса"""
+        pass
+
+    def go_to_next(self):
         """увеличение счетчика (переход на следующий уровень/вопрос)"""
         print('Переход на следующий уровень!')
         self._counter += 1
