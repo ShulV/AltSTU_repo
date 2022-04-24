@@ -14,14 +14,20 @@
     <div id="root" class="main-container">
         <!--  -->
         <div id="process-table-container" class="process-table-container">
-            <button class="process-table-container__open-popup-btn" id="open-add-process-popup-btn" type="button">Добавить</button>
+            <button class="process-table-container__open-popup-btn" id="add-process-popup-open-btn" type="button">Добавить</button>
             <caption>Список процессов</caption>
-            <table id="process-table-container__table" class="process-table"></table>
+            <div class="process-table-wrapper">
+                <table class="process-table" id="process-table-container__table"></table>
+            </div>
         </div>
         <div class="console-container" id="console-container"></div>
         <div class="process-diagram-container" id="process-diagram-container">
-            <div class="process-diagram-container__timer" id="process-diagram-timer">0</div>
-            <button class="process-diagram-container__start-timer-btn" id="process-diagram-start-timer-btn"  type="button"></button>
+            <div class="process-diagram-container__control">
+                <h3 class="process-diagram-container__control-timer-header">Таймер</h3>
+                <div class="process-diagram-container__control-timer" id="process-diagram-timer-tick">0</div>
+                <button class="process-diagram-container__control-start-timer-btn" id="process-diagram-start-timer-btn" type="button"></button>
+            </div>
+            <div class="process-diagram-container__diagram"></div>
 
         </div>
         <div id="process-queues-container" class="process-queues-container"></div>

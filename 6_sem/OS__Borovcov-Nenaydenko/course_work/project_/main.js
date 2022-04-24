@@ -12,11 +12,12 @@ class View {
         // this.processDiagramContainer = this.getElement('#process-diagram-container');
         // this.processQueuesContainer = this.getElement('#process-queues-container');
         //
-        this.openAddProcessFormBtn = this.getElement('#open-add-process-popup-btn');
+        
         //
         this.processTable = this.getElement('#process-table-container__table');
         //
         this.addProcessPopup = this.getElement('#add-process-popup');
+        this.addProcessOpenBtn = this.getElement('#add-process-popup-open-btn');
         this.addProcessPopupCloseBtn = this.getElement('#add-process-popup-close-btn');
         //this.addProcessForm = this.getElement('#add-process-form');
         this.processNameInput = this.getElement('#process-name-input');
@@ -24,6 +25,8 @@ class View {
         this.processWorkTimeInput = this.getElement('#process-work-time-input');
         this.addProcessBtn = this.getElement('#add-process-btn');
         //
+        this.startTimerBtn = this.getElement('#process-diagram-start-timer-btn');
+        this.timerTickText = this.getElement('#process-diagram-timer-tick');
     };
     //
     createElement(tag, className) {
@@ -88,6 +91,10 @@ class View {
         this.processTable.appendChild(tbody);
     }
     //
+    displayTimerTick(timerTick) {
+        this.timerTickText.textContent = timerTick;
+    }
+    //
     openAddProcessPopup() {
         this.addProcessPopup.classList.add('open');
     }
@@ -108,8 +115,8 @@ class View {
         });
     };
     //
-    bindOpenAddProcessPopup(handler) {
-        this.openAddProcessFormBtn.addEventListener('click', event => {
+    bindAddProcessPopupOpenBtn(handler) {
+        this.addProcessOpenBtn.addEventListener('click', event => {
             if (event.target.className === 'process-table-container__open-popup-btn') {
               this.openAddProcessPopup();
               handler();
@@ -125,6 +132,16 @@ class View {
             };
           });
     };
+    //
+    bindStartTimerBtn(handler) {
+        this.startTimerBtn.addEventListener('click', event => {
+            if (event.target.classList.contains('process-diagram-container__control-start-timer-btn')) {
+              this.startTimerBtn.classList.toggle('started');
+              handler();
+            };
+          });
+    };
+    //
 };
 /* end view */
 
@@ -135,7 +152,7 @@ class View {
 - user не работает с model напрямую
 */
 class Process {
-    constructor(name, priority, workTime, arrivalTime=0, isCompleted=false) {
+    constructor(name, priority, workTime, arrivalTime, isCompleted=false) {
         this.name = name;
         this.priority = priority;
         this.workTime = workTime;
@@ -149,15 +166,36 @@ class Process {
 class Model {
     constructor() {
         this.processList = [];
+        this.timerTick = 0;
+        this.timerIsStarted = false;
+        this.timer = null;
     };
     //
     addProcess(name, priority, workTime) {
-        this.processList.push(new Process(name, priority, workTime));
+        this.processList.push(new Process(name, priority, workTime, this.timerTick));
         this.onProcessListChanged(this.processList);
     };
     //
+    startTimer() {
+        if (this.timerIsStarted) {
+            clearInterval(this.timer);
+            this.timerIsStarted = false;
+        }
+        else {
+            this.timer = setInterval(() => {
+                this.timerTick++;
+                this.onTimerTickChanged(this.timerTick);
+            }, 1000);
+            this.timerIsStarted = true;
+        }
+    }
+    //
     bindProcessListChanged(callback) {
         this.onProcessListChanged = callback;
+    };
+    //
+    bindTimerTickChanged(callback) {
+        this.onTimerTickChanged = callback;
     };
     //
   };
@@ -173,19 +211,32 @@ class Controller {
       this.model = model
       this.view = view
 
-      this.view.bindOpenAddProcessPopup(() => {});
-      this.view.bindAddProcessPopupCloseBtn(() => {})
+      this.view.bindAddProcessPopupOpenBtn(() => {});
+      this.view.bindAddProcessPopupCloseBtn(() => {});
       this.view.bindAddProcess(this.handleAddProcess);
+      //
+      this.view.bindStartTimerBtn(this.handleStartTimer);
+      //
       this.model.bindProcessListChanged(this.onProcessListChanged);
+      this.model.bindTimerTickChanged(this.onTimerTickChanged);
+      
     };
     //
     onProcessListChanged = processList => {
         this.view.displayProcessListTable(processList);
     };
     //
+    onTimerTickChanged = timerTick => {
+        this.view.displayTimerTick(timerTick);
+    };
+    //
     handleAddProcess = (name, workTime, priority) => {
         this.model.addProcess(name, workTime, priority);
     };
+    //
+    handleStartTimer = () => {
+        this.model.startTimer();
+    }
     //
 
 };
