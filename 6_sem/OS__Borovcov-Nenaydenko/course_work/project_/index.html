@@ -42,11 +42,11 @@
             <form class="adding-process-form" id="adding-process-form" action="">
                 <h3 class="adding-process-form__header">Введите данные о процессе</h3>
                 <label class="adding-process-form__label" for="process-name">Название</label>
-                <input class="adding-process-form__input" type="text" name="process-name" id="process-name-input">
+                <input class="adding-process-form__input" type="text" value="some process" name="process-name" id="process-name-input" >
                 <label class="adding-process-form__label" for="process-priority">Приоритет</label>
-                <input class="adding-process-form__input" type="number" min="1" name="process-priority" id="process-priority-input">
+                <input class="adding-process-form__input" type="number" min="1" max="255" value="1" name="process-priority" id="process-priority-input">
                 <label class="adding-process-form__label" for="process-time">Время выполнения</label>
-                <input class="adding-process-form__input" type="number" min="1" name="process-time" id="process-work-time-input">
+                <input class="adding-process-form__input" type="number" min="1" value="1" name="process-time" id="process-work-time-input">
                 <button class="adding-process-form__add-btn" id="adding-process-btn" type="button">Добавить процесс</button>
                 <button class="adding-process-form__close-btn" id="adding-process-popup-close-btn" type="button"></button>
             </form>

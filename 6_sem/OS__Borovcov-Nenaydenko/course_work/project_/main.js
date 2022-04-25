@@ -21,7 +21,7 @@ class View {
         this.startTimerBtn = this.getElement('#process-diagram-start-timer-btn');
         this.timerTickText = this.getElement('#process-diagram-timer-tick');
         //
-
+        this.processQueueTable = this.getElement('#process-queues-table');
         //
     };
     //
@@ -97,15 +97,42 @@ class View {
         this.timerTickText.textContent = timerTick;
     }
     //
-    createQueueWithPriorityRow(queueWithPriority) {
-
+    createProcessQueuesTableHeaders() {
+        const thead = this.createElement('thead');
+        const tr = this.createElement('tr');
+        const thPriority = this.createElement('th');
+        const thQueue = this.createElement('th');
+        thPriority.innerHTML = 'Приоритет';
+        thQueue.innerHTML = 'Очередь';
+        tr.appendChild(thPriority);
+        tr.appendChild(thQueue);
+        thead.appendChild(tr);
+        this.processQueueTable.appendChild(thead);
+    };
+    //
+    createQueueWithPriorityRow(tbody, priority, processQueue) {
+        const tr = this.createElement('tr');
+        const tdPriority = this.createElement('td');
+        tdPriority.innerHTML = priority;
+        tr.appendChild(tdPriority);
+        const tdQueue = this.createElement('td');
+        tdQueue.innerHTML = processQueue;
+        tr.appendChild(tdQueue);
+        tbody.appendChild(tr);
     }
     //
-    displayProcessesQueues(processesQueuesByPriority) {
-        processesQueuesByPriority.forEach((queueWithPriority) => {
-
-        })
-    }
+    displayProcessQueues(processQueues) {
+        //clear the table
+        this.processQueueTable.innerHTML = '';
+        this.createProcessQueuesTableHeaders();
+        const tbody = this.createElement('tbody');
+        for(let i=0; i<processQueues.length; i++) {
+            if (processQueues[i] != '') {
+                this.createQueueWithPriorityRow(tbody, i, processQueues[i]);
+            };
+        }
+        this.processQueueTable.appendChild(tbody);
+    };
     //
     openAddingProcessPopup() {
         this.addingProcessPopup.classList.add('open');
@@ -188,9 +215,9 @@ class Model {
         this.timerTick = 0;
         this.timerIsStarted = false;
         this.timer = null;
-        this.processesQueuesByPriority = [];
+        this.processQueuesByPriority = [];
         for(let i=0; i<MAX_PRIORITY; i++) {
-            this.processesQueuesByPriority.push([]);
+            this.processQueuesByPriority.push([]);
         };
     };
     //
@@ -212,11 +239,16 @@ class Model {
                 this.onTimerTickChanged(this.timerTick);
             }, 1000);
             this.timerIsStarted = true;
-        }
-    }
+        };
+    };
     //
     addProcessInQueue(processPriority, processId) {
-        this.processesQueuesByPriority[processPriority].push(processId);
+        this.processQueuesByPriority[processPriority].push(processId);
+        this.onProcessQueuesChanged(this.processQueuesByPriority);
+    };
+    //
+    bindProcessQueuesChanged(callback) {
+        this.onProcessQueuesChanged = callback;
     }
     //
     bindProcessListChanged(callback) {
@@ -247,6 +279,7 @@ class Controller {
       this.view.bindStartTimerBtn(this.handleStartTimer);
       //
       this.model.bindProcessListChanged(this.onProcessListChanged);
+      this.model.bindProcessQueuesChanged(this.onProcessQueuesChanged);
       this.model.bindTimerTickChanged(this.onTimerTickChanged);
       
     };
@@ -254,6 +287,10 @@ class Controller {
     onProcessListChanged = processList => {
         this.view.displayProcessListTable(processList);
     };
+    //
+    onProcessQueuesChanged = processQueues => {
+        this.view.displayProcessQueues(processQueues);
+    }
     //
     onTimerTickChanged = timerTick => {
         this.view.displayTimerTick(timerTick);

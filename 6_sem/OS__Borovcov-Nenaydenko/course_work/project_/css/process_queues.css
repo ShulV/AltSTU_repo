@@ -14,12 +14,17 @@
     width: 100%;
     height: 80%;
     overflow-y: auto;
-    outline: 1px solid black;
+    outline: 1px solid var(--light-gray);
 }
 
 .process-queues-table {
     width: 100%;
-    border-collapse: collapse;
     overflow-y: auto;
     box-sizing: border-box;
+}
+
+.process-queues-table thead tr th,
+.process-queues-table tbody tr td {
+    text-align: center;
+    outline: 1px solid black;
 }

@@ -4,13 +4,13 @@
     }
   
     to {
-      left: 50%;
+      left: 75%;
     }
 }
 
 @keyframes close-popup {
     from {
-      left: 50%
+      left: 75%
     }
   
     to {

@@ -1,7 +1,7 @@
 .adding-process-popup {
     display: none;
     position: absolute;
-    top: 50%;
+    top: 25%;
     left: -2000px;
     transform: translate(-50%, -50%);
     width: 500px;
@@ -15,7 +15,7 @@
 .adding-process-popup.open {
     animation: 0.5s 1 alternate open-popup;
     display: block;
-    left: 50%;
+    left: 75%;
 }
 
 .adding-process-form {
