@@ -97,6 +97,16 @@ class View {
         this.timerTickText.textContent = timerTick;
     }
     //
+    createQueueWithPriorityRow(queueWithPriority) {
+
+    }
+    //
+    displayProcessesQueues(processesQueuesByPriority) {
+        processesQueuesByPriority.forEach((queueWithPriority) => {
+
+        })
+    }
+    //
     openAddingProcessPopup() {
         this.addingProcessPopup.classList.add('open');
     }

@@ -1,0 +1,73 @@
+.adding-process-popup {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: -2000px;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 300px;
+    background-color: rgb(0, 106, 193);
+    border-radius: 25px;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.3);
+    
+}
+
+.adding-process-popup.open {
+    animation: 0.5s 1 alternate open-popup;
+    display: block;
+    left: 50%;
+}
+
+.adding-process-form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+    padding: 20px;
+}
+
+.adding-process-form__close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    height: 32px;
+    width: 32px;
+    background-color: transparent;
+    outline-width: 0;
+    border-width: 0;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.adding-process-form__close-btn:hover {
+    background-color: rgb(219, 64, 110);
+}
+
+.adding-process-form__close-btn:hover::after,
+.adding-process-form__close-btn:hover::before {
+    background-color: white;
+}
+
+.adding-process-form__close-btn::after,
+.adding-process-form__close-btn::before {
+    content: ' ';
+    position: absolute;
+    height: 3px;
+    width: 31px;
+    border-radius: 2px;
+    background-color: black;
+    top: calc(50% - 2px);
+    left: 0px;
+    opacity: 0.8;
+}
+
+.adding-process-form__close-btn::after {
+    transform: rotate(45deg);
+}
+
+.adding-process-form__close-btn::before {
+    transform: rotate(-45deg);
+}

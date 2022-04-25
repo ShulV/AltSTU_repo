@@ -1,0 +1,47 @@
+.process-diagram-container {
+    height: 50%;
+    width: 50%;
+    background-color: rgb(223, 223, 223);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.process-diagram-container__control {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+    outline: 1px solid rgb(204, 204, 204);
+}
+
+.process-diagram-container__control-timer {
+    height: 100px;
+    width: 100px;
+    outline: 2px solid black;
+    font-size: 72px;
+    text-align: center;
+}
+
+.process-diagram-container__control-start-timer-btn {
+    height: 50px;
+    width: 50px;
+    outline: 2px solid black;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: transparent;
+    background-image: url('/images/play.png');
+    background-size: cover;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.process-diagram-container__control-start-timer-btn:hover {
+    transform: scale(1.05);
+    background-color: rgba(255, 255, 255, 0.6);
+
+}
+
+.process-diagram-container__control-start-timer-btn.started {
+    background-image: url('/images/pause.png');
+}
