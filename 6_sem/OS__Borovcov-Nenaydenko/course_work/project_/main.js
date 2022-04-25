@@ -46,14 +46,17 @@ class View {
     createProcessTableHeaders() {
         const thead = this.createElement('thead');
         const trHeaders = this.createElement('tr');
+        const thId = this.createElement('th');
         const thName = this.createElement('th');
         const thPriority = this.createElement('th');
         const thWorkTime = this.createElement('th');
         const thArrivalTime = this.createElement('th');
+        thId.innerHTML = 'Id';
         thName.innerHTML = 'Название';
         thPriority.innerHTML = 'Приоритет';
         thWorkTime.innerHTML = 'Время работы';
         thArrivalTime.innerHTML = 'Время прибытия';
+        trHeaders.appendChild(thId);
         trHeaders.appendChild(thName);
         trHeaders.appendChild(thPriority);
         trHeaders.appendChild(thWorkTime);
@@ -64,14 +67,17 @@ class View {
     //
     createProcessRowInTable(tbody, process) {
         const tr = this.createElement('tr');
+        const tdId = this.createElement('td');
         const tdName = this.createElement('td');
         const tdPriority = this.createElement('td');
         const tdWorkTime = this.createElement('td');
         const tdArrivalTime = this.createElement('td');
+        tdId.innerHTML = process.id;
         tdName.innerHTML = process.name;
         tdPriority.innerHTML = process.priority;
         tdWorkTime.innerHTML = process.workTime;
         tdArrivalTime.innerHTML = process.arrivalTime;
+        tr.appendChild(tdId);
         tr.appendChild(tdName);
         tr.appendChild(tdPriority);
         tr.appendChild(tdWorkTime);
@@ -153,6 +159,7 @@ class View {
 */
 class Process {
     constructor(name, priority, workTime, arrivalTime, isCompleted=false) {
+        this.id = Process.processCounter++;
         this.name = name;
         this.priority = priority;
         this.workTime = workTime;
@@ -243,5 +250,6 @@ class Controller {
 /* end controller */
 
 /* begin anonymous initialize */
+Process.processCounter = 0;
 const app = new Controller(new Model(), new View());
 /* end anonymous initialize */
