@@ -101,7 +101,7 @@
 
 /*  */
 
-.add-process-popup {
+.adding-process-popup {
     display: none;
     position: absolute;
     top: 50%;
@@ -115,13 +115,13 @@
     
 }
 
-.add-process-popup.open {
+.adding-process-popup.open {
     animation: 0.5s 1 alternate open-popup;
     display: block;
     left: 50%;
 }
 
-.add-process-form {
+.adding-process-form {
     width: 100%;
     height: 100%;
     display: flex;
@@ -131,7 +131,7 @@
     padding: 20px;
 }
 
-.add-process-form__close-btn {
+.adding-process-form__close-btn {
     position: absolute;
     top: 20px;
     right: 20px;
@@ -145,17 +145,17 @@
     border-radius: 5px;
 }
 
-.add-process-form__close-btn:hover {
+.adding-process-form__close-btn:hover {
     background-color: rgb(219, 64, 110);
 }
 
-.add-process-form__close-btn:hover::after,
-.add-process-form__close-btn:hover::before {
+.adding-process-form__close-btn:hover::after,
+.adding-process-form__close-btn:hover::before {
     background-color: white;
 }
 
-.add-process-form__close-btn::after,
-.add-process-form__close-btn::before {
+.adding-process-form__close-btn::after,
+.adding-process-form__close-btn::before {
     content: ' ';
     position: absolute;
     height: 3px;
@@ -167,12 +167,12 @@
     opacity: 0.8;
 }
 
-.add-process-form__close-btn::after {
+.adding-process-form__close-btn::after {
     transform: rotate(45deg);
     
 }
 
-.add-process-form__close-btn::before {
+.adding-process-form__close-btn::before {
     transform: rotate(-45deg);
 
 }

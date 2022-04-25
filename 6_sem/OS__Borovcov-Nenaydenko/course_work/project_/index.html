@@ -14,10 +14,10 @@
     <div id="root" class="main-container">
         <!--  -->
         <div id="process-table-container" class="process-table-container">
-            <button class="process-table-container__open-popup-btn" id="add-process-popup-open-btn" type="button">Добавить</button>
+            <button class="process-table-container__open-popup-btn" id="adding-process-popup-open-btn" type="button">Добавить</button>
             <caption>Список процессов</caption>
             <div class="process-table-wrapper">
-                <table class="process-table" id="process-table-container__table"></table>
+                <table class="process-table" id="process-table"></table>
             </div>
         </div>
         <div class="console-container" id="console-container"></div>
@@ -28,21 +28,26 @@
                 <button class="process-diagram-container__control-start-timer-btn" id="process-diagram-start-timer-btn" type="button"></button>
             </div>
             <div class="process-diagram-container__diagram"></div>
-
+                
         </div>
-        <div id="process-queues-container" class="process-queues-container"></div>
+        <div id="process-queues-container" class="process-queues-container">
+            <div class="process-queues-table-wrapper">
+                <table class="process-queues-table" id="process-queues-table"></table>
+            </div>
+            
+        </div>
         <!--  -->
-        <div class="add-process-popup" id="add-process-popup">
-            <form class="add-process-form" id="add-process-form" action="">
-                <h3 class="add-process-form__header">Введите данные о процессе</h3>
-                <label class="add-process-form__label" for="process-name">Название</label>
-                <input class="add-process-form__input" type="text" name="process-name" id="process-name-input">
-                <label class="add-process-form__label" for="process-priority">Приоритет</label>
-                <input class="add-process-form__input" type="number" min="1" name="process-priority" id="process-priority-input">
-                <label class="add-process-form__label" for="process-time">Время выполнения</label>
-                <input class="add-process-form__input" type="number" min="1" name="process-time" id="process-work-time-input">
-                <button class="add-process-form__add-btn" id="add-process-btn" type="button">Добавить процесс</button>
-                <button class="add-process-form__close-btn" id="add-process-popup-close-btn" type="button"></button>
+        <div class="adding-process-popup" id="adding-process-popup">
+            <form class="adding-process-form" id="adding-process-form" action="">
+                <h3 class="adding-process-form__header">Введите данные о процессе</h3>
+                <label class="adding-process-form__label" for="process-name">Название</label>
+                <input class="adding-process-form__input" type="text" name="process-name" id="process-name-input">
+                <label class="adding-process-form__label" for="process-priority">Приоритет</label>
+                <input class="adding-process-form__input" type="number" min="1" name="process-priority" id="process-priority-input">
+                <label class="adding-process-form__label" for="process-time">Время выполнения</label>
+                <input class="adding-process-form__input" type="number" min="1" name="process-time" id="process-work-time-input">
+                <button class="adding-process-form__add-btn" id="adding-process-btn" type="button">Добавить процесс</button>
+                <button class="adding-process-form__close-btn" id="adding-process-popup-close-btn" type="button"></button>
             </form>
         </div>
         <!--  -->

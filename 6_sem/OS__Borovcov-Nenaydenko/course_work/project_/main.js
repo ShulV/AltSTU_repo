@@ -1,3 +1,4 @@
+const MAX_PRIORITY = 256;
 /* begin view */
 /* 
 - знает о DOM (удаляет, добавляет, извлекает информацию из DOM элементов) 
@@ -5,28 +6,23 @@
 */
 class View {
     //
-    constructor() {
-        // this.app = this.getElement('#root');
-        // this.processTableContainer = this.getElement('#process-table-container');
-        // this.consoleContainer = this.getElement('#console-container');
-        // this.processDiagramContainer = this.getElement('#process-diagram-container');
-        // this.processQueuesContainer = this.getElement('#process-queues-container');
+    constructor() {       
+        //process-table-container
+        this.processTable = this.getElement('#process-table');
+        this.addingProcessPopup = this.getElement('#adding-process-popup');
+        this.addingProcessOpenBtn = this.getElement('#adding-process-popup-open-btn');
         //
-        
-        //
-        this.processTable = this.getElement('#process-table-container__table');
-        //
-        this.addProcessPopup = this.getElement('#add-process-popup');
-        this.addProcessOpenBtn = this.getElement('#add-process-popup-open-btn');
-        this.addProcessPopupCloseBtn = this.getElement('#add-process-popup-close-btn');
-        //this.addProcessForm = this.getElement('#add-process-form');
+        this.addingProcessPopupCloseBtn = this.getElement('#adding-process-popup-close-btn');
         this.processNameInput = this.getElement('#process-name-input');
         this.processPriorityInput = this.getElement('#process-priority-input');
         this.processWorkTimeInput = this.getElement('#process-work-time-input');
-        this.addProcessBtn = this.getElement('#add-process-btn');
+        this.addingProcessBtn = this.getElement('#adding-process-btn');
         //
         this.startTimerBtn = this.getElement('#process-diagram-start-timer-btn');
         this.timerTickText = this.getElement('#process-diagram-timer-tick');
+        //
+
+        //
     };
     //
     createElement(tag, className) {
@@ -101,39 +97,45 @@ class View {
         this.timerTickText.textContent = timerTick;
     }
     //
-    openAddProcessPopup() {
-        this.addProcessPopup.classList.add('open');
+    openAddingProcessPopup() {
+        this.addingProcessPopup.classList.add('open');
     }
     //
-    closeAddProcessPopup() {
-        this.addProcessPopup.classList.remove('open');
+    closeAddingProcessPopup() {
+        this.addingProcessPopup.classList.remove('open');
     }
     //
     bindAddProcess(handler) {
-        this.addProcessBtn.addEventListener('click', event => {
-          if (event.target.className === 'add-process-form__add-btn') {
+        this.addingProcessBtn.addEventListener('click', event => {
+          if (event.target.className === 'adding-process-form__add-btn') {
             const processName = this.processNameInput.value;
             const processPriority = this.processPriorityInput.value;
             const processWorkTime = this.processWorkTimeInput.value;
-    
-            handler(processName, processPriority, processWorkTime);
+            if (processName == '' || processPriority == '' || processWorkTime == '') {
+                //TODO сделать валидацию формы
+                console.log('Данные не введены');
+            }
+            else {
+                handler(processName, processPriority, processWorkTime);
+            }
+            
           };
         });
     };
     //
-    bindAddProcessPopupOpenBtn(handler) {
-        this.addProcessOpenBtn.addEventListener('click', event => {
+    bindAddingProcessPopupOpenBtn(handler) {
+        this.addingProcessOpenBtn.addEventListener('click', event => {
             if (event.target.className === 'process-table-container__open-popup-btn') {
-              this.openAddProcessPopup();
+              this.openAddingProcessPopup();
               handler();
             };
           });
     };
     //
-    bindAddProcessPopupCloseBtn(handler) {
-        this.addProcessPopupCloseBtn.addEventListener('click', event => {
-            if (event.target.className === 'add-process-form__close-btn') {
-              this.closeAddProcessPopup();
+    bindAddingProcessPopupCloseBtn(handler) {
+        this.addingProcessPopupCloseBtn.addEventListener('click', event => {
+            if (event.target.className === 'adding-process-form__close-btn') {
+              this.closeAddingProcessPopup();
               handler();
             };
           });
@@ -176,11 +178,17 @@ class Model {
         this.timerTick = 0;
         this.timerIsStarted = false;
         this.timer = null;
+        this.processesQueuesByPriority = [];
+        for(let i=0; i<MAX_PRIORITY; i++) {
+            this.processesQueuesByPriority.push([]);
+        };
     };
     //
     addProcess(name, priority, workTime) {
-        this.processList.push(new Process(name, priority, workTime, this.timerTick));
+        const newProcess = new Process(name, priority, workTime, this.timerTick);
+        this.processList.push(newProcess);
         this.onProcessListChanged(this.processList);
+        this.addProcessInQueue(newProcess.priority, newProcess.id);
     };
     //
     startTimer() {
@@ -195,6 +203,10 @@ class Model {
             }, 1000);
             this.timerIsStarted = true;
         }
+    }
+    //
+    addProcessInQueue(processPriority, processId) {
+        this.processesQueuesByPriority[processPriority].push(processId);
     }
     //
     bindProcessListChanged(callback) {
@@ -218,8 +230,8 @@ class Controller {
       this.model = model
       this.view = view
 
-      this.view.bindAddProcessPopupOpenBtn(() => {});
-      this.view.bindAddProcessPopupCloseBtn(() => {});
+      this.view.bindAddingProcessPopupOpenBtn(() => {});
+      this.view.bindAddingProcessPopupCloseBtn(() => {});
       this.view.bindAddProcess(this.handleAddProcess);
       //
       this.view.bindStartTimerBtn(this.handleStartTimer);
