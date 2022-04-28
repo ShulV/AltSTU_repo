@@ -1,10 +1,11 @@
 import matplotlib.pyplot as plt
 
-
-def draw_graphs(x_lists, y_lists):
-    print('DRAW')
-    for x_list, y_list in zip(x_lists, y_lists):
-        plt.plot(x_list, y_list)
-        print(x_list)
-        print(y_list)
+def draw_graphs(x_list, y_list, lagrange_y_list, label):
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.set(title='График функции ' + label,
+           xlabel='X',
+           ylabel='Y')
+    ax.plot(x_list, y_list, color='black')
+    ax.plot(x_list, lagrange_y_list, color='red')
     plt.show()

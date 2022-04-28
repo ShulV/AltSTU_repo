@@ -37,7 +37,7 @@
     border-radius: 50%;
     cursor: pointer;
     background-color: transparent;
-    background-image: url('/images/play.png');
+    background-image: url('../images/play.png');
     background-size: cover;
     transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
@@ -49,5 +49,5 @@
 }
 
 .process-diagram-container__control-start-timer-btn.started {
-    background-image: url('/images/pause.png');
+    background-image: url('../images/pause.png');
 }

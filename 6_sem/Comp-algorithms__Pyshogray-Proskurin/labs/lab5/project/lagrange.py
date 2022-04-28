@@ -1,33 +1,36 @@
-from func import func
-
 
 class Lagrange:
     """ интерполирует значения функции в произвольных точках по ее таблице при помощи интерполяционного многочлена
     Лагранжа. """
 
     def __init__(self):
-        self.x_list = []
+        self.x_list = []  # для использования в формуле Лагранжа
         self.y_list = []
-        self.computed_x_list = []
-        self.computed_y_list = []
+        self.full_x_list = []  # значения больше, чем в x_list (их график выводим)
+        self.full_y_list = []
+        self.computed_y_list = [] # вычисленные по формуле Лагранжа (их график выводим)
 
-    def ln(self, x_list, x):
-        """ интерполяционный многочлен Лагранжа
-        mult_up - верхнее k-ое произведение в формуле
-        mult_down - нижнее k-ое произведение в формуле (лямбда k)
-        ck = mult_up/mult_down- базовый k-ый полином
-        func(x) - исследуемая функция
-        sum - сумма k-ых произведений ck и func(x)"""
-        n = len(x_list)
-        _sum = 0
-        for k in range(n):
-            mult_up = mult_down = 1
-            for j in range(n):
-                if j != k:
-                    mult_up *= x - x_list[j]
-                    mult_down *= x_list[k] - x_list[j]
-                    if mult_down == 0:
-                        print(f'mult_down = 0; j = {j}; k = {k}; x_list[k]={x_list[k]}; x_list[j]={x_list[j]}')
-            ck = mult_up / mult_down
-            _sum += ck * func(x)
-        return _sum
+    def create_basic_polynomial(self, i):
+        def basic_polynomial(x):
+            divider = 1
+            result = 1
+            for j in range(len(self.x_list)):
+                if j != i:
+                    result *= (x - self.x_list[j])
+                    divider *= (self.x_list[i] - self.x_list[j])
+            return result / divider
+
+        return basic_polynomial
+
+    def create_Lagrange_polynomial(self):
+        basic_polynomials = []
+        for i in range(len(self.x_list)):
+            basic_polynomials.append(self.create_basic_polynomial(i))
+
+        def lagrange_polynomial(x):
+            result = 0
+            for i in range(len(self.y_list)):
+                result += self.y_list[i] * basic_polynomials[i](x)
+            return result
+
+        return lagrange_polynomial

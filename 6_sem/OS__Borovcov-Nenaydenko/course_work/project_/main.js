@@ -1,4 +1,5 @@
 const MAX_PRIORITY = 256;
+const CORE_NUM = 4;
 /* begin view */
 /* 
 - знает о DOM (удаляет, добавляет, извлекает информацию из DOM элементов) 
@@ -129,7 +130,7 @@ class View {
         for(let i=0; i<processQueues.length; i++) {
             if (processQueues[i] != '') {
                 this.createQueueWithPriorityRow(tbody, i, processQueues[i]);
-            };
+            }
         }
         this.processQueueTable.appendChild(tbody);
     };
@@ -156,7 +157,7 @@ class View {
                 handler(processName, processPriority, processWorkTime);
             }
             
-          };
+          }
         });
     };
     //
@@ -174,8 +175,8 @@ class View {
             if (event.target.className === 'adding-process-form__close-btn') {
               this.closeAddingProcessPopup();
               handler();
-            };
-          });
+            }
+        });
     };
     //
     bindStartTimerBtn(handler) {
@@ -205,9 +206,19 @@ class Process {
         this.arrivalTime = arrivalTime;
         this.isCompleted = isCompleted;
     };
-
 };
 
+class Processor {
+    constructor(coreNum) {
+        this.coreNum = coreNum;
+        this.runningProcesses = [];
+        this.completedProcesses = [];
+        for(let i=0; i<coreNum; i++) {
+            this.runningProcesses.push(null);
+            this.completedProcesses.push([]);
+        }
+    };
+};
 
 class Model {
     constructor() {
@@ -218,7 +229,8 @@ class Model {
         this.processQueuesByPriority = [];
         for(let i=0; i<MAX_PRIORITY; i++) {
             this.processQueuesByPriority.push([]);
-        };
+        }
+        this.processor = new Processor(CORE_NUM);
     };
     //
     addProcess(name, priority, workTime) {
@@ -226,6 +238,21 @@ class Model {
         this.processList.push(newProcess);
         this.onProcessListChanged(this.processList);
         this.addProcessInQueue(newProcess.priority, newProcess.id);
+    };
+    //
+    addProcessesToRun() {
+        for(let i=MAX_PRIORITY-1; i>0; i--) {
+            if (this.processQueuesByPriority[i].length>0) {
+                for(let j=0; j<this.processor.coreNum; j++) {
+                    if (this.processor.runningProcesses[j] == null) {
+                        this.process.runningProcesses[j] = this.processQueuesByPriority[i].shift();
+                    }
+                    else {
+                        continue;
+                    }
+                }
+            }
+        }
     };
     //
     startTimer() {
@@ -236,6 +263,7 @@ class Model {
         else {
             this.timer = setInterval(() => {
                 this.timerTick++;
+                // this.addProcessesToRun();
                 this.onTimerTickChanged(this.timerTick);
             }, 1000);
             this.timerIsStarted = true;
@@ -246,7 +274,7 @@ class Model {
         this.processQueuesByPriority[processPriority].push(processId);
         this.onProcessQueuesChanged(this.processQueuesByPriority);
     };
-    //
+    //-----------------------------------------------------------------------------------
     bindProcessQueuesChanged(callback) {
         this.onProcessQueuesChanged = callback;
     }
