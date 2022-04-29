@@ -1,5 +1,7 @@
 const MAX_PRIORITY = 256;
 const CORE_NUM = 4;
+const RULER_STEP = 5;
+const ONE_TICK_LENGTH = 20;
 /* begin view */
 /* 
 - знает о DOM (удаляет, добавляет, извлекает информацию из DOM элементов) 
@@ -20,7 +22,8 @@ class View {
         this.addingProcessBtn = this.getElement('#adding-process-btn');
         //
         this.processDiagram = this.getElement('#process-diagram');
-        this.processDiagramCoreLines = []
+        this.processDiagramCoreLines = [];
+        this.diagramRuler = null;
         this.startTimerBtn = this.getElement('#process-diagram-start-timer-btn');
         this.timerTickText = this.getElement('#process-diagram-timer-tick');
         //
@@ -142,11 +145,23 @@ class View {
         this.processQueueTable.appendChild(tbody);
     };
     //
-    displayDiagram(processor) {
+    displayDiagramRuler(timerTick) {
+        let rulerStep = RULER_STEP;
+        let labelNum = Math.ceil(timerTick/rulerStep);
+        for(let i=0; i<labelNum; i++) {
+            let label = this.createElement('div', 'process-diagram-container__diagram-ruler-segment');
+            label.textContent = i * rulerStep;
+            label.style.width = (ONE_TICK_LENGTH*RULER_STEP)+'px';
+            this.diagramRuler.appendChild(label);
+        }
+    };
+    //
+    displayDiagram(processor, timerTick) {
         if (this.processDiagram.firstChild) {
             //clean inside exisiting containers (lines)
             for(let i=0; i<processor.coreNum; i++){
                 this.processDiagramCoreLines[i].innerHTML = '';
+                this.diagramRuler.innerHTML = '';
             }
         }
         else {
@@ -156,6 +171,9 @@ class View {
                 this.processDiagramCoreLines.push(coreLine);
                 this.processDiagram.appendChild(coreLine);
             }
+            let rulerLine = this.createElement('div', 'process-diagram-container__diagram-ruler');
+                this.diagramRuler = rulerLine;
+                this.processDiagram.appendChild(rulerLine);            
         }
         //fill them
         //go all lines
@@ -164,18 +182,19 @@ class View {
                 let coreLineProcess = this.createElement('div', 'process-diagram-container__diagram-completed-process');
                 coreLineProcess.innerHTML = processor.completedProcesses[i][j].id;
                 let tickWorked = processor.completedProcesses[i][j].workTime - processor.completedProcesses[i][j].remainingWorkTime;
-                coreLineProcess.style.width = (20*tickWorked)+'px';
+                coreLineProcess.style.width = (ONE_TICK_LENGTH*tickWorked)+'px';
                 this.processDiagramCoreLines[i].appendChild(coreLineProcess);
             }
             if (processor.runningProcesses[i]) {
                 let coreLineProcess = this.createElement('div', 'process-diagram-container__diagram-running-process');
                 coreLineProcess.innerHTML = processor.runningProcesses[i].id;
                 let tickWorked = processor.runningProcesses[i].workTime - processor.runningProcesses[i].remainingWorkTime;
-                coreLineProcess.style.width = (20*tickWorked)+'px';
+                coreLineProcess.style.width = (ONE_TICK_LENGTH*tickWorked)+'px';
                 this.processDiagramCoreLines[i].appendChild(coreLineProcess);
             }
             
         }
+        this.displayDiagramRuler(timerTick);
     };
     //
     openAddingProcessPopup() {
@@ -293,8 +312,11 @@ class Model {
                     if (this.processor.runningProcesses[j] == null) {
                         let process = this.processQueuesByPriority[i].shift();
                         this.processor.runningProcesses[j] = process;
-                        // console.log(`в ядро ${j} процессора положили процесс ${process}.`)
-                        this.onProcessQueuesChanged(this.processQueuesByPriority);
+                        if (process) {
+                            // console.log(`в ядро ${j} процессора положили процесс ${process}.`)
+                            this.onProcessQueuesChanged(this.processQueuesByPriority);
+                        }
+                        
                     }
                     else {
                         continue;
@@ -313,7 +335,7 @@ class Model {
             this.timer = setInterval(() => {
                 this.addProcessesToRun();
                 this.runProcessForTick();
-                this.onProcessorPropsChanged(this.processor);
+                this.onProcessorPropsChanged(this.processor, this.timerTick);
                 this.timerTick++;
                 this.onTimerTickChanged(this.timerTick);
             }, 1000);
@@ -396,8 +418,8 @@ class Controller {
         this.view.displayTimerTick(timerTick);
     };
     //
-    onProcessorPropsChanged = (processor) => {
-        this.view.displayDiagram(processor);
+    onProcessorPropsChanged = (processor, timerTick) => {
+        this.view.displayDiagram(processor, timerTick);
     };
     //
     handleAddProcess = (name, workTime, priority) => {

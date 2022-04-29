@@ -81,3 +81,20 @@
 .process-diagram-container__diagram-running-process {
     background-color: green;
 }
+
+.process-diagram-container__diagram-idle-process {
+
+}
+
+.process-diagram-container__diagram-ruler {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    margin: 5px;
+}
+
+.process-diagram-container__diagram-ruler-segment {
+    height: 20px;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+}
