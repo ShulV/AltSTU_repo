@@ -1,4 +1,6 @@
 .process-diagram-container {
+    display: flex;
+    flex-direction: row;
     height: 50%;
     width: 50%;
     background-color: var(--light-gray);
@@ -50,4 +52,17 @@
 
 .process-diagram-container__control-start-timer-btn.started {
     background-image: url('../images/pause.png');
+}
+
+.process-diagram-container__diagram {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.process-diagram-container__diagram-core-line {
+    outline: 2px solid blue;
+    padding: 2px;
+    margin: 5px;
 }

@@ -19,6 +19,7 @@ class View {
         this.processWorkTimeInput = this.getElement('#process-work-time-input');
         this.addingProcessBtn = this.getElement('#adding-process-btn');
         //
+        this.processDiagram = this.getElement('#process-diagram');
         this.startTimerBtn = this.getElement('#process-diagram-start-timer-btn');
         this.timerTickText = this.getElement('#process-diagram-timer-tick');
         //
@@ -135,13 +136,27 @@ class View {
         this.processQueueTable.appendChild(tbody);
     };
     //
+    displayDiagram(coreNum) {
+        console.log('DISPLAY')
+        if (this.processDiagram.firstChild) {
+            console.log(this.processDiagram.firstChild)
+        }
+        else {
+            for(let i=0; i<coreNum; i++) {
+                console.log('создали' + i)
+                let coreLine = this.createElement('div', 'process-diagram-container__diagram-core-line');
+                this.processDiagram.appendChild(coreLine);
+            }
+        }
+    };
+    //
     openAddingProcessPopup() {
         this.addingProcessPopup.classList.add('open');
-    }
+    };
     //
     closeAddingProcessPopup() {
         this.addingProcessPopup.classList.remove('open');
-    }
+    };
     //
     bindAddProcess(handler) {
         this.addingProcessBtn.addEventListener('click', event => {
@@ -267,7 +282,7 @@ class Model {
         }
         else {
             this.timer = setInterval(() => {
-                // this.onProcessorPropsChanged();
+                this.onProcessorPropsChanged(this.processor.coreNum);
                 this.addProcessesToRun();
                 this.timerTick++;
                 this.onTimerTickChanged(this.timerTick);
@@ -309,7 +324,7 @@ class Controller {
     constructor(model, view) {
       this.model = model
       this.view = view
-
+      //
       this.view.bindAddingProcessPopupOpenBtn(() => {});
       this.view.bindAddingProcessPopupCloseBtn(() => {});
       this.view.bindAddProcess(this.handleAddProcess);
@@ -317,7 +332,9 @@ class Controller {
       this.view.bindStartTimerBtn(this.handleStartTimer);
       //
       this.model.bindProcessListChanged(this.onProcessListChanged);
+      //
       this.model.bindProcessQueuesChanged(this.onProcessQueuesChanged);
+      //
       this.model.bindTimerTickChanged(this.onTimerTickChanged);
       this.model.bindProcessorPropsChanged(this.onProcessorPropsChanged);
       
@@ -335,8 +352,8 @@ class Controller {
         this.view.displayTimerTick(timerTick);
     };
     //
-    onProcessorPropsChanged = () => {
-        // this.view.displayDiagram();
+    onProcessorPropsChanged = (coreNum) => {
+        this.view.displayDiagram(coreNum);
     };
     //
     handleAddProcess = (name, workTime, priority) => {
