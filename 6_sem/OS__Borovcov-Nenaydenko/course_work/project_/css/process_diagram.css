@@ -74,8 +74,9 @@
 .process-diagram-container__diagram-completed-process {
     height: 20px;
     width: 20px;
-    outline: 2px solid green;
+    border: 2px solid green;
     text-align: right;
+    box-sizing: border-box;
 }
 
 .process-diagram-container__diagram-running-process {
@@ -95,6 +96,14 @@
 
 .process-diagram-container__diagram-ruler-segment {
     height: 20px;
-    border-bottom: 1px solid black;
-    border-left: 1px solid black;
+    border-bottom: 2px solid black;
+    border-left: 2px solid black;
+    box-sizing: border-box;
+}
+
+.process-diagram-container__diagram-empty-process {
+    height: 20px;
+    width: 20px;
+    border: 2px solid #fff;
+    box-sizing: border-box;
 }

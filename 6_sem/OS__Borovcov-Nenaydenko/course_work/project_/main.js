@@ -2,6 +2,8 @@ const MAX_PRIORITY = 256;
 const CORE_NUM = 4;
 const RULER_STEP = 5;
 const ONE_TICK_LENGTH = 20;
+const TICK_TIME_IN_SECONDS = 1;
+
 /* begin view */
 /* 
 - знает о DOM (удаляет, добавляет, извлекает информацию из DOM элементов) 
@@ -179,20 +181,31 @@ class View {
         //go all lines
         for(let i=0; i<processor.coreNum; i++) {
             for(let j=0; j<processor.completedProcesses[i].length; j++) {
-                let coreLineProcess = this.createElement('div', 'process-diagram-container__diagram-completed-process');
-                coreLineProcess.innerHTML = processor.completedProcesses[i][j].id;
-                let tickWorked = processor.completedProcesses[i][j].workTime - processor.completedProcesses[i][j].remainingWorkTime;
-                coreLineProcess.style.width = (ONE_TICK_LENGTH*tickWorked)+'px';
+                let coreLineProcess = Object();
+                if (processor.completedProcesses[i][j].id == 0) {
+                    coreLineProcess = this.createElement('div', 'process-diagram-container__diagram-empty-process');
+                }
+                else {
+                    coreLineProcess = this.createElement('div', 'process-diagram-container__diagram-completed-process');
+                    coreLineProcess.innerHTML = processor.completedProcesses[i][j].id;
+                    let tickWorked = processor.completedProcesses[i][j].workTime - processor.completedProcesses[i][j].remainingWorkTime;
+                    coreLineProcess.style.width = (ONE_TICK_LENGTH*tickWorked)+'px';
+                }
                 this.processDiagramCoreLines[i].appendChild(coreLineProcess);
             }
             if (processor.runningProcesses[i]) {
-                let coreLineProcess = this.createElement('div', 'process-diagram-container__diagram-running-process');
-                coreLineProcess.innerHTML = processor.runningProcesses[i].id;
-                let tickWorked = processor.runningProcesses[i].workTime - processor.runningProcesses[i].remainingWorkTime;
-                coreLineProcess.style.width = (ONE_TICK_LENGTH*tickWorked)+'px';
+                let coreLineProcess = Object();
+                if (processor.runningProcesses[i].id == 0) {
+                    coreLineProcess = this.createElement('div', 'process-diagram-container__diagram-empty-process');
+                }
+                else {
+                    coreLineProcess = this.createElement('div', 'process-diagram-container__diagram-running-process');
+                    coreLineProcess.innerHTML = processor.runningProcesses[i].id;
+                    let tickWorked = processor.runningProcesses[i].workTime - processor.runningProcesses[i].remainingWorkTime;
+                    coreLineProcess.style.width = (ONE_TICK_LENGTH*tickWorked)+'px';
+                }
                 this.processDiagramCoreLines[i].appendChild(coreLineProcess);
-            }
-            
+            }            
         }
         this.displayDiagramRuler(timerTick);
     };
@@ -280,6 +293,7 @@ class Processor {
             this.runningProcesses.push(null);
             this.completedProcesses.push([]);
         }
+        this.emptyProcess = new Process('empty', 255, 1, 0);
     };
 };
 
@@ -304,25 +318,35 @@ class Model {
     };
     //
     addProcessesToRun() {
+        let isEmptyQueues = true;
         for(let i=MAX_PRIORITY-1; i>0; i--) {
             if (this.processQueuesByPriority[i].length>0) {
+                isEmptyQueues = false;
                 // console.log(`зашли в очередь ${i}.`);
                 for(let j=0; j<this.processor.coreNum; j++) {
                     // console.log(`проверяем ядро ${j}.`);
                     if (this.processor.runningProcesses[j] == null) {
                         let process = this.processQueuesByPriority[i].shift();
-                        this.processor.runningProcesses[j] = process;
+                        // console.log(`process= ${process}`)
                         if (process) {
+                            this.processor.runningProcesses[j] = process;
                             // console.log(`в ядро ${j} процессора положили процесс ${process}.`)
                             this.onProcessQueuesChanged(this.processQueuesByPriority);
                         }
-                        
                     }
                     else {
                         continue;
                     }
                 }
             }
+        }
+        if (isEmptyQueues) {
+            for(let j=0; j<this.processor.coreNum; j++) {
+                    
+                if (this.processor.runningProcesses[j] == null) {
+                    this.processor.runningProcesses[j] = Object.assign({}, this.processor.emptyProcess);
+                }
+            }     
         }
     };
     //
@@ -338,22 +362,24 @@ class Model {
                 this.onProcessorPropsChanged(this.processor, this.timerTick);
                 this.timerTick++;
                 this.onTimerTickChanged(this.timerTick);
-            }, 1000);
+            }, 1000 * TICK_TIME_IN_SECONDS);
             this.timerIsStarted = true;
         };
     };
     //
     runProcessForTick() {
         for(let i=0; i<this.processor.coreNum; i++) {
-            if (this.processor.runningProcesses[i] == null) {
-                continue;
-            }
+            // if (this.processor.runningProcesses[i] == null) {
+            //     continue;
+            // }
             if (this.processor.runningProcesses[i].remainingWorkTime == 0) {
                 this.processor.completedProcesses[i].push(this.processor.runningProcesses[i]);
                 this.processor.runningProcesses[i] = null;
-                continue;
             }
-            this.processor.runningProcesses[i].remainingWorkTime--;
+            else {
+                this.processor.runningProcesses[i].remainingWorkTime--;
+            }
+           
         }
     };
     //
