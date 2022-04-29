@@ -243,9 +243,14 @@ class Model {
     addProcessesToRun() {
         for(let i=MAX_PRIORITY-1; i>0; i--) {
             if (this.processQueuesByPriority[i].length>0) {
+                // console.log(`зашли в очередь ${i}.`);
                 for(let j=0; j<this.processor.coreNum; j++) {
+                    // console.log(`проверяем ядро ${j}.`);
                     if (this.processor.runningProcesses[j] == null) {
-                        this.process.runningProcesses[j] = this.processQueuesByPriority[i].shift();
+                        let process = this.processQueuesByPriority[i].shift();
+                        this.processor.runningProcesses[j] = process;
+                        // console.log(`в ядро ${j} процессора положили процесс ${process}.`)
+                        this.onProcessQueuesChanged(this.processQueuesByPriority);
                     }
                     else {
                         continue;
@@ -262,8 +267,9 @@ class Model {
         }
         else {
             this.timer = setInterval(() => {
+                // this.onProcessorPropsChanged();
+                this.addProcessesToRun();
                 this.timerTick++;
-                // this.addProcessesToRun();
                 this.onTimerTickChanged(this.timerTick);
             }, 1000);
             this.timerIsStarted = true;
@@ -287,6 +293,10 @@ class Model {
         this.onTimerTickChanged = callback;
     };
     //
+    bindProcessorPropsChanged(callback) {
+        this.onProcessorPropsChanged = callback;
+    }
+    //
   };
 /* end model */
 
@@ -309,6 +319,7 @@ class Controller {
       this.model.bindProcessListChanged(this.onProcessListChanged);
       this.model.bindProcessQueuesChanged(this.onProcessQueuesChanged);
       this.model.bindTimerTickChanged(this.onTimerTickChanged);
+      this.model.bindProcessorPropsChanged(this.onProcessorPropsChanged);
       
     };
     //
@@ -322,6 +333,10 @@ class Controller {
     //
     onTimerTickChanged = timerTick => {
         this.view.displayTimerTick(timerTick);
+    };
+    //
+    onProcessorPropsChanged = () => {
+        // this.view.displayDiagram();
     };
     //
     handleAddProcess = (name, workTime, priority) => {
