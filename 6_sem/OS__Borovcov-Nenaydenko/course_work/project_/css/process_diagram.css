@@ -62,7 +62,22 @@
 }
 
 .process-diagram-container__diagram-core-line {
+    display: flex;
+    flex-direction: row;
     outline: 2px solid blue;
-    padding: 2px;
+    padding: 5px;
     margin: 5px;
+}
+
+/* TODO */
+.process-diagram-container__diagram-running-process,
+.process-diagram-container__diagram-completed-process {
+    height: 20px;
+    width: 20px;
+    outline: 2px solid green;
+    text-align: right;
+}
+
+.process-diagram-container__diagram-running-process {
+    background-color: green;
 }

@@ -1,0 +1,63 @@
+Вставка в таблицу 1 строки:
+
+INSERT into "Pas"
+("Surname", "Name", "Patronymic", "Ser", "Num", "Bdate", "Bpl")
+VALUES ('Чуркин', 'Иван', 'Петрович', '3411', '123333', '14.06.2001', 'Барнаул');
+
+Вставка в таблицу нескольких строк:
+
+INSERT into "Pas"
+("Surname", "Name", "Patronymic", "Ser", "Num", "Bdate", "Bpl")
+VALUES ('Чуркин', 'Иван', 'Петрович', '3411', '123333', '14.06.2001', 'Барнаул'),
+VALUES ('Чуркин2', 'Иван2', 'Петрович', '3412', '123334', '14.06.2001', 'Барнаул');
+
+Удаление строки из таблицы по условию:
+
+DELETE FROM public."Pas"
+	WHERE "Name" = 'Иван';
+
+Удаление строки из таблицы по составному условию:
+
+DELETE FROM public."Pas"
+	WHERE "Surname" = 'Вера' and "Bpl" = 'Алейск';
+
+
+Обновление полей строки таблицы:
+
+UPDATE public."Pas"
+	SET "Name"='Верджиния', "Patronymic"='Павловна'
+	WHERE "Patronymic" LIKE 'Павловна%';
+
+Выборка (одно поле равно определенному значению)
+
+SELECT "Surname", "Name", "Patronymic", "Ser", "Num", "Bdate", "Bpl"
+	FROM public."Pas"
+	WHERE "Bpl" = 'Алейск';
+
+Выборка по условию и сортировкой (по возрастанию - ASC, по убыванию - DESC)
+
+SELECT "Surname", "Name", "Patronymic", "Ser", "Num", "Bdate", "Bpl"
+	FROM public."Pas"
+	WHERE "Name" LIKE 'М%'
+	ORDER BY "Bpl" ASC;
+
+Выборка с диапазонов в условии:
+SELECT * FROM "aircrafts" WHERE range BETWEEN 3000 AND 6000;
+
+Выборка с выводом доп колонки:
+SELECT "model", "range", "range" / 1.609 AS "miles"
+FROM "aircrafts";
+
+Выборка трех с пропуском трех:
+
+SELECT airport_name, city, longitude
+FROM airports
+ORDER BY longitude DESC
+LIMIT 3 OFFSET 3;
+
+Выборка из 2 таблиц:
+SELECT s."Paradr", p."Bpl"
+	FROM "Stud" as s
+		JOIN "Pas" as p
+		ON s."PK_pas" = p."PK_pas"
+	ORDER BY "Bpl" ASC;
