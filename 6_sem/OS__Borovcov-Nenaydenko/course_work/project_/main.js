@@ -1,4 +1,4 @@
-const MAX_PRIORITY = 256;
+const MAX_PRIORITY = 8;
 const CORE_NUM = 4;
 const RULER_STEP = 5;
 const ONE_TICK_LENGTH = 20;
@@ -293,7 +293,7 @@ class Processor {
             this.runningProcesses.push(null);
             this.completedProcesses.push([]);
         }
-        this.emptyProcess = new Process('empty', 255, 1, 0);
+        this.emptyProcess = new Process('empty', 0, 1, 0);
     };
 };
 
@@ -318,36 +318,64 @@ class Model {
     };
     //
     addProcessesToRun() {
-        let isEmptyQueues = true;
+        // определение количества свободных (готовых принять новый процесс на выполнение) ядер
+        let necessaryProcessesNum = 0;
+        for(let j=0; j<this.processor.coreNum; j++) {
+            if (this.processor.runningProcesses[j] == null) {
+                necessaryProcessesNum++;
+            }
+        }
+        console.log(`количество необходимых процессов для заполнения = ${necessaryProcessesNum}`);
+        // заполнение массива необходимым количеством процессов из очереди
+        let necessaryProcesses = [];
         for(let i=MAX_PRIORITY-1; i>0; i--) {
             if (this.processQueuesByPriority[i].length>0) {
-                isEmptyQueues = false;
-                // console.log(`зашли в очередь ${i}.`);
-                for(let j=0; j<this.processor.coreNum; j++) {
-                    // console.log(`проверяем ядро ${j}.`);
-                    if (this.processor.runningProcesses[j] == null) {
-                        let process = this.processQueuesByPriority[i].shift();
-                        // console.log(`process= ${process}`)
-                        if (process) {
-                            this.processor.runningProcesses[j] = process;
-                            // console.log(`в ядро ${j} процессора положили процесс ${process}.`)
-                            this.onProcessQueuesChanged(this.processQueuesByPriority);
-                        }
+                while (this.processQueuesByPriority[i].length > 0) {
+                    if (necessaryProcesses.length == necessaryProcessesNum) {
+                        this.sendProcessesToProcessor(necessaryProcesses);
+                        return;
                     }
-                    else {
-                        continue;
-                    }
+                    necessaryProcesses.push(this.processQueuesByPriority[i].shift());
+                    //событие изменение числа событий в очереди (в обработчике перерисовка очередей процессов)
+                    this.onProcessQueuesChanged(this.processQueuesByPriority);
+                    //если из очереди забрали необходимое количество процессов, отправляем их в процессор и выходим
+                    console.log(`\nthis.processQueuesByPriority[${i}].length ${this.processQueuesByPriority[i].length}`)
+                    console.log(`necessaryProcesses.length ${necessaryProcesses.length}\n---\n`);
+
+                    
                 }
             }
         }
-        if (isEmptyQueues) {
-            for(let j=0; j<this.processor.coreNum; j++) {
-                    
-                if (this.processor.runningProcesses[j] == null) {
-                    this.processor.runningProcesses[j] = Object.assign({}, this.processor.emptyProcess);
-                }
-            }     
+        if (necessaryProcesses.length == necessaryProcessesNum) {
+            this.sendProcessesToProcessor(necessaryProcesses);
+            return;
         }
+        console.log(`очередь: ${this.processQueuesByPriority[0]}`)
+        console.log(`процессов из очереди взято ${necessaryProcesses.length}, дозаполняем пустыми процессами`);
+        // дозаполнение массива пустыми процессами, если процессов в очереди не осталось
+        while (necessaryProcesses.length != necessaryProcessesNum) {
+            // копируем объект дефолтного пустого процесса
+            necessaryProcesses.push(Object.assign({}, this.processor.emptyProcess));
+        }
+        //отправляем процессы в процессор
+        this.sendProcessesToProcessor(necessaryProcesses);
+        return;
+    };
+    // положить процессы в ядра процессора для выполнения
+    sendProcessesToProcessor(processes) {
+        console.log('процессы переданные в функц')
+        processes.forEach((item) => {
+            console.log(item.id)
+        })
+        for(let i=0; i<this.processor.coreNum; i++) {
+            if (this.processor.runningProcesses[i] == null) {
+                this.processor.runningProcesses[i] = processes.shift();
+                console.log(`this.processor.runningProcesses[${i}] = ${this.processor.runningProcesses[i].id}`)
+            }
+        }
+        console.log(`положили процессы в ядра; переменная processes.length = ${processes.length} (нужно 0)`);
+        console.log('-------------------------------------------------------------------------')
+
     };
     //
     startTimer() {
@@ -357,10 +385,15 @@ class Model {
         }
         else {
             this.timer = setInterval(() => {
+                console.log('\nФункция таймера')
+                //добавление процессов в ядра процессора на выполнение (если очередь пуста - пустыми процессами-заглушками)
                 this.addProcessesToRun();
+                //
                 this.runProcessForTick();
+                //событие вызывает перерисовку диаграммы (линии с процессами ядер + линейка)
                 this.onProcessorPropsChanged(this.processor, this.timerTick);
                 this.timerTick++;
+                //событие вызывает перерисовку показателя таймера
                 this.onTimerTickChanged(this.timerTick);
             }, 1000 * TICK_TIME_IN_SECONDS);
             this.timerIsStarted = true;
@@ -368,18 +401,18 @@ class Model {
     };
     //
     runProcessForTick() {
+        // for(let i=0; i<this.processor.coreNum; i++) {
+        //     if ( this.processor.runningProcesses[i] == null) {
+        //         continue;
+        //     }
+        // }
         for(let i=0; i<this.processor.coreNum; i++) {
-            // if (this.processor.runningProcesses[i] == null) {
-            //     continue;
-            // }
+            this.processor.runningProcesses[i].remainingWorkTime--;
+
             if (this.processor.runningProcesses[i].remainingWorkTime == 0) {
                 this.processor.completedProcesses[i].push(this.processor.runningProcesses[i]);
                 this.processor.runningProcesses[i] = null;
-            }
-            else {
-                this.processor.runningProcesses[i].remainingWorkTime--;
-            }
-           
+            }         
         }
     };
     //
