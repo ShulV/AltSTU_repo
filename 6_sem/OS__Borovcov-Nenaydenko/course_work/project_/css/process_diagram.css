@@ -7,6 +7,7 @@
     padding: 20px;
     box-sizing: border-box;
     color: white;
+    overflow-y: auto;
 }
 
 .process-diagram-container__control {

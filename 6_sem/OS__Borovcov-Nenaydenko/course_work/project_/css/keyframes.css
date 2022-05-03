@@ -1,19 +1,9 @@
 @keyframes open-popup {
     from {
-      left: -2000px;
+      right: -2000px;
     }
   
     to {
-      left: 75%;
-    }
-}
-
-@keyframes close-popup {
-    from {
-      left: 75%
-    }
-  
-    to {
-      left: -2000px
+      right: 0;
     }
 }
