@@ -6,7 +6,7 @@ from figure_gravity_center import Figure
 
 
 def main():
-    n = 50  # количество точек
+    n = 50000  # количество точек
     integral = Integral()  # создаем интеграл (подынтегральная функция, пределы присваиваются в классе)
     mc = MonteCarlo(integral, n)  # создаем объект, вычисляющий интеграл методом Монте-Карло
     mc.get_integral_by_monte_carlo()  # вычисляем интеграл

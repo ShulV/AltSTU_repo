@@ -1,6 +1,7 @@
 from level_system_adapter import LevelSystemAdapter
 from level_system import LevelSystem
 
+
 class Game:
     """игра"""
     def __init__(self):

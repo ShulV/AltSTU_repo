@@ -6,11 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/style.css">
+    <!-- стили mocha для отображения результатов -->
+    <link rel="stylesheet" href="css/mocha.css">
     <title>Курсовая работа</title>
 
-    <script src="main.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <!-- фреймворк mocha -->
+    <script src="js/mocha.js"></script>
+    <script>
+        // включаем режим тестирования в стиле BDD
+        mocha.setup('bdd');
+    </script>
+    <script src="js/chai.js"></script>
+    <!-- chai -->
+    <script>
+        // chai предоставляет большое количество функций. Объявим assert глобально
+        let assert = chai.assert;
+    </script>
+    <!-- скрипт со спецификацией (describe, it...) -->
+    <script src="js/model_test.js" defer></script>
+    <!-- запускаем тесты! -->
+    <script defer>
+        mocha.run();
+    </script>
 </head>
 <body>
+    <!-- элемент с id="mocha" будет содержать результаты тестов -->
+    <div id="mocha"></div>
+
     <div id="root" class="main-container">
         <!--  -->
         <div id="process-table-container" class="process-table-container">

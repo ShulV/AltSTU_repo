@@ -11,6 +11,55 @@ INSERT into "Pas"
 VALUES ('Чуркин', 'Иван', 'Петрович', '3411', '123333', '14.06.2001', 'Барнаул'),
 VALUES ('Чуркин2', 'Иван2', 'Петрович', '3412', '123334', '14.06.2001', 'Барнаул');
 
+INSERT INTO public."Stipcontr"(
+	"Num", "Date", "PK_stud", "PK_stip", "PK_admin", "PK_pas")
+	VALUES (1, '13.12.2021', 1, 1, 1, 1),
+	(2, '20.10.2021', 2, 1, 1, 2),
+	(3, '24.12.2021', 3, 2, 2, 3),
+	(4, '20.12.2021', 4, 3, 1, 4),
+	(5, '10.12.2021', 5, 3, 4, 5),
+	(6, '13.12.2021', 6, 2, 3, 6),
+	(7, '12.12.2021', 7, 1, 1, 7),
+	(8, '15.11.2021', 8, 1, 4, 8);
+
+INSERT INTO public."Curator"(
+	"Surname", "Name", "Patronymic")
+	VALUES ('Куратов', 'Кирилл', 'Кириллович'),
+	('Кубышев', 'Кирнан', 'Корович'),
+	('Куторкин', 'Канад', 'Кириллович'),
+	('Культов', 'Никола', 'Кириллович'),
+	('Швабрин', 'Кирилл', 'Кириллович'),
+	('Скакалкин', 'Кирилл', 'Кириллович'),
+	('Кумилов', 'Кирилл', 'Кириллович'),
+	('Курпатов', 'Кирилл', 'Кириллович');
+
+INSERT INTO public."Admiscontr"(
+	"Num", "Date", "PK_curat", "PK_admin", "PK_stud", "PK_dir", "PK_pas")
+	VALUES 
+	(1, '14.09.2019', 1, 1, 1, 9, 1),
+	(2, '14.09.2019', 1, 1, 2, 9, 2),
+	(3, '14.09.2019', 1, 2, 3, 9, 3),
+	(4, '14.09.2019', 2, 3, 4, 9, 4),
+	(5, '14.09.2019', 2, 1, 5, 10, 5),
+	(6, '15.09.2019', 3, 3, 6, 10, 6),
+	(7, '15.09.2019', 3, 1, 7, 11, 7),
+	(8, '16.09.2019', 3, 4, 8, 11, 8),
+	(9, '15.09.2019', 4, 1, 9, 11, 9),
+	(10, '24.09.2019', 4, 2, 10, 11, 10);
+
+INSERT INTO public."StudLang"(
+	"PK_lang", "PK_stud", "PK_pas")
+	VALUES (1, 1, 1),
+	(1, 2, 2),
+	(2, 3, 3),
+	(2, 4, 4),
+	(1, 5, 5),
+	(3, 6, 6),
+	(1, 7, 7),
+	(4, 8, 8),
+	(1, 9, 9),
+	(4, 10, 10);
+
 Удаление строки из таблицы по условию:
 
 DELETE FROM public."Pas"
@@ -61,3 +110,34 @@ SELECT s."Paradr", p."Bpl"
 		JOIN "Pas" as p
 		ON s."PK_pas" = p."PK_pas"
 	ORDER BY "Bpl" ASC;
+
+Выборка из 3 таблиц:
+select p."Surname", p."Name", g."Name"
+	from "Stud" as s
+		join "Pas" as p
+		on s."PK_pas" = p."PK_pas"
+			join "Gr" as g
+			on s."PK_gr" = g."PK_gr"
+	order by g."Name", "Surname" ASC;
+
+Выборка из 5 таблиц:
+select p."Surname", p."Name", g."Name", stip."Size"
+	from "Stud" as stud
+		join "Pas" as p
+		on stud."PK_pas" = p."PK_pas"
+			join "Gr" as g
+			on stud."PK_gr" = g."PK_gr"
+				join "Stipcontr" as stipc
+				 on stud."PK_stud" = stipc."PK_stud"
+				 	join "Stip" as stip
+						on stipc."PK_stip" = stip."PK_stip"
+	where g."Name" LIKE 'П%'
+	order by g."Name", "Surname" ASC;
+
+Суммирование:
+select sum(s."Size"
+from "Stip" as s
+
+Подсчет строк:
+select count(s."Size") as "Количество таких-то строк"
+from "Stip" as s
