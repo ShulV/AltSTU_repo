@@ -1,7 +1,15 @@
 .console-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
     height: 50%;
     width: 50%;
     background-color: var(--light-gray);
     padding: 20px;
     box-sizing: border-box;
+}
+
+.console-container__entries {
+    overflow-y: auto;
 }

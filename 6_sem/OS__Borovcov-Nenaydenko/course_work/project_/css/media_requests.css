@@ -4,11 +4,5 @@
     .process-diagram-container,
     .process-queues-container {
         width: 100%;
-        background-color: red;
     }
-}
-
-.adding-process-popup {
-
-    background-color: red;
 }

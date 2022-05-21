@@ -1,0 +1,6 @@
+﻿  binaryTree1.cpp
+C:\Users\Victor\source\repos\data-types-structures\lab3_binaryTree1\binaryTree1\binaryTree1.h(59,27): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Victor\source\repos\data-types-structures\lab3_binaryTree1\binaryTree1\binaryTree1.cpp(18,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Victor\source\repos\data-types-structures\lab3_binaryTree1\binaryTree1\binaryTree1.h(27): warning C4715: 'numcmp': not all control paths return a value
+C:\Users\Victor\source\repos\data-types-structures\lab3_binaryTree1\binaryTree1\binaryTree1.h(114): warning C4715: 'deleteRootSubTree': not all control paths return a value
+  binaryTree1.vcxproj -> C:\Users\Victor\source\repos\data-types-structures\lab3_binaryTree1\x64\Debug\binaryTree1.exe

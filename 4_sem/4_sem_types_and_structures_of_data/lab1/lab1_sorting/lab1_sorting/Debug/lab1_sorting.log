@@ -1,0 +1,5 @@
+﻿  lab1_sorting.cpp
+C:\Users\Victor\source\repos\data-types-structures\lab1_sorting\lab1_sorting\lab1_sorting.cpp(21,13): warning C4326: return type of 'main' should be 'int' instead of 'void'
+C:\Users\Victor\source\repos\data-types-structures\lab1_sorting\lab1_sorting\lab1_sorting.cpp(22,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Victor\source\repos\data-types-structures\lab1_sorting\lab1_sorting\lab1_sorting.cpp(29,9): warning C4101: 'i': unreferenced local variable
+  lab1_sorting.vcxproj -> C:\Users\Victor\source\repos\data-types-structures\lab1_sorting\Debug\lab1_sorting.exe
