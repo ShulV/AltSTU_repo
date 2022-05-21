@@ -15,6 +15,7 @@
     height: 80%;
     overflow-y: auto;
     outline: 1px solid var(--light-gray);
+    margin-bottom: 10px;
 }
 
 .process-table {
@@ -27,4 +28,29 @@
 .process-table tbody tr td {
     text-align: center;
     outline: 1px solid black;
+}
+
+.process-table-container__open-popup-btn {
+    display: inline-block;	
+	box-sizing: border-box;
+	padding: 0 20px;
+	outline: none;
+	border: none;  
+	border-radius: 6px;
+	height: 35px;
+	line-height: 35px;
+	font-size: 17px;
+	font-weight: 600;
+	text-decoration: none;
+	color: #385898;
+	background-color: #e7f3ff;
+	cursor: pointer;
+	user-select: none;
+	appearance: none;
+	touch-action: manipulation;
+    margin-top: 40px;
+}
+
+.process-table-container__open-popup-btn:hover {
+	background-color: #DBE7F2;
 }

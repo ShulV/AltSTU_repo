@@ -7,7 +7,7 @@
     padding: 20px;
     box-sizing: border-box;
     color: white;
-    overflow-y: auto;
+    overflow: auto;
 }
 
 .process-diagram-container__control {
@@ -20,11 +20,13 @@
 }
 
 .process-diagram-container__control-timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 100px;
-    width: 100px;
+    min-width: 100px;
     outline: 1px solid white;
-    font-size: 72px;
-    text-align: center;
+    font-size: 54px;
     text-shadow: 0px 2px 3px rgba(255,255,255,0.5);
     background-repeat: repeat;
     background-image: url('../images/bg-repeat-rgb000200.png');
@@ -53,7 +55,6 @@
 }
 
 .process-diagram-container__control-start-timer-btn:hover {
-    transform: scale(1.05);
     background-color: white;
 
 }
@@ -69,30 +70,45 @@
     justify-content: center;
 }
 
+
+
 .process-diagram-container__diagram-core-line {
     display: flex;
     flex-direction: row;
-    outline: 2px solid blue;
+    outline: 2px solid black;
     padding: 5px;
     margin: 5px;
 }
 
+.process-diagram-container__diagram-core-line > div{
+    flex-shrink: 0;
+}
+
 /* TODO */
+
+.process-diagram-container__diagram-completed-process {
+    background-image: url('../images/proc_repeat_bg.jpg');
+    background-size: contain;
+
+}
+
 .process-diagram-container__diagram-running-process,
 .process-diagram-container__diagram-completed-process {
-    height: 20px;
-    width: 20px;
-    border: 2px solid green;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 40px;
+    width: 40px;
+    border: 2px solid #E0A159;
     text-align: right;
     box-sizing: border-box;
+    font-size: 8px;
+    border-radius: 5px;
 }
 
 .process-diagram-container__diagram-running-process {
-    background-color: green;
-}
-
-.process-diagram-container__diagram-idle-process {
-
+    background-image: url('../images/proc_bg.gif');
+    background-size: cover;
 }
 
 .process-diagram-container__diagram-ruler {
@@ -103,15 +119,27 @@
 }
 
 .process-diagram-container__diagram-ruler-segment {
-    height: 20px;
-    border-bottom: 2px solid black;
-    border-left: 2px solid black;
+    padding: 1px;
+    text-shadow: 0px 0px 6px black;
+    height: 40px;
+    border: 1px solid black;
+    border-right-width: 0px;
     box-sizing: border-box;
+    background-image: url(../images/ruler.png);
+    background-size: cover;
+}
+
+.process-diagram-container__diagram-ruler-segment:last-child {
+    border-right-width: 1px;
 }
 
 .process-diagram-container__diagram-empty-process {
-    height: 20px;
-    width: 20px;
+    height: 40px;
+    width: 40px;
     border: 2px solid #fff;
     box-sizing: border-box;
 }
+/* 
+.process-diagram-container__diagram > * {
+    display: none;
+} */

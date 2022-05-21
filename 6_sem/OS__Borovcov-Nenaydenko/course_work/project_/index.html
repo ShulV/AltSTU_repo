@@ -14,24 +14,16 @@
     <div id="root" class="main-container">
         <!--  -->
         <div id="process-table-container" class="process-table-container">
-            <button class="process-table-container__open-popup-btn" id="adding-process-popup-open-btn" type="button">Добавить</button>
-            <caption>Список процессов</caption>
+            
+            <h2 class="block-header">Список процессов</h2>
             <div class="process-table-wrapper">
                 <table class="process-table" id="process-table"></table>
             </div>
+            <button class="process-table-container__open-popup-btn" id="adding-process-popup-open-btn" type="button">Добавить</button>
         </div>
         <div class="console-container">
+            <h2 class="block-header">Вывод сообщений</h2>
             <div class="console-container__entries" id="console-container__entries"></div>
-            <div class="console-container__checkboxes">
-                <!-- добавление процессов -->
-                <input type="checkbox" id="adding-process-checkbox" name="adding-process-checkbox" value="yes">
-                <label for="adding-process-checkbox">Добавление процессов</label>
-                <!--  -->
-
-                <!--  -->
-
-                <!--  -->
-            </div>
         </div>
         <div class="process-diagram-container" id="process-diagram-container">
             <div class="process-diagram-container__control">
@@ -43,7 +35,7 @@
                 
         </div>
         <div id="process-queues-container" class="process-queues-container">
-            <caption>Список очередей с приоритетом</caption>
+            <h2 class="block-header">Список очередей с приоритетом</h2>
             <div class="process-queues-table-wrapper">
                 <table class="process-queues-table" id="process-queues-table"></table>
             </div>
@@ -59,7 +51,7 @@
                 <input class="adding-process-form__input" type="number" min="1" max="255" value="1" name="process-priority" id="process-priority-input">
                 <label class="adding-process-form__label" for="process-time">Время выполнения:</label>
                 <input class="adding-process-form__input" type="number" min="1" max="255" value="1" name="process-time" id="process-work-time-input">
-                <label class="adding-process-form__label" for="process-arrival-time">Время выполнения:</label>
+                <label class="adding-process-form__label" for="process-arrival-time">Время прибытия:</label>
                 <input class="adding-process-form__input" type="number" min="0" value="0" name="process-arrival-time" id="process-arrival-time-input">
                 
                 <button class="adding-process-form__add-btn" id="adding-process-btn" type="button">Добавить процесс</button>

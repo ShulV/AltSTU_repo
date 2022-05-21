@@ -6,3 +6,10 @@
     width: 100vw;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+.block-header {
+    font-size: 18px;
+    font-weight: 500;
+    color:rgb(20, 20, 82);
+    margin-bottom: 10px;
+}

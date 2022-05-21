@@ -1,8 +1,17 @@
+//push() добавить в конец
+//unshift() добавить в начало
+//pop() удалить из конца
+//shift() удалить из начала
+
+
+
+
 const MAX_PRIORITY = 255;
 const CORE_NUM = 4;
 const RULER_STEP = 5;
-const ONE_TICK_LENGTH = 20;
+const ONE_TICK_LENGTH = 40;
 const TICK_TIME_IN_SECONDS = 1;
+const AUTO_ID_NUM = -1;
 
 /* begin view */
 /* 
@@ -151,11 +160,12 @@ class View {
     };
     //
     displayDiagramRuler(timerTick) {
-        let rulerStep = RULER_STEP;
-        let labelNum = Math.ceil(timerTick/rulerStep);
+        console.log('ЛИНЕЙКА')
+        let labelNum = Math.ceil((timerTick + 1)/RULER_STEP);
+        console.log(`labelNum = ${labelNum}`)
         for(let i=0; i<labelNum; i++) {
             let label = this.createElement('div', 'process-diagram-container__diagram-ruler-segment');
-            label.textContent = i * rulerStep;
+            label.textContent = i * RULER_STEP + ' тиков';
             label.style.width = (ONE_TICK_LENGTH*RULER_STEP)+'px';
             this.diagramRuler.appendChild(label);
         }
@@ -190,7 +200,7 @@ class View {
                 }
                 else {
                     coreLineProcess = this.createElement('div', 'process-diagram-container__diagram-completed-process');
-                    coreLineProcess.innerHTML = processor.completedProcesses[i][j].id;
+                    coreLineProcess.innerHTML = `p${processor.completedProcesses[i][j].id}(${processor.completedProcesses[i][j].priority})`;
                     let tickWorked = processor.completedProcesses[i][j].workTime - processor.completedProcesses[i][j].remainingWorkTime;
                     coreLineProcess.style.width = (ONE_TICK_LENGTH*tickWorked)+'px';
                 }
@@ -203,7 +213,7 @@ class View {
                 }
                 else {
                     coreLineProcess = this.createElement('div', 'process-diagram-container__diagram-running-process');
-                    coreLineProcess.innerHTML = processor.runningProcesses[i].id;
+                    coreLineProcess.innerHTML = `p${processor.runningProcesses[i].id}(${processor.runningProcesses[i].priority})`
                     let tickWorked = processor.runningProcesses[i].workTime - processor.runningProcesses[i].remainingWorkTime;
                     coreLineProcess.style.width = (ONE_TICK_LENGTH*tickWorked)+'px';
                 }
@@ -312,16 +322,22 @@ class View {
 - user не работает с model напрямую
 */
 class Process {
-    constructor(name, priority, workTime, arrivalTime, isSentToQueue=false, isCompleted=false) {
-        this.id = Process.processCounter++;
+    constructor(name, priority, workTime, arrivalTime, remainingWorkTime = workTime, isSentToQueue=false, isCompleted=false, id=AUTO_ID_NUM) {
+        if (id == AUTO_ID_NUM) {
+            this.id = Process.processCounter++
+        }
+        else {
+            this.id = id;
+        }
+       
         this.name = name;
         this.priority = priority;
         this.workTime = workTime;
-        this.remainingWorkTime = workTime;
+        this.remainingWorkTime = remainingWorkTime;
         this.arrivalTime = arrivalTime;
         this.isSentToQueue = isSentToQueue;
         this.isCompleted = isCompleted;
-    };
+    }
 };
 
 class Processor {
@@ -334,7 +350,7 @@ class Processor {
             this.completedProcesses.push([]);
         }
         this.emptyProcess = new Process('empty', 0, 1, 0);
-    };
+    }
 };
 
 class Model {
@@ -353,9 +369,129 @@ class Model {
     addProcess(name, priority, workTime, arrivalTime=this.timerTick) {
         const newProcess = new Process(name, priority, workTime, arrivalTime);
         this.processList.push(newProcess);
+        this.addProcessesInQueue();
         this.onProcessListChanged(this.processList);
-        this.onNewOutputAdded(`Добавлен новый процесс [название:${name}; приортитет:${priority}; время работы:${workTime}; время прибытия:${arrivalTime}].`);
+        this.onNewOutputAdded(`Добавлен новый процесс (Id=${newProcess.id}).`);
     };
+    //подсчитывает свободные (незанятые) ядра
+    countFreeCores() {
+        let freeCores = 0;
+        this.processor.runningProcesses.forEach(process => {
+            if (process == null) {
+                freeCores++;
+            }
+        });
+        return freeCores;
+    }
+    //получить самый большой приоритет процесса, находящегося в очереди
+    getHighestPriorityOfQueueProcesses() {
+        for(let i=MAX_PRIORITY-1; i>0; i--) {
+            if (this.processQueuesByPriority[i].length > 0) {
+                return {index: i, priority: i};
+            }
+        }
+        return null;
+    }
+    //получить самый маленький приоритет процесса, находящегося в рантайме
+    getLeastPriorityOfRunningProcecess() {
+        let process = {index:0, priority: MAX_PRIORITY};
+        for (let i=0; i<this.processor.coreNum; i++)
+        {
+            if (this.processor.runningProcesses[i] != null && this.processor.runningProcesses[i].id != 0) {
+                if (this.processor.runningProcesses[i].priority < process.priority) {
+                    process.priority = this.processor.runningProcesses[i].priority;
+                    process.index = i;
+                }
+            }
+            else {
+                return null;
+            }
+        }
+        return process;
+        
+    }
+    //
+    takeProcessFromRunningToQueue() {
+        for(let i=0; i<this.processor.coreNum; i++) {
+            let runningProcessWithLeastPriority = this.getLeastPriorityOfRunningProcecess();
+            let queueProcessWithHighestPriority = this.getHighestPriorityOfQueueProcesses();
+            //-------------------------------------
+            // console.log(`min приоритет в рантайме {ядро:${
+            //     runningProcessWithLeastPriority != null ? 
+            //     runningProcessWithLeastPriority.index : null}; 
+            //     приоритет процесса:${runningProcessWithLeastPriority != null ? 
+            //         runningProcessWithLeastPriority.priority : null};}}`)
+            // console.log(`max приоритет в очереди {i:${
+            //     queueProcessWithHighestPriority != null ? queueProcessWithHighestPriority.index :null}; 
+            //     приоритет процесса:${
+            //         queueProcessWithHighestPriority != null ? queueProcessWithHighestPriority.priority :null}}`)
+            //-------------------------------------
+            if (runningProcessWithLeastPriority == null || queueProcessWithHighestPriority == null) {
+                return;
+            }
+            if (runningProcessWithLeastPriority.priority < queueProcessWithHighestPriority.priority) {
+                //записали индекс и приоритет процесса (с самым маленьким приоритетом) из рантайма 
+                let runProcIndex = runningProcessWithLeastPriority.index;
+                let runProcPriority = runningProcessWithLeastPriority.priority;
+                let processFromProcessor = this.processor.runningProcesses.splice(runProcIndex, 1)[0];
+                // console.log('процесс из рантайма')
+                // console.log(JSON.stringify(processFromProcessor))
+
+                //записали индекс и приоритет процесса (с самым большим приоритетом) из очереди
+                //let queueProcIndex = queueProcessWithHighestPriority.index;
+                let queueProcPriority = queueProcessWithHighestPriority.priority;
+                let processFromQueue = this.processQueuesByPriority[queueProcPriority].shift();
+                // console.log('процесс из очереди')
+                // console.log(JSON.stringify(processFromQueue))
+                
+                //положили в ядро процессора процесс из очереди
+                // console.log('рантайм до того, как туда закинули проц из очереди')
+                // console.log(JSON.stringify(this.processor.runningProcesses))
+                this.processor.runningProcesses.splice(runProcIndex, 0, processFromQueue);
+
+                // console.log('рантайм после того, как туда закинули проц из очереди')
+                // console.log(JSON.stringify(this.processor.runningProcesses))
+                //создаем 'псевдо процесс' для того, чтобы этот незавершенный процесс отображался на диаграмме
+      
+                let subProcess = new Process(
+                    processFromProcessor.name, 
+                    processFromProcessor.priority, 
+                    processFromProcessor.workTime, 
+                    processFromProcessor.arrivalTime, 
+                    processFromProcessor.remainingWorkTime,
+                    processFromProcessor.isSentToQueue, 
+                    processFromProcessor.isCompleted, 
+                    processFromProcessor.id);
+
+                // console.log('subProcess до')
+                // console.log(JSON.stringify(subProcess))
+                subProcess.workTime -= subProcess.remainingWorkTime;
+                subProcess.remainingWorkTime = 0;
+                subProcess.isCompleted = true;
+                // console.log('subProcess (его кладем в завершенные)')
+                // console.log(JSON.stringify(subProcess))
+                //добавление 'псевдо процесса' в массив заверешенных (но он завершен не полностью)
+                this.processor.completedProcesses[runProcIndex].push(subProcess);
+                // console.log('completedProcesses')
+                // console.log(JSON.stringify(this.processor.completedProcesses))
+                //подсчет нового приоритета для процесса
+                let workTime = processFromProcessor.workTime;
+                let completedTime = processFromProcessor.workTime - processFromProcessor.remainingWorkTime;
+                let curPriority = processFromProcessor.priority;
+                processFromProcessor.priority = Math.round((completedTime/workTime)*curPriority) + curPriority;
+                //положили в очередь процесс, который достали из процессора
+                processFromProcessor.workTime = processFromProcessor.remainingWorkTime;//уменьшили время работы процесса
+                this.processQueuesByPriority[runProcPriority].push(processFromProcessor);
+
+                //
+                this.onProcessorPropsChanged(this.processor, this.timerTick);
+                this.onProcessQueuesChanged(this.processQueuesByPriority);
+                // this.onNewOutputAdded(`Процесс (${process.id}) положили в очередь.`);
+
+            }
+        }
+
+    }
     //
     addProcessesToRun() {
         // определение количества свободных (готовых принять новый процесс на выполнение) ядер
@@ -365,7 +501,7 @@ class Model {
                 necessaryProcessesNum++;
             }
         }
-        // console.log(`количество необходимых процессов для заполнения = ${necessaryProcessesNum}`);
+
         // заполнение массива необходимым количеством процессов из очереди
         let necessaryProcesses = [];
         for(let i=MAX_PRIORITY-1; i>0; i--) {
@@ -378,11 +514,7 @@ class Model {
                     necessaryProcesses.push(this.processQueuesByPriority[i].shift());
                     //событие изменение числа событий в очереди (в обработчике перерисовка очередей процессов)
                     this.onProcessQueuesChanged(this.processQueuesByPriority);
-                    //если из очереди забрали необходимое количество процессов, отправляем их в процессор и выходим
-                    // console.log(`\nthis.processQueuesByPriority[${i}].length ${this.processQueuesByPriority[i].length}`)
-                    // console.log(`necessaryProcesses.length ${necessaryProcesses.length}\n---\n`);
-
-                    
+                    //если из очереди забрали необходимое количество процессов, отправляем их в процессор и выходим  
                 }
             }
         }
@@ -390,8 +522,6 @@ class Model {
             this.sendProcessesToProcessor(necessaryProcesses);
             return;
         }
-        // console.log(`очередь: ${this.processQueuesByPriority[0]}`)
-        // console.log(`процессов из очереди взято ${necessaryProcesses.length}, дозаполняем пустыми процессами`);
         // дозаполнение массива пустыми процессами, если процессов в очереди не осталось
         while (necessaryProcesses.length != necessaryProcessesNum) {
             // копируем объект дефолтного пустого процесса
@@ -403,51 +533,48 @@ class Model {
     };
     // положить процессы в ядра процессора для выполнения
     sendProcessesToProcessor(processes) {
-        // console.log('процессы переданные в функц')
-        processes.forEach((item) => {
-            console.log(item.id)
-        })
         for(let i=0; i<this.processor.coreNum; i++) {
             if (this.processor.runningProcesses[i] == null) {
-                this.processor.runningProcesses[i] = processes.shift();
-                // console.log(`this.processor.runningProcesses[${i}] = ${this.processor.runningProcesses[i].id}`)
+                let process = processes.shift();
+                this.processor.runningProcesses[i] = process;
+                this.onNewOutputAdded(`Процесс (${process.id == 0 ? 'пустой процесс' : process.id}) положили в ядро №${i+1}.`);
             }
         }
-        // console.log(`положили процессы в ядра; переменная processes.length = ${processes.length} (нужно 0)`);
-        // console.log('-------------------------------------------------------------------------')
-
     };
     //
     startTimer() {
         if (this.timerIsStarted) {
             clearInterval(this.timer);
             this.timerIsStarted = false;
+            this.onNewOutputAdded(`Таймер остановлен. Тик: ${this.timerTick}.`);
         }
         else {
+            this.onNewOutputAdded(`Таймер запущен. Тик: ${this.timerTick}.`);
             this.timer = setInterval(() => {
-                // console.log('\nФункция таймера')
+                console.log(`\ntimer ${this.timerTick}`)
+                // console.log(this.processor);
+                this.onNewOutputAdded(`Таймер. Тик: ${this.timerTick}.`);
                 //добавление процессов из списка процессов в очередь процессов
                 this.addProcessesInQueue();
                 //добавление процессов в ядра процессора на выполнение (если очередь пуста - пустыми процессами-заглушками)
                 this.addProcessesToRun();
+                this.takeProcessFromRunningToQueue();
                 //
                 this.runProcessForTick();
+                
                 //событие вызывает перерисовку диаграммы (линии с процессами ядер + линейка)
                 this.onProcessorPropsChanged(this.processor, this.timerTick);
                 this.timerTick++;
                 //событие вызывает перерисовку показателя таймера
                 this.onTimerTickChanged(this.timerTick);
+                // console.log(this.processor);
+                
             }, 1000 * TICK_TIME_IN_SECONDS);
             this.timerIsStarted = true;
         };
     };
     //
     runProcessForTick() {
-        // for(let i=0; i<this.processor.coreNum; i++) {
-        //     if ( this.processor.runningProcesses[i] == null) {
-        //         continue;
-        //     }
-        // }
         for(let i=0; i<this.processor.coreNum; i++) {
             this.processor.runningProcesses[i].remainingWorkTime--;
 
@@ -461,11 +588,13 @@ class Model {
     addProcessInQueue(process) {
         this.processQueuesByPriority[process.priority].push(process);
         this.onProcessQueuesChanged(this.processQueuesByPriority);
+        this.onNewOutputAdded(`Процесс (${process.id}) положили в очередь.`);
     };
     //
     addProcessesInQueue() {
         this.processList.forEach(process => {
             if (!process.isSentToQueue && process.arrivalTime == this.timerTick) {
+                process.isSentToQueue = true;
                 this.addProcessInQueue(process);
             }
         });
@@ -560,3 +689,21 @@ class Controller {
 Process.processCounter = 0;
 const app = new Controller(new Model(), new View());
 /* end anonymous initialize */
+
+//TMP
+app.model.addProcess('proc1', 4, 4, 0);
+app.model.addProcess('proc2', 4, 4, 0);
+app.model.addProcess('proc3', 4, 4, 0);
+app.model.addProcess('proc4', 4, 4, 0);
+app.model.addProcess('proc5', 5, 4, 2);
+app.model.addProcess('proc6', 5, 4, 2);
+app.model.addProcess('proc7', 5, 4, 2);
+app.model.addProcess('proc8', 5, 4, 2);
+app.model.addProcess('proc9', 6, 4, 4);
+app.model.addProcess('proc10', 6, 4, 4);
+app.model.addProcess('proc11', 6, 4, 4);
+app.model.addProcess('proc12', 6, 4, 4);
+app.model.addProcess('proc13', 7, 4, 6);
+app.model.addProcess('proc14', 7, 4, 6);
+app.model.addProcess('proc15', 7, 4, 6);
+app.model.addProcess('proc16', 7, 4, 6);

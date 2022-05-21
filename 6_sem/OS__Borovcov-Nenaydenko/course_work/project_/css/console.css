@@ -11,5 +11,22 @@
 }
 
 .console-container__entries {
+    width: 100%;
+    height: 80%;
     overflow-y: auto;
+    outline: 1px solid white;
+    padding: 5px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.console-container__checkboxes {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.console-container__checkboxes > * {
+    width: calc(100% * 1/3);
 }
