@@ -1,0 +1,114 @@
+-------------------------------------------------------------------
+1) функция подсчета количества студентов для каждого направления
+-------------------------------------------------------------------
+--drop function public.count_stip_sum(month_num bigint);
+
+
+create or replace function public.count_students_for_directions(
+						  out direction character varying, out stud_num bigint)
+returns setof record as $$
+
+begin
+	return query SELECT dir."Name" as "Направление", count(st.*) as "Количество студентов"
+	FROM public."Direction" as dir
+		left join "Gr" as gr
+			on dir."PK_dir" = gr."PK_dir"
+				left join "Stud" as st
+					on gr."PK_gr" = st."PK_gr"
+	group by dir."Name"
+	order by "Количество студентов";
+	
+	if not found then
+        raise exception 'Нет студентов';
+    end if;
+    return;
+
+end;
+$$ language plpgsql;
+
+вызов
+
+select * from public.count_stip_sum(3);
+
+-------------------------------------------------------------------
+2) функция подсчета суммы стипендий студентов за определенное количество месяцев
+-------------------------------------------------------------------
+--select * from public.count_stip_for_some_months(3);
+
+
+create or replace function public.count_stip_for_some_months(months_number numeric,
+						  out stud_num money, out _months_number numeric)
+returns setof record as $$
+
+begin
+	return query SELECT sum(stip."Size") * months_number as "Суммарная стипендия", months_number as "Количество месяцев"
+	FROM public."Stud" as stud
+		left join "Stipcontr" as sc
+			on stud."PK_stud" = sc."PK_stud"
+				left join "Stip" as stip
+					on sc."PK_stip" =  stip."PK_stip";
+	
+	if not found then
+        raise exception 'Нет студентов!';
+    end if;
+    return;
+
+end;
+$$ language plpgsql;
+
+-------------------------------------------------------------------
+3) 
+-------------------------------------------------------------------
+
+create or replace function log_stud()
+returns trigger as $$
+declare
+	operation character varying;
+begin
+	raise notice 'add insert in logs';
+	
+	IF  TG_OP = 'INSERT' then
+	operation = 'insert operation';
+	ELSIF (tg_op = 'UPDATE') then
+	operation = 'update operation';
+	ELSIF (tg_op = 'DELETE') then
+	operation = 'delete operation';
+	ELSE
+	operation = 'some operation';
+	END IF;
+	
+	insert into public."StudLog"("Paradr", "Availpl", "Dempl", "PK_stud", "PK_pas", "Date", "Oper")
+	values (new."Paradr",
+			new."Availpl",
+			new."Dempl",
+			new."PK_stud",
+			new."PK_pas",
+			CURRENT_TIMESTAMP,
+		   	operation);
+	return null;
+end;
+$$ language plpgsql;
+
+drop trigger if exists "stud_log_trigger" on "Stud";
+
+create trigger "stud_log_trigger" after insert or update or delete on "Stud"
+for row execute procedure log_stud();
+------------
+------------
+------------
+INSERT INTO public."Pas"(
+	"Surname", "Name", "Patronymic", "Ser", "Num", "Bdate", "Bpl")
+	VALUES 
+	('Шинтяпин', 'Илья', 'Игоревич', '0115', '015555', '15.05.2001', 'Барнаул'),
+	('Орлов', 'Илья', 'Игоревич', '0115', '015555', '16.05.2001', 'Барнаул'),
+	('Савиков', 'Илья', 'Игоревич', '0115', '015555', '17.05.2001', 'Барнаул'),
+	('Филимонов', 'Илья', 'Игоревич', '0115', '015555', '18.05.2001', 'Барнаул');
+------------
+INSERT INTO public."Stud"(
+	"Paradr", "Availpl", "Dempl", "PK_gr", "PK_pas")
+	VALUES ('Кутузова 100', 'true', 'false', 1, 19),
+	('Кутузова 202', 'true', 'false', 1, 20),
+	('Кутузова 330', 'true', 'false', 1, 21),
+	('Кутузова 400', 'true', 'false', 1, 22);
+----------
+
