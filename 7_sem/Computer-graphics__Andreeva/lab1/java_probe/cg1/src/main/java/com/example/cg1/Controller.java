@@ -16,7 +16,7 @@ public class Controller {
     private Button btnShow;
     @FXML
     private Canvas canvasPlot;
-    @FXML
+
     public void drawLine(double xStart, double yStart, double xEnd, double yEnd) {
         GraphicsContext gc = canvasPlot.getGraphicsContext2D() ;
         gc.setLineWidth(1.0);
@@ -26,7 +26,6 @@ public class Controller {
         gc.strokeLine(xStart, yStart, xEnd, yEnd);
     }
 
-    @FXML
     public void onBtnShowClick(ActionEvent actionEvent) {
         System.out.println("click btn show");
         drawLine(50.0, 50.0, 150.0, 150.0);
