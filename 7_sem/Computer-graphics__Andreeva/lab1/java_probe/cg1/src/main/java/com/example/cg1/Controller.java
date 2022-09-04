@@ -9,14 +9,13 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.paint.Color;
 
-public class HelloController {
+public class Controller {
     @FXML
     private Label welcomeText;
     @FXML
     private Button btnShow;
     @FXML
     private Canvas canvasPlot;
-
     @FXML
     public void drawLine(double xStart, double yStart, double xEnd, double yEnd) {
         GraphicsContext gc = canvasPlot.getGraphicsContext2D() ;
@@ -24,11 +23,7 @@ public class HelloController {
         gc.setFill(Color.GREEN);
         gc.setStroke(Color.BLUE);
         gc.setGlobalBlendMode(BlendMode.SCREEN);
-//        gc.moveTo(xStart, yStart);
-//        gc.lineTo(xEnd, yEnd);
         gc.strokeLine(xStart, yStart, xEnd, yEnd);
-
-        //приватные элементы неправильно инициализированы
     }
 
     @FXML
