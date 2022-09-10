@@ -3,8 +3,10 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox alignment="CENTER" prefHeight="670.0" prefWidth="767.0" spacing="20.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cg1.Controller">
     <padding>
@@ -13,12 +15,84 @@
    <children>
       <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: gray;">
          <children>
-             <Button fx:id="btnIncreaseX" layoutX="89.0" layoutY="58.0" mnemonicParsing="false" onAction="#onBtnIncreaseXClick" prefHeight="35.0" prefWidth="35.0" text="🡆" />
-            <Button fx:id="btnReduceX" layoutX="14.0" layoutY="57.0" mnemonicParsing="false" onAction="#onBtnReduceXClick" prefHeight="35.0" prefWidth="35.0" text="🡸" />
-            <Button fx:id="btnIncreaseY" layoutX="51.0" layoutY="19.0" mnemonicParsing="false" onAction="#onBtnIncreaseYClick" prefHeight="35.0" prefWidth="35.0" text="🡅" />
-            <Button fx:id="btnReduceY" layoutX="51.0" layoutY="97.0" mnemonicParsing="false" onAction="#onBtnReduceYClick" prefHeight="35.0" prefWidth="35.0" text="🡇" />
-            <Button fx:id="btnIncreaseZ" graphicTextGap="0.0" layoutX="14.0" layoutY="97.0" mnemonicParsing="false" onAction="#onBtnIncreaseZClick" prefHeight="35.0" prefWidth="35.0" text="🢇" textOverrun="CLIP" />
-            <Button fx:id="btnReduceZ" layoutX="89.0" layoutY="19.0" mnemonicParsing="false" onAction="#onBtnReduceZClick" prefHeight="35.0" prefWidth="35.0" text="🡽" />
+            <Button fx:id="btnMovingIncreaseX" layoutX="14.0" layoutY="27.0" mnemonicParsing="false" onAction="#onBtnMovingIncreaseXClick" prefHeight="35.0" prefWidth="35.0" text="🡅" />
+             <Button fx:id="btnMovingReduceX" layoutX="14.0" layoutY="97.0" mnemonicParsing="false" onAction="#onBtnMovingReduceXClick" prefHeight="35.0" prefWidth="35.0" text="🡇" />
+            <Button fx:id="btnMovingIncreaseY" layoutX="51.0" layoutY="27.0" mnemonicParsing="false" onAction="#onBtnMovingIncreaseYClick" prefHeight="35.0" prefWidth="35.0" text="🡅" />
+            <Button fx:id="btnMovingReduceY" layoutX="51.0" layoutY="97.0" mnemonicParsing="false" onAction="#onBtnMovingReduceYClick" prefHeight="35.0" prefWidth="35.0" text="🡇" />
+            <Button fx:id="btnMovingIncreaseZ" layoutX="89.0" layoutY="27.0" mnemonicParsing="false" onAction="#onBtnMovingIncreaseZClick" prefHeight="35.0" prefWidth="35.0" text="🡅" />
+            <Button fx:id="btnMovingReduceZ" layoutX="89.0" layoutY="97.0" mnemonicParsing="false" onAction="#onBtnMovingReduceZClick" prefHeight="35.0" prefWidth="35.0" text="🡇" />
+            <Label layoutX="42.0" layoutY="2.0" text="Moving">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="27.0" layoutY="70.0" text="X">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="64.0" layoutY="70.0" text="Y">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="102.0" layoutY="70.0" text="Z">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnRotationIncreaseX" layoutX="215.0" layoutY="30.0" mnemonicParsing="false" onAction="#onBtnRotationIncreaseXClick" prefHeight="35.0" prefWidth="35.0" text="🡅" />
+            <Button fx:id="btnRotationReduceX" layoutX="215.0" layoutY="100.0" mnemonicParsing="false" onAction="#onBtnRotationReduceXClick" prefHeight="35.0" prefWidth="35.0" text="🡇" />
+            <Button fx:id="btnRotationIncreaseY" layoutX="252.0" layoutY="30.0" mnemonicParsing="false" onAction="#onBtnRotationIncreaseYClick" prefHeight="35.0" prefWidth="35.0" text="🡅" />
+            <Button fx:id="btnRotationReduceY" layoutX="252.0" layoutY="100.0" mnemonicParsing="false" onAction="#onBtnRotationReduceYClick" prefHeight="35.0" prefWidth="35.0" text="🡇" />
+            <Button fx:id="btnRotationIncreaseZ" layoutX="290.0" layoutY="100.0" mnemonicParsing="false" onAction="#onBtnRotationIncreaseZClick" prefHeight="35.0" prefWidth="35.0" text="🡇" />
+            <Button fx:id="btnRotationReduceZ" layoutX="290.0" layoutY="30.0" mnemonicParsing="false" onAction="#onBtnRotationReduceZClick" prefHeight="35.0" prefWidth="35.0" text="🡅" />
+            <Label layoutX="243.0" layoutY="5.0" text="Rotation">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="228.0" layoutY="73.0" text="X">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="265.0" layoutY="73.0" text="Y">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="303.0" layoutY="73.0" text="Z">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnScalingReduceX" layoutX="362.0" layoutY="100.0" mnemonicParsing="false" onAction="#onBtnScalingReduceXClick" prefHeight="35.0" prefWidth="35.0" text="🡇" />
+            <Button fx:id="btnScalingIncreaseX" layoutX="362.0" layoutY="30.0" mnemonicParsing="false" onAction="#onBtnScalingIncreaseXClick" prefHeight="35.0" prefWidth="35.0" text="🡅" />
+            <Button fx:id="btnScalingIncreaseY" layoutX="399.0" layoutY="30.0" mnemonicParsing="false" onAction="#onBtnScalingIncreaseYClick" prefHeight="35.0" prefWidth="35.0" text="🡅" />
+            <Button fx:id="btnScalingReduceY" layoutX="399.0" layoutY="100.0" mnemonicParsing="false" onAction="#onBtnScalingReduceYClick" prefHeight="35.0" prefWidth="35.0" text="🡇" />
+            <Button fx:id="btnScalingIncreaseZ" layoutX="437.0" layoutY="30.0" mnemonicParsing="false" onAction="#onBtnScalingIncreaseZClick" prefHeight="35.0" prefWidth="35.0" text="🡅" />
+            <Button fx:id="btnScalingReduceZ" layoutX="437.0" layoutY="100.0" mnemonicParsing="false" onAction="#onBtnScalingReduceZClick" prefHeight="35.0" prefWidth="35.0" text="🡇" />
+            <Label layoutX="390.0" layoutY="5.0" text="Scaling">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="375.0" layoutY="73.0" text="X">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="412.0" layoutY="73.0" text="Y">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="450.0" layoutY="73.0" text="Z">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <Canvas fx:id="canvasPlot" height="461.0" width="795.0">
