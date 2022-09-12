@@ -1,67 +1,66 @@
 package com.example.cg1.models;
 
+import static java.lang.Math.*;
+
 //Аффинная матрица преобразования для трехмерного случая
 abstract public class AffineTransformationMatrix3D {
 
-    //получить нулевую матрицу 4x4
+    //вывести матрицу в консоль (тестовый метод)
+    private static void printMatrix(double[][] matrix) {
+        for (double[] line: matrix
+             ) {
+            for (double elem: line
+                 ) {
+                System.out.print(elem + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    //получить нулевую матрицу 4x4 (тестовый метод)
     public static double[][] getZeroMatrix()
     {
-        double[][] matrix = new double[4][4];
-        for (int i = 0; i < 4; i++)
-        {
-            for (int j = 0; j < 4; j++)
-                matrix[i][j] = 0.0F;
-        }
-        return matrix;
+        return new double[][]{
+                {0.0, 0.0, 0.0, 0.0},
+                {0.0, 0.0, 0.0, 0.0},
+                {0.0, 0.0, 0.0, 0.0},
+                {0.0, 0.0, 0.0, 0.0}};
     }
 
     //получить матрицу перемещения 4x4
     public static double[][] getMovingMatrix(double toX, double toY, double toZ) {
-        double[][] matrix = getZeroMatrix();
-        matrix[0][0] = 1;
-        matrix[1][1] = 1;
-        matrix[2][2] = 1;
-        matrix[3][0] = toX;
-        matrix[3][1] = toY;
-        matrix[3][2] = toZ;
-        matrix[3][3] = 1;
-        return matrix;
+        return new double[][]{
+                {1.0, 0.0, 0.0, 0.0},
+                {0.0, 1.0, 0.0, 0.0},
+                {0.0, 0.0, 1.0, 0.0},
+                {toX, toY, toZ, 1.0}};
     }
 
     //получить матрицу поворота 4x4 вокруг оси X
     public static double[][] getXRotationMatrix(double angle) {
-        double[][] matrix = getZeroMatrix();
-        matrix[0][0] = 1;
-        matrix[1][1] = Math.cos(angle);
-        matrix[1][2] = Math.sin(angle);
-        matrix[2][1] = -Math.sin(angle);
-        matrix[2][2] = Math.cos(angle);
-        matrix[3][3] = 1;
-        return matrix;
+        return new double[][]{
+                {1.0, 0.0, 0.0, 0.0},
+                {0.0, cos(angle), sin(angle), 0.0},
+                {0.0, -sin(angle), cos(angle), 0.0},
+                {0.0, 0.0, 0.0, 1.0}};
     }
 
     //получить матрицу поворота 4x4 вокруг оси Y
     public static double[][] getYRotationMatrix(double angle) {
-        double[][] matrix = getZeroMatrix();
-        matrix[0][0] = Math.cos(angle);
-        matrix[0][2] = -Math.sin(angle);
-        matrix[1][1] = 1;
-        matrix[2][0] = Math.sin(angle);
-        matrix[2][2] = Math.cos(angle);
-        matrix[3][3] = 1;
-        return matrix;
+        return new double[][]{
+                {cos(angle), 0.0, -sin(angle), 0.0},
+                {0.0, 1.0, 0.0, 0.0},
+                {sin(angle), 0.0, cos(angle), 0.0},
+                {0.0, 0.0, 0.0, 1.0}};
     }
 
     //получить матрицу поворота 4x4 вокруг оси Z
     public static double[][] getZRotationMatrix(double angle) {
-        double[][] matrix = getZeroMatrix();
-        matrix[0][0] = Math.cos(angle);
-        matrix[0][1] = Math.sin(angle);
-        matrix[1][0] = -Math.sin(angle);
-        matrix[1][1] = Math.cos(angle);
-        matrix[2][2] = 1;
-        matrix[3][3] = 1;
-        return matrix;
+        return new double[][]{
+                {cos(angle), sin(angle), 0.0, 0.0},
+                {-sin(angle), cos(angle), 0.0, 0.0},
+                {0.0, 0.0, 1.0, 0.0},
+                {0.0, 0.0, 0.0, 1.0}};
     }
 
     //получить матрицу масштабирования 4x4
@@ -69,11 +68,22 @@ abstract public class AffineTransformationMatrix3D {
         if (forX <= 0 || forY <=0 || forZ <= 0) {
             throw new Exception("scale factor cannot be less than zero");
         }
-        double[][] matrix = getZeroMatrix();
-        matrix[0][0] = forX;
-        matrix[1][1] = forY;
-        matrix[2][2] = forZ;
-        matrix[3][3] = 1;
-        return matrix;
+        return new double[][]{
+                {forX, 0.0, 0.0, 0.0},
+                {0.0, forY, 0.0, 0.0},
+                {0.0, 0.0, forZ, 0.0},
+                {0.0, 0.0, 0.0, 1.0}};
+    }
+
+    //получить матрицу отзеркаливания 4x4
+    public static double[][] getReflectionMatrix(int yoz, int zox, int xoy) throws Exception {
+        if (abs(yoz) != 1 || abs(zox) != 1 || abs(xoy) != 1) {
+            throw new Exception("method parameter is wrong");
+        }
+        return new double[][]{
+                {yoz, 0.0, 0.0, 0.0},
+                {0.0, zox, 0.0, 0.0},
+                {0.0, 0.0, xoy, 0.0},
+                {0.0, 0.0, 0.0, 1.0}};
     }
 }

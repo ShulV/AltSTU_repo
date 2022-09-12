@@ -3,25 +3,15 @@ package com.example.cg1;
 import com.example.cg1.models.AffineTransformationMatrix3D;
 import com.example.cg1.models.Line3D;
 import com.example.cg1.models.Object3D;
+import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Point3D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.effect.BlendMode;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-
-import java.io.*;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
-import static java.lang.Double.parseDouble;
+import static java.lang.Math.*;
 
 public class Controller {
     @FXML
@@ -31,7 +21,7 @@ public class Controller {
     private GraphicsContext gc;
 
     public Controller() throws URISyntaxException {
-        object3D.readLinesFromFile(""); //TODO заменить абсолютный путь
+        object3D.readLinesFromFile("lines.txt");
     }
 
     //FMXL конструктор
@@ -46,29 +36,10 @@ public class Controller {
         gc.setLineWidth(1.0);
         gc.setStroke(Color.BLUE);
 
-//        //отражение координат, т.к. направления осей координат на canvas в java нестандартное
-//        yStart *= -1;
-//        yEnd *= -1;
-
         gc.strokeLine(xStart, yStart, xEnd, yEnd);
 
     }
 
-    //нарисовать линию
-    private void drawLine(GraphicsContext gc, Line3D line) {
-        gc.setLineWidth(1.0);
-        gc.setStroke(Color.BLUE);
-        double xStart = line.getStartPoint().getX();
-        double yStart = line.getStartPoint().getY();
-        double xEnd = line.getEndPoint().getX();
-        double yEnd = line.getEndPoint().getY();
-
-//        //отражение координат, т.к. направления осей координат на canvas в java нестандартное
-//        yStart *= -1;
-//        yEnd *= -1;
-
-        gc.strokeLine(xStart, yStart, xEnd, yEnd);
-    }
 
     //очистить холст
     public void clearCanvas(GraphicsContext gc) {
@@ -101,53 +72,48 @@ public class Controller {
     public void drawFigure(GraphicsContext gc) {
         for (Line3D line: object3D.getLineList()
              ) {
-            //проецирование
-//            a = edge.Item1.X - float.Parse((edge.Item1.Z * 0.5 * Math.Cos(Math.PI / 4)).ToString());
-//            b = -edge.Item1.Y + float.Parse((edge.Item1.Z * 0.5 * Math.Cos(Math.PI / 4)).ToString());
-//            c = edge.Item2.X - float.Parse((edge.Item2.Z * 0.5 * Math.Cos(Math.PI / 4)).ToString());
-//            d = -edge.Item2.Y + float.Parse((edge.Item2.Z * 0.5 * Math.Cos(Math.PI / 4)).ToString());
+            //проецирование (комнатая проекция (45 градусов))
             double startX = line.getStartPoint().getX() - line.getStartPoint().getZ() * 0.5 * Math.cos(Math.PI / 4);
             double startY = -line.getStartPoint().getY() + line.getStartPoint().getZ() * 0.5 * Math.cos(Math.PI / 4);
             double endX = line.getEndPoint().getX() - line.getEndPoint().getZ() * 0.5 * Math.cos(Math.PI / 4);
             double endY = -line.getEndPoint().getY() + line.getEndPoint().getZ() * 0.5 * Math.cos(Math.PI / 4);
 
-            
             drawLine(gc, startX, startY, endX, endY);
         }
     }
 
     //обработчик кнопки смещения по oX (увеличение)
-    public void onBtnMovingIncreaseXClick(ActionEvent actionEvent) throws URISyntaxException {
+    public void onBtnMovingIncreaseXClick(ActionEvent actionEvent) {
         object3D.doAffineTransformation(AffineTransformationMatrix3D.getMovingMatrix(10.0, 0.0, 0.0));
         drawAll();
     }
 
     //обработчик кнопки смещения по oX (уменьшение)
-    public void onBtnMovingReduceXClick(ActionEvent actionEvent) throws URISyntaxException {
+    public void onBtnMovingReduceXClick(ActionEvent actionEvent) {
         object3D.doAffineTransformation(AffineTransformationMatrix3D.getMovingMatrix(-10.0, 0.0, 0.0));
         drawAll();
     }
 
     //обработчик кнопки смещения по oY (увеличение)
-    public void onBtnMovingIncreaseYClick(ActionEvent actionEvent) throws URISyntaxException {
+    public void onBtnMovingIncreaseYClick(ActionEvent actionEvent) {
         object3D.doAffineTransformation(AffineTransformationMatrix3D.getMovingMatrix(0.0, 10.0, 0.0));
         drawAll();
     }
 
     //обработчик кнопки смещения по oY (уменьшение)
-    public void onBtnMovingReduceYClick(ActionEvent actionEvent) throws URISyntaxException {
+    public void onBtnMovingReduceYClick(ActionEvent actionEvent) {
         object3D.doAffineTransformation(AffineTransformationMatrix3D.getMovingMatrix(0.0, -10.0, 0.0));
         drawAll();
     }
 
     //обработчик кнопки смещения по oZ (увеличение)
-    public void onBtnMovingIncreaseZClick(ActionEvent actionEvent) throws URISyntaxException {
+    public void onBtnMovingIncreaseZClick(ActionEvent actionEvent) {
         object3D.doAffineTransformation(AffineTransformationMatrix3D.getMovingMatrix(0.0, 0.0, 10.0));
         drawAll();
     }
 
     //обработчик кнопки смещения по oZ (уменьшение)
-    public void onBtnMovingReduceZClick(ActionEvent actionEvent) throws URISyntaxException {
+    public void onBtnMovingReduceZClick(ActionEvent actionEvent) {
         object3D.doAffineTransformation(AffineTransformationMatrix3D.getMovingMatrix(0.0, 0.0, -10.0));
         drawAll();
     }
@@ -230,4 +196,104 @@ public class Controller {
         drawAll();
     }
 
+    //обработчик кнопки отзеркаливания относительно YoZ
+    public void onBtnReflectionYoZClick(ActionEvent actionEvent) throws Exception {
+        object3D.doAffineTransformation(AffineTransformationMatrix3D.getReflectionMatrix(-1, 1, 1));
+        drawAll();
+    }
+
+    //обработчик кнопки отзеркаливания относительно ZoX
+    public void onBtnReflectionZoXClick(ActionEvent actionEvent) throws Exception {
+        object3D.doAffineTransformation(AffineTransformationMatrix3D.getReflectionMatrix(1, -1, 1));
+        drawAll();
+    }
+
+    //обработчик кнопки отзеркаливания относительно XoZ
+    public void onBtnReflectionXoYClick(ActionEvent actionEvent) throws Exception {
+        object3D.doAffineTransformation(AffineTransformationMatrix3D.getReflectionMatrix(1, 1, -1));
+        drawAll();
+    }
+
+    //обработчик кнопки сохранения координат фигуры
+    public void onBtnSavingFigureClick(ActionEvent actionEvent) throws URISyntaxException {
+        object3D.writeLinesToFile("lines.txt");
+    }
+
+    public void onBtnLoadingFigureClick(ActionEvent actionEvent) {
+        object3D.readLinesFromFile("lines.txt");
+        drawAll();
+    }
+
+    //TODO можно найти более удачный таймер, в который можно передавать параметры (toX, toY, toZ, timingFunction())...
+    public void onBtnFigureTranslatingXAnimationClick(ActionEvent actionEvent) {
+        timer = new AnimationTimer(){
+            private int counter = 0;
+            private double toX = 10.0;
+            private int steps = 20; //количество формальных сдвигов
+
+            @Override
+            public void handle(long now) {
+                counter = translateAnimationProcess(toX, 0.0, 0.0, steps,  counter);
+                drawAll();
+            }
+        };
+        timer.start();
+    }
+
+    public void onBtnFigureTranslatingYAnimationClick(ActionEvent actionEvent) {
+        timer = new AnimationTimer(){
+            private int counter = 0;
+            private double toY = 10.0;
+            private int steps = 20; //количество формальных сдвигов
+            @Override
+            public void handle(long now) {
+                counter = translateAnimationProcess(0.0, toY, 0.0, steps, counter);
+                drawAll();
+            }
+        };
+        timer.start();
+    }
+
+    //тайминг функция
+    private double timingFunction(int num, int steps) {
+        // первая половина времени - 10, вторая - плавное уменьшение по гиперболе
+        int center = steps/2;
+        if (num < center) {
+            System.out.println("num=" + num  + " res=10");
+            return 10.0;
+        } else {
+            System.out.println("num =" + num  + " res=" + 5 * ((double)steps / abs(num)));
+            return 5 * ((double)steps / num);
+
+        }
+    }
+    public void onBtnFigureTranslatingZAnimationClick(ActionEvent actionEvent) {
+        timer = new AnimationTimer(){
+            private int counter = 0;
+            private double toZ = 10.0;
+            private int steps = 20; //количество формальных сдвигов
+
+            @Override
+            public void handle(long now) {
+                toZ = timingFunction(counter, steps);
+                counter = translateAnimationProcess(0.0, 0.0, toZ, steps, counter);
+                drawAll();
+            }
+        };
+        timer.start();
+
+    }
+
+
+
+    //условное перемещение фигуры (с проверкой состояния)
+    private int translateAnimationProcess(double toX, double toY, double toZ, int steps, int counter) {
+        object3D.doAffineTransformation(AffineTransformationMatrix3D.getMovingMatrix(toX, toY, toZ));
+        if(counter == steps) {
+            timer.stop();
+        }
+        return ++counter;
+    }
+
+    private AnimationTimer timer;
 }

@@ -1,6 +1,9 @@
 package com.example.cg1.models;
 
 
+import javafx.geometry.Point3D;
+import javafx.scene.canvas.Canvas;
+
 public class Line3D {
     private final CustomPoint3D startPoint;
     private final CustomPoint3D endPoint;

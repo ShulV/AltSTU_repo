@@ -1,11 +1,19 @@
 package com.example.cg1.models;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.value.WritableValue;
+import javafx.geometry.Bounds;
 import javafx.geometry.Point3D;
+import javafx.scene.canvas.Canvas;
+import javafx.util.Duration;
 
 public class CustomPoint3D {
     private double x;
     private double y;
     private double z;
+
     public double getX() {
         return x;
     }
@@ -15,6 +23,19 @@ public class CustomPoint3D {
     public double getZ() {
         return z;
     }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public void setZ(double z) {
+        this.z = z;
+    }
+
     public CustomPoint3D(double x, double y, double z) {
         this.x = x;
         this.y = y;
@@ -47,4 +68,5 @@ public class CustomPoint3D {
         this.y = res[1];
         this.z = res[2];
     }
+
 }
