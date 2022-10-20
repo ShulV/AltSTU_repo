@@ -1,0 +1,499 @@
+:root {
+  --green: #00b463;
+  --white: #ffffff;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+}
+
+a {
+  text-decoration: none;
+}
+/* ---------- ---------- ---------- ---------- HEADER ---------- ---------- ---------- ---------- */
+
+.header {
+  display: flex;
+  align-items: center;
+
+  color: var(--white);
+  background-color: var(--green);
+}
+
+.header__logo > * {
+  font-size: 22px;
+  font-weight: 700;
+  color: black;
+  text-decoration: none;
+}
+
+.header__logo > *:hover {
+  color: var(--white);
+}
+
+.header__nab-btn-open-sign-in,
+.header__nab-btn-open-sign-up {
+  background: transparent;
+  border-width: 0;
+  outline-width: 0;
+}
+
+.header__nav-list {
+  align-items: center;
+  flex-direction: row;
+
+  font-size: 18px;
+  line-height: 21px;
+  margin: 0;
+}
+
+.header__nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header__nav-item > *{
+  color: black;
+}
+
+.header__nav-item > *:hover,
+.header__nab-btn-open-sign-in:hover,
+.header__nab-btn-open-sign-up:hover {
+  text-decoration: underline;
+  color: black;
+}
+
+.header__nav-burger {
+  cursor: pointer;
+}
+
+/* ---------- ---------- ---------- ---------- TEACHERS_BLOCK ---------- ---------- ---------- ---------- */
+
+.teachers {
+  background: #212133;
+}
+
+.teachers__teacher-photo {
+  border-radius: 20px 20px 0px 0px;
+}
+
+.teachers__heading {
+  color: var(--white);
+}
+
+.teachers__teacher-photo {
+  width: 100%;
+  height: 180px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.teachers__teacher-name {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 150%;
+  color: var(--white);
+
+  margin-top: 30px;
+}
+
+.teachers__teacher-desc {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 150%;
+  color: #85859B;
+
+  margin-top: 15px;
+}
+
+.teachers__link {
+  color: var(--white);
+}
+
+.teachers__link:hover {
+  text-decoration: underline;
+  color: var(--white);
+}
+
+/*  */
+
+.teacher {
+  background: #212133;
+}
+
+.teacher__teacher-block{
+  display: flex;
+  flex-direction: column;
+}
+
+.teacher__heading {
+  color: var(--white);
+}
+
+.teacher__teacher-photo {
+  width: 100%;
+  height: 180px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.teacher__teacher-name {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 150%;
+  color: var(--white);
+
+  margin-top: 30px;
+}
+
+.teacher__teacher-subject,
+.teacher__teacher-tel,
+.teacher__teacher-email,
+.teacher__teacher-desc {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 150%;
+  color: var(--white);
+
+  margin-top: 15px;
+}
+
+/* ---------- ---------- ---------- ---------- SUBJECTS_BLOCK ---------- ---------- ---------- ---------- */
+
+.subjects {
+  background: #212133;
+  padding: 10px;
+}
+
+.subjects__block {
+  height: 200px;
+  padding: 10px;
+}
+
+.subjects__heading {
+  color: var(--white);
+}
+
+.subjects__subject-name {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 150%;
+  color: var(--white);
+  text-shadow: black 1px 0 10px;
+
+  background-position: center;
+  background-size: 100%;
+  transition: all 1s ease-in-out;
+
+  border-radius: 5px;
+}
+
+.subjects__subject-name:hover {
+  background-size: 110%;
+}
+
+/* ---------- ---------- ---------- ---------- FORM_SIGN_IN ---------- ---------- ---------- ---------- */
+
+.form-sign-in.active {
+  display: block;
+}
+
+/* ---------- ---------- ---------- ---------- SOCIALS_BLOCK ---------- ---------- ---------- ---------- */
+
+.socials {
+  height: 80px;
+  background-color: #2E2B44;
+}
+
+/* ---------- ---------- ---------- ---------- ОБЩЕЕ (ЗАГОЛОВКИ) ---------- ---------- ---------- ---------- */
+
+.heading {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 40px;
+  line-height: 100%;
+  margin-bottom: 30px;
+}
+
+/* ---------- ---------- ---------- ---------- * ---------- ---------- ---------- ---------- */
+
+@media (max-width: 575px) {
+  /* ---------- ---------- HEADER ---------- ---------- */
+
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+
+    height: 80px;
+  }
+
+  .header__nav-list {
+    position: absolute;
+    z-index: 100;
+    top: 80px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    display: none;
+    flex-direction: column;
+
+    color: var(--green);
+    background-color: var(--white);
+
+    font-size: 26px;
+  }
+
+  .header__nav-item {
+    width: 100%;
+    height: 25%;
+
+    border-bottom: 1px solid var(--green);
+  }
+
+  .header__nav-item:hover,
+  .header__nav-item:focus,
+  .header__nav-item:active {
+    color: var(--white);
+    outline: 1px solid var(--white);
+    background-color: var(--green);
+  }
+
+  .header__nav-item a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ---------- ---------- TEACHERS_BLOCK ---------- ---------- */
+
+  .teachers {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  .teachers__block {
+    margin-top: 30px;
+  }
+
+  /* ---------- ---------- TEACHER_BLOCK ---------- ---------- */
+  
+  .teacher {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  .teacher__block {
+    margin-top: 30px;
+  }
+
+  /* ---------- ---------- SUBJECTS_BLOCK ---------- ---------- */
+
+  .subjects {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  .subjects__block {
+    margin-top: 0;
+    padding: 5px;
+  }
+  
+  .subjects__subject-name {
+    border-radius: 0;
+  }
+
+  /* ---------- ---------- ЗАГОЛОВКИ (ОБЩЕЕ) ---------- ---------- */
+
+  .heading {
+    font-size: 20px;
+    line-height: 130%;
+  }
+
+  /* ---------- ---------- * ---------- ---------- */
+}
+
+@media (min-width: 576px) {
+  /* ---------- ---------- HEADER ---------- ---------- */
+
+  .header {
+    flex-direction: column;
+    justify-content: space-around;
+
+    height: 133px;
+  }
+
+  .header__nav-list {
+    display: flex;
+  }
+
+  .header__nav-item {
+    margin-left: 55px;
+  }
+
+  .header__nav-burger {
+    display: none;
+  }
+
+  /* ---------- ---------- TEACHERS_BLOCK ---------- ---------- */
+
+  .teachers {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  .teachers__block {
+    margin-top: 30px;
+  }
+  
+  /* ---------- ---------- TEACHER_BLOCK ---------- ---------- */
+  
+  .teacher {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    }
+  
+  .teacher__block {
+    margin-top: 30px;
+  }
+
+  /* ---------- ---------- SUBJECTS_BLOCK ---------- ---------- */
+
+  .subjects {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  .subjects__block {
+    margin-top: 0;
+  }
+
+  /* ---------- ----------  COURSES_BLOCK ---------- ----------  */
+
+  .courses {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  .courses__block-content {
+    height: 653px;
+  }
+
+  .courses__block-detailed-btn {
+    padding: 20.5px 48px;
+    width: 180px;
+    height: 60px;
+  }
+
+  /* ---------- ---------- ЗАГОЛОВКИ (ОБЩЕЕ) ---------- ---------- */
+
+  .heading {
+    font-size: 40px;
+    line-height: 100%;
+  }
+
+  /* ---------- ---------- * ---------- ---------- */
+}
+
+@media (min-width: 768px) {
+  .container-fluid {
+    padding: 0 40px;
+  }
+
+  /* ---------- ---------- HEADER ---------- ---------- */
+
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+
+    height: 80px;
+  }
+
+  /* ---------- ---------- TEACHERS_BLOCK ---------- ---------- */
+
+  .teachers {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  /* ---------- ---------- TEACHER_BLOCK ---------- ---------- */
+  
+  .teacher {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  
+  /* ---------- ---------- SUBJECTS_BLOCK ---------- ---------- */
+
+  .subjects {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  /* ---------- ---------- * ---------- ---------- */
+}
+
+@media (min-width: 1200px) {
+  .container-fluid {
+    padding: 0 150px;
+  }
+
+  /* ---------- ---------- TEACHERS_BLOCK ---------- ---------- */
+
+  .teachers {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  .teachers__block {
+    margin-top: 0;
+  }
+
+  /* ---------- ---------- TEACHER_BLOCK ---------- ---------- */
+  
+  .teacher {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  .teacher__block {
+    margin-top: 0;
+  }
+  
+  /* ---------- ---------- SUBJECTS_BLOCK ---------- ---------- */
+
+  .subjects {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  .subjects__block {
+    margin-top: 0px;
+  }
+
+  /* ---------- ---------- * ---------- ---------- */
+}
+
+/* ---------- ---------- МОДИФИКАТОРЫ ---------- ---------- */
+
+.header__nav-list_active {
+  display: flex;
+}
