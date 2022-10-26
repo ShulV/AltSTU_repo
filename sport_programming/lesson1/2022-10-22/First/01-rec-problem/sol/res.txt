@@ -1,0 +1,48 @@
+Сравнение файлов output.txt и ..\TESTS\00.A
+***** output.txt
+***** ..\TESTS\00.A
+15
+*****
+
+Сравнение файлов output.txt и ..\TESTS\01.A
+***** output.txt
+***** ..\TESTS\01.A
+63
+*****
+
+Сравнение файлов output.txt и ..\TESTS\02.A
+***** output.txt
+***** ..\TESTS\02.A
+106
+*****
+
+Сравнение файлов output.txt и ..\TESTS\03.A
+***** output.txt
+***** ..\TESTS\03.A
+73
+*****
+
+Сравнение файлов output.txt и ..\TESTS\04.A
+***** output.txt
+***** ..\TESTS\04.A
+110
+*****
+
+Сравнение файлов output.txt и ..\TESTS\05.A
+***** output.txt
+***** ..\TESTS\05.A
+4
+*****
+
+Сравнение файлов output.txt и ..\TESTS\06.A
+***** output.txt
+***** ..\TESTS\06.A
+19
+*****
+
+Сравнение файлов output.txt и ..\TESTS\07.A
+***** output.txt
+***** ..\TESTS\07.A
+100
+*****
+

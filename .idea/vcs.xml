@@ -2,5 +2,9 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/3_sem/3_sem_OOP/RayCastingCS/RayCastingCS" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/3_sem/3_sem_OOP/labs_CPP" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/3_sem/3_sem_OOP/labs_CSHARP" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/3_sem/3_sem_OOP/labs_JAVA" vcs="Git" />
   </component>
 </project>
