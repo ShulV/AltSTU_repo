@@ -1,0 +1,39 @@
+
+
+Problem K | limit 10 seconds
+Tile Cut
+When Frodo, Sam, Merry, and Pippin are at the Green Dragon Inn drinking ale, 
+they like to
+play a little game with parchment and pen to decide who buys the next round. 
+The game works as follows:
+Given an m*n rectangular tile with each square marked with one of the 
+incantations W, I, and
+N, find the maximal number of triominoes that can be cut from this tile 
+such that the triomino has
+W and N on the ends and I in the middle (that is, it spells WIN in some order). Of course the only
+possible triominoes are the one with three squares in a straight line and the two ell-shaped ones.
+The Hobbit that is able to nd the maximum number wins and chooses who buys the next round.
+Your job is to nd the maximal number.
+Side note: Sam and Pippin tend to buy the most rounds of ale when they play this game, so
+they are lobbying to change the game to Rock, Parchment, Sword (RPS)!
+Input
+Each input le will contain multiple test cases. Each test case consists of an m  n rectangular
+grid (where 1 ¶ m; n ¶ 30) containing only the letters W, I, and N. Test cases will be separated by
+a blank line. Input will be terminated by end-of-le.
+Output
+For each input test case, print a line containing a single integer indicating the maximum total
+number of tiles that can be formed.
+Sample Input Sample Output
+WIIW
+NNNN
+IINN
+WWWI
+NINWN
+INIWI
+WWWIW
+NNNNN
+IWINN
+5
+5
+
+

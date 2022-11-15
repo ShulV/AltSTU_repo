@@ -1,0 +1,16 @@
+
+Problem C:  Painted Cube
+
+Standard breadth-first state search works fine here, using a simple
+vector (or pair of vectors) as a queue and a hashtable or map to keep
+track of seen states.  The problem was written specifically to make it
+relatively easy to compress all the state into a single 32-bit
+integer; if you tried to store a string representation of the entire
+board, your solution would probably exceed the time limit.  Exiting as
+soon as you found a solution helped speed too, but was not completely
+necessary as the entire state space is no more than 26 * (26 choose 6)
+or just under 6 million states.  The code required was somewhat
+lengthy but very straightforward with no gotchas.
+
+
+

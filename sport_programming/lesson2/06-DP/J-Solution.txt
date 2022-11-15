@@ -1,0 +1,15 @@
+
+Problem J:  Temple Build
+
+This was a dynamic programming problem, where the function you were
+optimizing was f(a), the greatest volume you could obtain in a temple
+of height a, subject to the constraints.  Starting with f(0)=0, you
+build the possible temple heights by adding in layers of each of the
+possible three brick sizes, calculating the resulting total volume by
+adding the volume of a new brick layer to the volume of a
+previously-calculated shorter temple.  It was important to realize the
+final temple might have a height shorter than that requested, so you
+needed to scan the array for the greatest volume rather than return
+the result at the top of the array, but the picture should have made
+this clear.
+

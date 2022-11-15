@@ -1,0 +1,17 @@
+
+
+Problem K:  Tile Cut
+
+There is almost always a flow problem in competitions at this level;
+you need to be able to recognize it and convert the statement to a
+graph.  In this case we had incoming and outging vertices
+corresponding to each square, with an edge of capacity one between the
+two.  In addition, the outgoing vertex of each W was connected to the
+incoming vertex of each I, and the outgoing vertex of each I was
+connected to the incoming vertex of each N.  Connect all the incoming
+vertices of each W to the source and the outgoing vertices of each N
+to the sink, and run your canned integer max flow algorithm.
+
+
+
+

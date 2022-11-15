@@ -1,0 +1,142 @@
+{
+	"archive" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "/machine:X86",
+				"role" : "flags"
+			}
+		]
+	},
+	"artifacts" : 
+	[
+		{
+			"path" : "thirdparty/SDL2/Release/SDL2main.lib"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"add_dependencies",
+			"set_property",
+			"target_include_directories"
+		],
+		"files" : 
+		[
+			"thirdparty/SDL2/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 3027,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 3028,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 1608,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 1610,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 3031,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "/DWIN32 /D_WINDOWS /W3   -DSDL_BUILD_MAJOR_VERSION=2 -DSDL_BUILD_MINOR_VERSION=24 -DSDL_BUILD_MICRO_VERSION=0 /MD /O2 /Ob2 /DNDEBUG"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "/GS-"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "/arch:SSE"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 5,
+					"path" : "D:/MyFolder/AltSTU_repo/7_sem/Computer-graphics__Andreeva/lab2/Graphic-master/cmake-build-debug-mingw/thirdparty/SDL2/include-config-release"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "D:/MyFolder/AltSTU_repo/7_sem/Computer-graphics__Andreeva/lab2/Graphic-master/cmake-build-debug-mingw/thirdparty/SDL2/include"
+				}
+			],
+			"language" : "C",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "sdl_headers_copy::@9a13db6f33163d3e65fc"
+		},
+		{
+			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
+		}
+	],
+	"id" : "SDL2main::@9a13db6f33163d3e65fc",
+	"name" : "SDL2main",
+	"nameOnDisk" : "SDL2main.lib",
+	"paths" : 
+	{
+		"build" : "thirdparty/SDL2",
+		"source" : "thirdparty/SDL2"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "thirdparty/SDL2/src/main/windows/SDL_windows_main.c",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "STATIC_LIBRARY"
+}

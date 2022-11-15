@@ -1,0 +1,140 @@
+Determining if the __GLIBC__ exist failed with the following output:
+Change Dir: D:/MyFolder/AltSTU_repo/7_sem/Computer-graphics__Andreeva/lab2/Graphic-master/cmake-build-debug-mingw/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe cmTC_03bb3.vcxproj /p:Configuration=Debug /p:Platform=Win32 /p:VisualStudioVersion=12.0 /v:m && Microsoft (R) Build Engine версии 12.0.21005.1
+[Microsoft .NET Framework версии 4.0.30319.42000]
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Оптимизирующий компилятор Microsoft (R) C/C++ версии 18.00.21005.1 для x86
+  (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
+  
+  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTC_03bb3.dir\Debug\\" /Fd"cmTC_03bb3.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "D:\MyFolder\AltSTU_repo\7_sem\Computer-graphics__Andreeva\lab2\Graphic-master\cmake-build-debug-mingw\CMakeFiles\CMakeTmp\CheckSymbolExists.c"
+  
+  CheckSymbolExists.c
+D:\MyFolder\AltSTU_repo\7_sem\Computer-graphics__Andreeva\lab2\Graphic-master\cmake-build-debug-mingw\CMakeFiles\CMakeTmp\CheckSymbolExists.c(8): error C2065: __GLIBC__: необъявленный идентификатор [D:\MyFolder\AltSTU_repo\7_sem\Computer-graphics__Andreeva\lab2\Graphic-master\cmake-build-debug-mingw\CMakeFiles\CMakeTmp\cmTC_03bb3.vcxproj]
+
+
+File D:/MyFolder/AltSTU_repo/7_sem/Computer-graphics__Andreeva/lab2/Graphic-master/cmake-build-debug-mingw/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <stdlib.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef __GLIBC__
+  return ((int*)(&__GLIBC__))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+Performing C SOURCE FILE Test HAVE_D3D12_H failed with the following output:
+Change Dir: D:/MyFolder/AltSTU_repo/7_sem/Computer-graphics__Andreeva/lab2/Graphic-master/cmake-build-debug-mingw/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe cmTC_80c11.vcxproj /p:Configuration=Debug /p:Platform=Win32 /p:VisualStudioVersion=12.0 /v:m && Microsoft (R) Build Engine версии 12.0.21005.1
+[Microsoft .NET Framework версии 4.0.30319.42000]
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Оптимизирующий компилятор Microsoft (R) C/C++ версии 18.00.21005.1 для x86
+  src.c
+  (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
+  
+  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D _MBCS /D WIN32 /D _WINDOWS /D HAVE_D3D12_H /D "CMAKE_INTDIR=\"Debug\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTC_80c11.dir\Debug\\" /Fd"cmTC_80c11.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "D:\MyFolder\AltSTU_repo\7_sem\Computer-graphics__Andreeva\lab2\Graphic-master\cmake-build-debug-mingw\CMakeFiles\CMakeTmp\src.c"
+  
+D:\MyFolder\AltSTU_repo\7_sem\Computer-graphics__Andreeva\lab2\Graphic-master\cmake-build-debug-mingw\CMakeFiles\CMakeTmp\src.c(4): fatal error C1083: Не удается открыть файл включение: d3d12.h: No such file or directory [D:\MyFolder\AltSTU_repo\7_sem\Computer-graphics__Andreeva\lab2\Graphic-master\cmake-build-debug-mingw\CMakeFiles\CMakeTmp\cmTC_80c11.vcxproj]
+
+
+Source file was:
+
+      #include <winsdkver.h>
+      #include <sdkddkver.h>
+      #include <d3d12.h>
+      ID3D12Device1 *device;
+      #if WDK_NTDDI_VERSION > 0x0A000008
+      int main(int argc, char **argv) { return 0; }
+      #endif
+Performing C SOURCE FILE Test HAVE_XINPUT_GAMEPAD_EX failed with the following output:
+Change Dir: D:/MyFolder/AltSTU_repo/7_sem/Computer-graphics__Andreeva/lab2/Graphic-master/cmake-build-debug-mingw/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe cmTC_a30a2.vcxproj /p:Configuration=Debug /p:Platform=Win32 /p:VisualStudioVersion=12.0 /v:m && Microsoft (R) Build Engine версии 12.0.21005.1
+[Microsoft .NET Framework версии 4.0.30319.42000]
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Оптимизирующий компилятор Microsoft (R) C/C++ версии 18.00.21005.1 для x86
+  src.c
+  (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
+  
+  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D _MBCS /D WIN32 /D _WINDOWS /D HAVE_XINPUT_GAMEPAD_EX /D "CMAKE_INTDIR=\"Debug\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTC_a30a2.dir\Debug\\" /Fd"cmTC_a30a2.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "D:\MyFolder\AltSTU_repo\7_sem\Computer-graphics__Andreeva\lab2\Graphic-master\cmake-build-debug-mingw\CMakeFiles\CMakeTmp\src.c"
+  
+D:\MyFolder\AltSTU_repo\7_sem\Computer-graphics__Andreeva\lab2\Graphic-master\cmake-build-debug-mingw\CMakeFiles\CMakeTmp\src.c(4): error C2061: синтаксическая ошибка: идентификатор "x1" [D:\MyFolder\AltSTU_repo\7_sem\Computer-graphics__Andreeva\lab2\Graphic-master\cmake-build-debug-mingw\CMakeFiles\CMakeTmp\cmTC_a30a2.vcxproj]
+D:\MyFolder\AltSTU_repo\7_sem\Computer-graphics__Andreeva\lab2\Graphic-master\cmake-build-debug-mingw\CMakeFiles\CMakeTmp\src.c(4): error C2059: синтаксическая ошибка: ; [D:\MyFolder\AltSTU_repo\7_sem\Computer-graphics__Andreeva\lab2\Graphic-master\cmake-build-debug-mingw\CMakeFiles\CMakeTmp\cmTC_a30a2.vcxproj]
+
+
+Source file was:
+
+      #include <windows.h>
+      #include <xinput.h>
+      XINPUT_GAMEPAD_EX x1;
+      int main(int argc, char **argv) { return 0; }
+Performing C SOURCE FILE Test HAVE_XINPUT_STATE_EX failed with the following output:
+Change Dir: D:/MyFolder/AltSTU_repo/7_sem/Computer-graphics__Andreeva/lab2/Graphic-master/cmake-build-debug-mingw/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe cmTC_afd8b.vcxproj /p:Configuration=Debug /p:Platform=Win32 /p:VisualStudioVersion=12.0 /v:m && Microsoft (R) Build Engine версии 12.0.21005.1
+[Microsoft .NET Framework версии 4.0.30319.42000]
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Оптимизирующий компилятор Microsoft (R) C/C++ версии 18.00.21005.1 для x86
+  src.c
+  (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
+  
+  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D _MBCS /D WIN32 /D _WINDOWS /D HAVE_XINPUT_STATE_EX /D "CMAKE_INTDIR=\"Debug\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTC_afd8b.dir\Debug\\" /Fd"cmTC_afd8b.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "D:\MyFolder\AltSTU_repo\7_sem\Computer-graphics__Andreeva\lab2\Graphic-master\cmake-build-debug-mingw\CMakeFiles\CMakeTmp\src.c"
+  
+D:\MyFolder\AltSTU_repo\7_sem\Computer-graphics__Andreeva\lab2\Graphic-master\cmake-build-debug-mingw\CMakeFiles\CMakeTmp\src.c(4): error C2061: синтаксическая ошибка: идентификатор "s1" [D:\MyFolder\AltSTU_repo\7_sem\Computer-graphics__Andreeva\lab2\Graphic-master\cmake-build-debug-mingw\CMakeFiles\CMakeTmp\cmTC_afd8b.vcxproj]
+D:\MyFolder\AltSTU_repo\7_sem\Computer-graphics__Andreeva\lab2\Graphic-master\cmake-build-debug-mingw\CMakeFiles\CMakeTmp\src.c(4): error C2059: синтаксическая ошибка: ; [D:\MyFolder\AltSTU_repo\7_sem\Computer-graphics__Andreeva\lab2\Graphic-master\cmake-build-debug-mingw\CMakeFiles\CMakeTmp\cmTC_afd8b.vcxproj]
+
+
+Source file was:
+
+      #include <windows.h>
+      #include <xinput.h>
+      XINPUT_STATE_EX s1;
+      int main(int argc, char **argv) { return 0; }
+Performing C SOURCE FILE Test HAVE_WINDOWS_GAMING_INPUT_H failed with the following output:
+Change Dir: D:/MyFolder/AltSTU_repo/7_sem/Computer-graphics__Andreeva/lab2/Graphic-master/cmake-build-debug-mingw/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe cmTC_1b9aa.vcxproj /p:Configuration=Debug /p:Platform=Win32 /p:VisualStudioVersion=12.0 /v:m && Microsoft (R) Build Engine версии 12.0.21005.1
+[Microsoft .NET Framework версии 4.0.30319.42000]
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Оптимизирующий компилятор Microsoft (R) C/C++ версии 18.00.21005.1 для x86
+  (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
+  
+  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D _MBCS /D WIN32 /D _WINDOWS /D HAVE_WINDOWS_GAMING_INPUT_H /D "CMAKE_INTDIR=\"Debug\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTC_1b9aa.dir\Debug\\" /Fd"cmTC_1b9aa.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "D:\MyFolder\AltSTU_repo\7_sem\Computer-graphics__Andreeva\lab2\Graphic-master\cmake-build-debug-mingw\CMakeFiles\CMakeTmp\src.c"
+  
+  src.c
+D:\MyFolder\AltSTU_repo\7_sem\Computer-graphics__Andreeva\lab2\Graphic-master\cmake-build-debug-mingw\CMakeFiles\CMakeTmp\src.c(3): fatal error C1083: Не удается открыть файл включение: windows.gaming.input.h: No such file or directory [D:\MyFolder\AltSTU_repo\7_sem\Computer-graphics__Andreeva\lab2\Graphic-master\cmake-build-debug-mingw\CMakeFiles\CMakeTmp\cmTC_1b9aa.vcxproj]
+
+
+Source file was:
+
+      #define COBJMACROS
+      #include <windows.gaming.input.h>
+      __x_ABI_CWindows_CGaming_CInput_CIGamepadStatics2 *s2;
+      int main(int argc, char **argv) { return 0; }
+Determining if the include file roapi.h exists failed with the following output:
+Change Dir: D:/MyFolder/AltSTU_repo/7_sem/Computer-graphics__Andreeva/lab2/Graphic-master/cmake-build-debug-mingw/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe cmTC_c9978.vcxproj /p:Configuration=Debug /p:Platform=Win32 /p:VisualStudioVersion=12.0 /v:m && Microsoft (R) Build Engine версии 12.0.21005.1
+[Microsoft .NET Framework версии 4.0.30319.42000]
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Оптимизирующий компилятор Microsoft (R) C/C++ версии 18.00.21005.1 для x86
+  (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
+  
+  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTC_c9978.dir\Debug\\" /Fd"cmTC_c9978.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "D:\MyFolder\AltSTU_repo\7_sem\Computer-graphics__Andreeva\lab2\Graphic-master\cmake-build-debug-mingw\CMakeFiles\CMakeTmp\CheckIncludeFile.c"
+  
+  CheckIncludeFile.c
+C:\Program Files (x86)\Windows Kits\8.1\Include\winrt\roapi.h(56): error C2016: В языке C необходимо, чтобы в struct или union был по крайней мере один элемент [D:\MyFolder\AltSTU_repo\7_sem\Computer-graphics__Andreeva\lab2\Graphic-master\cmake-build-debug-mingw\CMakeFiles\CMakeTmp\cmTC_c9978.vcxproj]
+
+
+

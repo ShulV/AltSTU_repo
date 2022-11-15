@@ -1,0 +1,11 @@
+D:/MyFolder/AltSTU_repo/7_sem/Computer-graphics__Andreeva/lab2/Graphic-master/cmake-build-debug-mingw/CMakeFiles/lab1.dir
+D:/MyFolder/AltSTU_repo/7_sem/Computer-graphics__Andreeva/lab2/Graphic-master/cmake-build-debug-mingw/CMakeFiles/ALL_BUILD.dir
+D:/MyFolder/AltSTU_repo/7_sem/Computer-graphics__Andreeva/lab2/Graphic-master/cmake-build-debug-mingw/CMakeFiles/ZERO_CHECK.dir
+D:/MyFolder/AltSTU_repo/7_sem/Computer-graphics__Andreeva/lab2/Graphic-master/cmake-build-debug-mingw/thirdparty/SDL2/CMakeFiles/sdl_headers_copy.dir
+D:/MyFolder/AltSTU_repo/7_sem/Computer-graphics__Andreeva/lab2/Graphic-master/cmake-build-debug-mingw/thirdparty/SDL2/CMakeFiles/SDL2main.dir
+D:/MyFolder/AltSTU_repo/7_sem/Computer-graphics__Andreeva/lab2/Graphic-master/cmake-build-debug-mingw/thirdparty/SDL2/CMakeFiles/SDL2.dir
+D:/MyFolder/AltSTU_repo/7_sem/Computer-graphics__Andreeva/lab2/Graphic-master/cmake-build-debug-mingw/thirdparty/SDL2/CMakeFiles/SDL2-static.dir
+D:/MyFolder/AltSTU_repo/7_sem/Computer-graphics__Andreeva/lab2/Graphic-master/cmake-build-debug-mingw/thirdparty/SDL2/CMakeFiles/SDL2_test.dir
+D:/MyFolder/AltSTU_repo/7_sem/Computer-graphics__Andreeva/lab2/Graphic-master/cmake-build-debug-mingw/thirdparty/SDL2/CMakeFiles/uninstall.dir
+D:/MyFolder/AltSTU_repo/7_sem/Computer-graphics__Andreeva/lab2/Graphic-master/cmake-build-debug-mingw/thirdparty/SDL2/CMakeFiles/ALL_BUILD.dir
+D:/MyFolder/AltSTU_repo/7_sem/Computer-graphics__Andreeva/lab2/Graphic-master/cmake-build-debug-mingw/thirdparty/glm/CMakeFiles/ALL_BUILD.dir

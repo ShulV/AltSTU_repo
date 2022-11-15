@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\MyFolder\AltSTU_repo\7_sem\Computer-graphics__Andreeva\lab2\Graphic-master\cmake-build-debug-mingw\CMakeFiles\7b03c9a211d316c605b11833ed6c2e4b\uninstall.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\MyFolder\AltSTU_repo\7_sem\Computer-graphics__Andreeva\lab2\Graphic-master\thirdparty\SDL2\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="D:\MyFolder\AltSTU_repo\7_sem\Computer-graphics__Andreeva\lab2\Graphic-master\cmake-build-debug-mingw\thirdparty\SDL2\CMakeFiles\uninstall" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{03890F32-5667-3A8D-9C68-E17D02DA6F5B}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
