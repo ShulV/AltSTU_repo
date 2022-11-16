@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фильтрация изображений</title>
+    
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- шумодав 2 фильтра, резкость, спецэффект -->
+    <!-- задание
+    1)искусственное наложение шума (точки, линии, окружности);
+    2)равномерный и медианный
+    3)сравнение методов повышения резкости;
+    4)волны -->
+    <style>
+        body {
+            margin: 20;
+            border-style: none;
+            text-align: center;
+        }
+        button {
+            margin-left: 5px;
+            margin-top: 15px;
+        }
+        #controlButtons {
+            display: block;
+            margin-top: 30px;
+        }
+        .buttons {
+            margin-left: 25px;
+            display: inline-block;
+        }
+        .inputs {
+            display: inline-block;
+            margin-left: 25px;
+            width: 50px
+        }
+        #urlInput {
+            width: 50vw;
+        }
+        #canvas {
+            display: inline-block;
+            width: 47.5vw;
+            height: 60vh;
+            margin-top: 30px;
+            border: 1px;
+            border-style: solid;
+        }
+        
+    </style>
+
+    <!-- libs -->
+</head>
+
+<body>
+    <div>
+        <h1 style="text-align: center;"> Фильтрация изображений </h1>
+    </div>
+
+    <label for="urlInput" id="inputLabel">Ссылка на изображение:</label>
+    <input type="text" id="urlInput">
+    <br>
+    <button id="loadButton" class="btn btn-success">Загрузить</button>
+    <div></div>
+    
+    <canvas id="canvas"></canvas>
+
+    <div id = "controlButtons" style="margin-bottom: 25px">
+        
+        <button id="noiseButton" class="btn btn-success">Искуственный шум</button>
+        <button id="gaussianButton" class="btn btn-success">Шум Гаусса</button>
+        <button id="uniformButton" class="btn btn-success">Равномерный фильтр шумоподавления</button>
+        <button id="medianButton" class="btn btn-success">Медианный фильтр шумоподавления</button>
+        <button id="sharpeningButton" class="btn btn-success">Резкость</button>
+        <button id="embossingButton" class="btn btn-success">Тисненение</button>
+        <!-- <button id="laplacianButton">Laplacian edge detection</button>
+        <button id="sobelButton">Sobel edge detection</button> -->
+        
+    </div>
+    
+    
+    <!-- code -->
+    <script src="main.js"></script>
+</body>
+</html>

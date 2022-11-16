@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Коррекция изображений</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <style>
+        body {
+            margin: 20;
+            border-style: none;
+            text-align: center;
+        }
+        button {
+            max-width: 200px;
+            margin-top: 5px;
+        }
+        #controlButtons {
+            display: block;
+            margin-top: 30px;
+        }
+
+        .inputs {
+            display: inline-block;
+            /* margin-left: 25px; */
+            width: 70px;
+            min-width: 70px;
+            margin-top: 5px;
+        }
+        #urlInput {
+            width: 50vw;
+        }
+        #histInput {
+            width: 50px;
+        }
+        #canvas {
+            display: inline-block;
+            width: 37.5vw;
+            height: 50vh;
+            margin-top: 30px;
+            border: 1px;
+            border-style: solid;
+        }
+        .chartWrapper {
+            display: inline-block;
+            width: 50vw;
+            height: 50vh;
+            margin-left: 15px;
+            margin-top: 30px;
+        }
+    </style>
+
+    <!-- libs -->
+    <!-- chart.js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+	
+</head>
+
+<body>
+    <div>
+        <h1 style="text-align: center;"> Получение статистических характеристик и простейшая коррекция фотоизображения </h1>
+    </div>
+
+    <label for="urlInput" id="inputLabel">Ссылка на изображение: </label>
+    <input type="text" id="urlInput">
+    
+    <button id="loadButton" class="btn btn-success">Загрузить</button>
+    <div></div>
+    
+    <canvas id="canvas"></canvas>
+
+    <div class= "chartWrapper">
+        <canvas id="chart"></canvas>
+    </div>
+
+    <div id = "controlButtons" style="display: flex; padding-bottom: 50px;">
+        
+        <div style="width: 50%; display: flex; flex-direction: column; align-items: flex-start; margin-left: 30px;">   
+            <div>
+                <button id="grayscaleButton" class= "buttons btn btn-success">Оттенки серого</button>
+            </div>
+            <div>
+                <button id="invertButton" class= "buttons btn btn-success">Инвертировать</button>
+            </div>
+
+            <div>
+                <button id="brightnessButton" class= "btn btn-success">Яркость</button>
+                <input type="text" id="brightnessInput" class="inputs form-control">
+            </div>
+
+            <div>
+                <button id="contrastButton" class= "btn btn-success">Контраст</button>
+                <input type="text" id="contrastInput" class="inputs form-control">
+            </div>
+
+            <div>
+                <button id="binarizationButton" class= "btn btn-success">Бинаризация</button>
+                <input type="text" id="binarizationInput" class="inputs form-control">
+            </div>
+        </div>
+        <div style="width: 50%;display: flex; flex-direction: column; align-items: flex-start;">
+            <label>Макс. Y на графике:</label>
+            <input type="text" id="histInput" class="inputs form-control">
+            <button id="histButton" class= "btn btn-success">Обновить график</button>
+        </div>
+    </div>
+    
+    
+    <!-- code -->
+    <script src="main.js"></script>
+</body>
+</html>

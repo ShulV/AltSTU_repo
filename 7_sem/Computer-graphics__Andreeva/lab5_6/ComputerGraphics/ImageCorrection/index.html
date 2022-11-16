@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Correction</title>
+
+    <style>
+        body {
+            margin: 20;
+            border-style: none;
+            text-align: center;
+        }
+        button {
+            margin-left: 5px;
+            margin-top: 15px;
+        }
+        #controlButtons {
+            display: block;
+            margin-top: 30px;
+        }
+        .buttons {
+            margin-left: 25px;
+            display: inline-block;
+        }
+        .inputs {
+            display: inline-block;
+            margin-left: 25px;
+            width: 50px
+        }
+        #urlInput {
+            width: 50vw;
+        }
+        #histInput {
+            width: 50px;
+        }
+        #canvas {
+            display: inline-block;
+            width: 37.5vw;
+            height: 50vh;
+            margin-top: 30px;
+            border: 1px;
+            border-style: solid;
+        }
+        .chartWrapper {
+            display: inline-block;
+            width: 50vw;
+            height: 50vh;
+            margin-left: 15px;
+            margin-top: 30px;
+        }
+    </style>
+
+    <!-- libs -->
+    <!-- chart.js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+	
+</head>
+
+<body>
+    <div>
+        <h1 style="text-align: center;"> Image Correction </h1>
+    </div>
+
+    <label for="urlInput" id="inputLabel">Image URL:</label>
+    <input type="text" id="urlInput">
+    
+    <button id="loadButton">Load</button>
+    <div></div>
+    
+    <canvas id="canvas"></canvas>
+
+    <div class= "chartWrapper">
+        <canvas id="chart"></canvas>
+    </div>
+
+    <div id = "controlButtons">
+        <label>Y max value:</label>
+        <input type="text" id="histInput">
+        <button id="histButton">Update brightness histogram</button>
+        <button id="grayscaleButton" class= "buttons">Grayscale</button>
+        <button id="invertButton" class= "buttons">Invert</button>
+
+        <input type="text" id="brightnessInput" class="inputs">
+        <button id="brightnessButton">Brightness adjustment</button>
+
+        <input type="text" id="contrastInput" class="inputs">
+        <button id="contrastButton">Contrast adjustment</button>
+
+        <input type="text" id="binarizationInput" class="inputs">
+        <button id="binarizationButton">Binarization</button>
+    </div>
+    
+    
+    <!-- code -->
+    <script src="main.js"></script>
+</body>
+</html>

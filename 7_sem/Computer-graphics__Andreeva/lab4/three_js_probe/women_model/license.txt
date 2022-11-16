@@ -1,0 +1,11 @@
+Model Information:
+* title:	Marble statue of the Hon Mrs Anne Seymour Damer
+* source:	https://sketchfab.com/3d-models/marble-statue-of-the-hon-mrs-anne-seymour-damer-8774765c08344374a03ec0fdcac26c80
+* author:	Thomas Flynn (https://sketchfab.com/nebulousflynn)
+
+Model License:
+* license type:	CC-BY-SA-4.0 (http://creativecommons.org/licenses/by-sa/4.0/)
+* requirements:	Author must be credited. Modified versions must have the same license. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Marble statue of the Hon Mrs Anne Seymour Damer" (https://sketchfab.com/3d-models/marble-statue-of-the-hon-mrs-anne-seymour-damer-8774765c08344374a03ec0fdcac26c80) by Thomas Flynn (https://sketchfab.com/nebulousflynn) licensed under CC-BY-SA-4.0 (http://creativecommons.org/licenses/by-sa/4.0/)
