@@ -1,0 +1,11 @@
+Standalone приложение
+
+user_id=207303453
+client_id = 51539248
+
+get:= для получения токена:
+https://oauth.vk.com/authorize?client_id=51539248&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends,stats,pages,notes,wall&response_type=token&v=5.131&state=123456
+access_token=
+vk1.a.Wy_LDqV9VrRu-R157kEdT9GzG_X8jKJTj7Dn_g9IICNn0Q_t9e8LSF2L-nxSNLJnrapqn903BSc69SLh4CHfFE9IOMnDbQ0q7P1Bwa3viSaSL3At6N3I6u1k9nAr8wt4Lezp9MUCDhEaQcgj16LFREy2KRtwrjglftRRjQJhlKsDZ9kFZrZP0u1YblaZ2AFnzSjZimlwMMdUL5I3EdTm0A
+
+

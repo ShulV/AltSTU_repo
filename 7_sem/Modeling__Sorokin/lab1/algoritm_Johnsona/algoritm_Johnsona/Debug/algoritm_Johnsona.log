@@ -1,15 +1,15 @@
-﻿Сборка начата 21.09.2022 16:49:08.
-     1>Проект "D:\Сохранено\Desktop\pi92\7 семестр\Моделирование\лр1\algoritm_Johnsona\algoritm_Johnsona\algoritm_Johnsona.vcxproj" в узле 2 (целевые объекты Build).
+﻿Сборка начата 14.12.2022 16:40:13.
+     1>Проект "D:\MyFolder\AltSTU_repo\7_sem\Modeling__Sorokin\lab1\algoritm_Johnsona\algoritm_Johnsona\algoritm_Johnsona.vcxproj" в узле 2 (целевые объекты Build).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\algoritm_Johnsona.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt algoritm_Johnsona.cpp
          algoritm_Johnsona.cpp
-     1>d:\сохранено\desktop\pi92\7 семестр\моделирование\лр1\algoritm_johnsona\algoritm_johnsona\algoritm_johnsona.cpp(326): warning C4018: >: несоответствие типов со знаком и без знака
+     1>d:\myfolder\altstu_repo\7_sem\modeling__sorokin\lab1\algoritm_johnsona\algoritm_johnsona\algoritm_johnsona.cpp(326): warning C4018: >: несоответствие типов со знаком и без знака
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Сохранено\Desktop\pi92\7 семестр\Моделирование\лр1\algoritm_Johnsona\Debug\algoritm_Johnsona.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Сохранено\Desktop\pi92\7 семестр\Моделирование\лр1\algoritm_Johnsona\Debug\algoritm_Johnsona.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Сохранено\Desktop\pi92\7 семестр\Моделирование\лр1\algoritm_Johnsona\Debug\algoritm_Johnsona.lib" /MACHINE:X86 Debug\algoritm_Johnsona.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\MyFolder\AltSTU_repo\7_sem\Modeling__Sorokin\lab1\algoritm_Johnsona\Debug\algoritm_Johnsona.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\MyFolder\AltSTU_repo\7_sem\Modeling__Sorokin\lab1\algoritm_Johnsona\Debug\algoritm_Johnsona.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\MyFolder\AltSTU_repo\7_sem\Modeling__Sorokin\lab1\algoritm_Johnsona\Debug\algoritm_Johnsona.lib" /MACHINE:X86 Debug\algoritm_Johnsona.obj
          Debug\stdafx.obj
-         algoritm_Johnsona.vcxproj -> D:\Сохранено\Desktop\pi92\7 семестр\Моделирование\лр1\algoritm_Johnsona\Debug\algoritm_Johnsona.exe
-     1>Сборка проекта "D:\Сохранено\Desktop\pi92\7 семестр\Моделирование\лр1\algoritm_Johnsona\algoritm_Johnsona\algoritm_Johnsona.vcxproj" завершена (целевые объекты Build).
+         algoritm_Johnsona.vcxproj -> D:\MyFolder\AltSTU_repo\7_sem\Modeling__Sorokin\lab1\algoritm_Johnsona\Debug\algoritm_Johnsona.exe
+     1>Сборка проекта "D:\MyFolder\AltSTU_repo\7_sem\Modeling__Sorokin\lab1\algoritm_Johnsona\algoritm_Johnsona\algoritm_Johnsona.vcxproj" завершена (целевые объекты Build).
 
 Сборка успешно завершена.
 
-Затраченное время: 00:00:02.57
+Затраченное время: 00:00:02.73
